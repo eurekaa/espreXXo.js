@@ -5,6 +5,4 @@
 # GitHub: https://github.com/eurekaa
 
 # File Name: test
-# Created: 07/08/13 4.54
-
-alert 1
+# Created: 08/08/13 20.59
