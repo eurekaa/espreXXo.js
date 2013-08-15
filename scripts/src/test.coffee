@@ -6,3 +6,7 @@
 
 # File Name: test
 # Created: 08/08/13 20.59
+
+'use continuum'
+tot = 9
+
