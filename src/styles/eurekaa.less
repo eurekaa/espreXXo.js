@@ -1,59 +1,35 @@
+@layout_width: 900px;
+
 body{
   background-image: url('../images/background.jpg');
   color: #ffffff;
-  margin: 0;
-  margin-top: 20px;
-}
-
-.container{
-  width: 900px;
-  padding: 10px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.main{
-  position: relative;
-  top: -20px;
-  z-index: 200;
-  width: 100%;
-  padding: 0;
-  text-align: left;
-  min-height: 500px;
-  font-family: 'zurich_light';
-  color: #1F1F1F;
-  font-size: 20px;
+  margin: 20px auto;
+  text-align: center;
 }
 
 #header {
   position: relative;
-  z-index: 60;
-  width: 100%;
+  width: @layout_width;
   height: 180px;
+  z-index: 60;
 }
 
-#logo_rubik {
-  position:relative;
-  left: -65px;
-  float: left;
+#logo_rubik{
+  position: relative;
+  left: 10px;
 }
 
 #logo_eurekaa{
   position: relative;
-  top: 32px;
-  left: -75px;
-  float: left;
+  top: -65px;
 }
 
-
 #stripe{
-  position: relative;
-  z-index: 10;
   width: 100%;
   height: 330px;
-  margin: 0;
-  padding: 0;
-  text-align: center !important;
+  margin: 0 auto;
+  padding: 0 auto;
+  text-align: center;
   /* color gradient */
   background: #639ed3; /* Old browsers */
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
@@ -65,22 +41,19 @@ body{
   background: -ms-linear-gradient(top,  #639ed3 0%,#1f589a 75%); /* IE10+ */
   background: linear-gradient(to bottom,  #639ed3 0%,#1f589a 75%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#639ed3', endColorstr='#1f589a',GradientType=0 ); /* IE6-8 */
-
 }
 
 #keyboard{
   position: relative;
+  top: -55px;
   z-index:50;
-  top: -135px;
-  left: -10px;
 }
-
 
 #navigator{
   position: relative;
+  width: @layout_width;
   left: 5px;
-  top: -10px;
-  z-index: 10;
+  z-index: 40;
   margin: 2px auto;
 }
 
@@ -152,7 +125,6 @@ body{
 
 }
 
-
 #navigator ul li:first-child{
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
@@ -178,4 +150,15 @@ body{
   padding: 5px 10px;
 }
 
-
+#main{
+  position: relative;
+  top: -20px;
+  z-index: 20;
+  width: @layout_width;
+  padding: 0;
+  text-align: left;
+  min-height: 500px;
+  font-family: 'zurich_light';
+  color: #1F1F1F;
+  font-size: 20px;
+}
