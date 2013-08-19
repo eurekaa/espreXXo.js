@@ -13,13 +13,13 @@ define ['jquery', 'i18n!scripts/modules/nls/menu', 'scripts/modules/utils'], (jQ
       # create menu markup.
       html = """
       <ul>
-         <li data-link='pages/home' class='active'><a href='#'> #{ utils.to_upper lang.home } </a></li>
-         <li data-link='pages/eurekaa'><a href='#'> #{ utils.to_upper lang.eurekaa } </a></li>
-         <li data-link='pages/services'><a href='#'> #{ utils.to_upper lang.services } </a></li>
-         <li data-link='pages/curriculum'><a href='#'> #{ utils.to_upper lang.curriculum } </a></li>
-         <li data-link='pages/portfolio'><a href='#'> #{ utils.to_upper lang.portfolio } </a></li>
-         <li data-link='pages/projects'><a href='#'> #{ utils.to_upper lang.projects } </a></li>
-         <li data-link='pages/contacts'><a href='#'> #{ utils.to_upper lang.contacts } </a></li>
+         <li data-link='pages/home' class='active'><a href='#'> #{ utils.capitalize lang.home } </a></li>
+         <li data-link='pages/eurekaa'><a href='#'> #{ utils.capitalize lang.eurekaa } </a></li>
+         <li data-link='pages/services'><a href='#'> #{ utils.capitalize lang.services } </a></li>
+         <li data-link='pages/curriculum'><a href='#'> #{ utils.capitalize lang.curriculum } </a></li>
+         <li data-link='pages/portfolio'><a href='#'> #{ utils.capitalize lang.portfolio } </a></li>
+         <li data-link='pages/projects'><a href='#'> #{ utils.capitalize lang.projects } </a></li>
+         <li data-link='pages/contacts'><a href='#'> #{ utils.capitalize lang.contacts } </a></li>
       </ul>
       """
 
