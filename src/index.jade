@@ -12,24 +12,49 @@ html(lang="it")
     head
         title eurekaa.it
 
+        meta(name='viewport', content='width=device-width', initial-scale='1.0')
+
+        link(rel='stylesheet', type='text/css', href='styles/lib/jquery/jquery.mCustomScrollbar.css')
+
         // import require.js
         script(type='text/javascript', src='require.js', data-main='scripts/index')
 
     body
+        #layout
+            #header
+                img(id='logo_rubik', src='media/images/logo_rubik.png')
+                img(id='logo_eurekaa', src='media/images/logo_eurekaa.png')
 
-        #header
-            img(id='logo_rubik', src='images/logo_rubik.png')
-            img(id='logo_eurekaa', src='images/logo_eurekaa.png')
+            #stripe
+                img(id='keyboard', src='media/images/keyboard.png')
 
-        #stripe
-            img(id='keyboard', src='images/keyboard.png')
+            nav(id='navigator')
 
-        nav(id='navigator')
-
-        #main
-
-        #footer
-
+            #main
+                h1 Eurekaa:
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, rutrum eu vulputate ac, iaculis vel orci. Phasellus accumsan ligula nisl, id pellentesque lectus pulvinar non. Sed ultricies mollis pulvinar. Phasellus varius fermentum est, in dignissim massa porttitor ut. Duis tempor convallis arcu, sit amet aliquam nibh congue non. Cras consequat, neque a gravida condimentum, eros massa elementum erat, ac dictum turpis mauris vitae ligula. Suspendisse lacinia iaculis elementum. Etiam blandit eros eu feugiat tincidunt. Aliquam quis suscipit enim, eu fringilla lacus. Morbi risus orci, dictum in nunc non, blandit ultrices velit. Cras placerat id turpis vitae dictum. Pellentesque ut orci gravida tellus ultrices fringilla. Vivamus quis varius enim. Cras nec mauris vitae metus lobortis fringilla a quis urna.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, rutrum eu vulputate ac, iaculis vel orci. Phasellus accumsan ligula nisl, id pellentesque lectus pulvinar non. Sed ultricies mollis pulvinar. Phasellus varius fermentum est, in dignissim massa porttitor ut. Duis tempor convallis arcu, sit amet aliquam nibh congue non. Cras consequat, neque a gravida condimentum, eros massa elementum erat, ac dictum turpis mauris vitae ligula. Suspendisse lacinia iaculis elementum. Etiam blandit eros eu feugiat tincidunt. Aliquam quis suscipit enim, eu fringilla lacus. Morbi risus orci, dictum in nunc non, blandit ultrices velit. Cras placerat id turpis vitae dictum. Pellentesque ut orci gravida tellus ultrices fringilla. Vivamus quis varius enim. Cras nec mauris vitae metus lobortis fringilla a quis urna.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, rutrum eu vulputate ac, iaculis vel orci. Phasellus accumsan ligula nisl, id pellentesque lectus pulvinar non. Sed ultricies mollis pulvinar. Phasellus varius fermentum est, in dignissim massa porttitor ut. Duis tempor convallis arcu, sit amet aliquam nibh congue non. Cras consequat, neque a gravida condimentum, eros massa elementum erat, ac dictum turpis mauris vitae ligula. Suspendisse lacinia iaculis elementum. Etiam blandit eros eu feugiat tincidunt. Aliquam quis suscipit enim, eu fringilla lacus. Morbi risus orci, dictum in nunc non, blandit ultrices velit. Cras placerat id turpis vitae dictum. Pellentesque ut orci gravida tellus ultrices fringilla. Vivamus quis varius enim. Cras nec mauris vitae metus lobortis fringilla a quis urna.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nulla turpis, rutrum eu vulputate ac, iaculis vel orci. Phasellus accumsan ligula nisl, id pellentesque lectus pulvinar non. Sed ultricies mollis pulvinar. Phasellus varius fermentum est, in dignissim massa porttitor ut. Duis tempor convallis arcu, sit amet aliquam nibh congue non. Cras consequat, neque a gravida condimentum, eros massa elementum erat, ac dictum turpis mauris vitae ligula. Suspendisse lacinia iaculis elementum. Etiam blandit eros eu feugiat tincidunt. Aliquam quis suscipit enim, eu fringilla lacus. Morbi risus orci, dictum in nunc non, blandit ultrices velit. Cras placerat id turpis vitae dictum. Pellentesque ut orci gravida tellus ultrices fringilla. Vivamus quis varius enim. Cras nec mauris vitae metus lobortis fringilla a quis urna.
 
 
-
+        script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+        script(src='scripts/lib/jquery/jquery.mCustomScrollbar.js')
+        script.
+            (function($){
+                $(window).load(function(){
+                    var height = $(window).height();
+                    $('#layout').css({height: height + 'px'}).mCustomScrollbar({
+                        scrollInertia: 500,
+                        mouseWheelPixels: 700,
+                        scrollButtons:{
+                            enable:true
+                        }
+                    });
+                    $('.mCSB_container').css({margin:0});
+                });
+                $(window).resize(function() {
+                    var height = $(window).height();
+                    $('#layout').css({height: height + 'px'});
+                });
+            })(jQuery);
