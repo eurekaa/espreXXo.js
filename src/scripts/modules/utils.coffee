@@ -14,6 +14,8 @@ define ()->
    is_array: (object)-> Object.prototype.toString.call object == '[object Array]'
 
    to_upper: (string)-> string.toUpperCase()
+   to_lower: (string)-> string.toLowerCase()
+   capitalize: (string)-> string.charAt(0).toUpperCase() + @.to_lower string.slice(1);
 
    load_styles: (urls, _)->
       if not @.is_array urls then urls = [urls]
