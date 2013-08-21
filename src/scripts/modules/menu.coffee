@@ -16,7 +16,7 @@ define [
 ], ($, lang, utils) ->
 
 
-   $.widget 'eurekaa.test',
+   $.widget 'eurekaa.menu',
 
       options: {}
 
