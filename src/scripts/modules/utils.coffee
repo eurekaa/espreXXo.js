@@ -20,11 +20,11 @@ define ()->
    load_styles: (urls, _)->
       if not @.is_array urls then urls = [urls]
       for url in urls
-         link = document.createElement "link"
-         link.type = "text/css"
-         link.rel = "stylesheet"
+         link = document.createElement 'link'
+         link.type = 'text/css'
+         link.rel = 'stylesheet'
          link.href = url
-         document.getElementsByTagName("head")[0].appendChild(link)
-      if _ then _ null, true else return true
+         document.getElementsByTagName('head')[0].appendChild(link)
+      if _ then return _ null, true else return true
 
 
