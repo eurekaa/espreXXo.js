@@ -4,9 +4,5 @@
 # Homepage: http://www.eurekaa.it
 # GitHub: https://github.com/eurekaa
 
-# File Name: test
-# Created: 08/08/13 20.59
-
-'use continuum'
-tot = 9
-
+# File Name: jquery_private
+# Created: 21/08/13 12.35
