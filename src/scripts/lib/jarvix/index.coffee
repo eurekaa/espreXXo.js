@@ -7,12 +7,12 @@
 # File Name: index
 # Created: 22/08/13 17.17
 
-define [
-   'scripts/lib/jarvix/i18n'
+define 'jarvix', [   
    'scripts/lib/jarvix/load'
+   'scripts/lib/jarvix/i18n'
    'scripts/lib/jarvix/list'
    'scripts/lib/jarvix/utility'
-], (i18n, load, list, utility)->
+], (load, i18n, list, utility)->
 
    i18n: i18n
    load: load
