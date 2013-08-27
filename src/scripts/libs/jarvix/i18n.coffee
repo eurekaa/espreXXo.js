@@ -13,8 +13,8 @@
 define [
    'jquery'
    'async'
-   'scripts/lib/jarvix/list'
-   'scripts/lib/jarvix/utility'
+   'scripts/libs/jarvix/list'
+   'scripts/libs/jarvix/utility'
 ], ($, async, list, utility)->
    
 
