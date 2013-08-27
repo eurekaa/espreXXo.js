@@ -1,16 +1,7 @@
-@import 'lib/elements';
+@import 'D:/eurekaa/progetti/eurekaa.it/src/styles/lib/elements.less';
 @layout_width: 900px;
 
-#menu {
-  position: relative;
-  width: @layout_width;
-  left: 5px;
-  z-index: 40;
-  margin: 2px auto;
-  font-family: 'klavika_medium';
-}
-
-#menu ul {
+.menu ul {
   list-style-type: none;
   height: 40px;
   width: 100%;
@@ -18,7 +9,9 @@
   padding: 0;
 }
 
-#menu ul li {
+.menu ul li {
+  position: relative;
+  top: 0;
   float: left;
   height: 20px;
   padding: 15px 10px 5px 10px;
@@ -29,20 +22,23 @@
   .transition-duration(0.4s);
 }
 
-#menu ul li.active, #menu ul li.active:hover {
-  padding-top: 25px;
-  .border-radius(0, 5px, 5px, 0);
-  .gradient(#f25b29, #f25b29, #f9a559);
-}
-
-#menu ul li:hover, #menu ul li:first-child:hover, #menu ul li:last-child:hover {
+.menu ul li:hover, #menu ul li:first-child:hover, #menu ul li:last-child:hover {
   padding-top: 25px;
   .border-radius(0, 5px, 5px, 0);
   .gradient(#639ed3, #1f589a, #639ed3);
   .transition-duration(0.2s);
 }
 
-#menu ul li a {
+.menu ul li.active, #menu ul li.active:hover {
+  position: relative;
+  height: 20px;
+  padding: 35px 10px 5px 10px;
+  .border-radius(0, 5px, 5px, 0);
+  .gradient(#f25b29, #f25b29, #f9a559);
+  .transition-duration(0.2s);
+}
+
+.menu ul li a {
   font-family: 'klavika_medium';
   font-size: 16pt;
   text-shadow: 1px 2px #192836;
@@ -50,4 +46,9 @@
   text-decoration: none;
   cursor: pointer;
   padding: 0 10px;
+}
+
+.menu #locale{
+  width: 80px;
+  float: right;
 }
