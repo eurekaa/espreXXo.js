@@ -16,41 +16,40 @@ require.config
    urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
 
    paths:
-      dom_ready: 'scripts/lib/require.js/dom_ready' # this function fires only when the dom is loaded.
-      order: 'scripts/lib/require.js/order' # lets you specify the order in which modules are evaluated.
-      text: 'scripts/lib/require.js/text' # enable require.js to load other text files (.html, .css, .xml, ...).
-      #i18n: 'scripts/lib/require.js/i18n' # allows to load localized resources.
+      # require.
+      dom_ready: 'scripts/libs/require.js/dom_ready' # this function fires only when the dom is loaded.   
+      order: 'scripts/libs/require.js/order' # lets you specify the order in which modules are evaluated.
+      text: 'scripts/libs/require.js/text' # enable require.js to load other text files (.html, .css, .xml, ...).      
 
-      jquery: 'scripts/lib/jquery/jquery-2.0.3'
-      jquery_ui: 'scripts/lib/jquery/jquery-ui-1.10.3.custom'  
-      jquery_easing: 'scripts/lib/jquery/jquery-easing-1.3' 
-      twitter_bootstrap: 'scripts/lib/twitter_bootstrap/bootstrap.min'
+      # jquery.
+      jquery: 'scripts/libs/jquery/jquery'
+      jquery_ui: 'scripts/libs/jquery/jquery.ui'  
+      jquery_easing: 'scripts/libs/jquery/jquery.easing' 
 
       # jquery plugins.
-      mousewheel: 'scripts/lib/jquery/jquery.mousewheel'
-      touchswipe: 'scripts/lib/jquery/jquery.touchswipe'
-      scrollbar: 'scripts/lib/jquery/jquery.scrollbar'
-      slider: 'scripts/lib/jquery/jquery.slider'
+      mousewheel: 'scripts/libs/jquery/jquery.mousewheel'
+      touchswipe: 'scripts/libs/jquery/jquery.touchswipe'
+      scrollbar: 'scripts/libs/jquery/jquery.scrollbar'
+      slider: 'scripts/libs/jquery/jquery.slider'
       
       # utils libraries.
-      underscore: 'scripts/lib/underscore'
-      async: 'scripts/lib/async'
-      jarvix: 'scripts/lib/jarvix/index'
+      underscore: 'scripts/libs/underscore'
+      async: 'scripts/libs/async'
+      jarvix: 'scripts/libs/jarvix/index'
 
    shim: # used to setup modules dependencies.
       jquery_easing: deps: ['jquery'], exports: '$'
-      jquery_ui: deps: ['jquery', 'jquery_easing'], exports: '$'
-      twitter_bootstrap: ['jquery']
-      mousewheel: ['jquery']
-      touchswipe: ['jquery']
-      scrollbar: ['jquery','mousewheel']
-      slider: ['jquery', 'jquery_easing', 'touchswipe']
+      jquery_ui: deps: ['jquery', 'jquery_easing'], exports: '$'   
+      mousewheel: deps: ['jquery']
+      touchswipe: deps: ['jquery']
+      scrollbar: deps: ['jquery','mousewheel']
+      slider: deps: ['jquery', 'jquery_easing', 'touchswipe']
       jarvix: deps: ['underscore', 'async']
 
    map:
       jquery_private:
          jquery: 'jquery'
-         '*': jquery: 'scripts/lib/jquery/jquery_private'
+         '*': jquery: 'scripts/libs/jquery/jquery.private'
 
 
 
@@ -69,10 +68,10 @@ define [
       
       # load stylesheets.
       jx.load.stylesheets [
-         'styles/lib/jquery/themes/dark_hive/jquery-ui-1.10.3.custom.css'
-         'styles/lib/jquery/scrollbar/jquery.scrollbar.css'
-         'styles/lib/jquery/slider/jquery.slider.css'
-         'styles/lib/jquery/slider/jquery.slider_animate.css'
+         'styles/libs/jquery/themes/dark_hive/jquery-ui-1.10.3.custom.css'
+         'styles/libs/jquery/scrollbar/jquery.scrollbar.css'
+         'styles/libs/jquery/slider/jquery.slider.css'
+         'styles/libs/animate.css'
          'styles/eurekaa.css'
          'styles/fonts.css'
       ]
