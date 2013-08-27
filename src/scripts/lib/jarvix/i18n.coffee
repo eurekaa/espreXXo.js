@@ -12,33 +12,35 @@
 
 define [
    'jquery'
-   'scripts/lib/jarvix.js/utils'
-], ($, utils)->
+   'async'
+   'scripts/lib/jarvix/list'
+   'scripts/lib/jarvix/utility'
+], ($, async, list, utility)->
+   
 
    set_locale: (locale)-> sessionStorage.setItem('locale', locale)
    get_locale: ()-> sessionStorage.getItem('locale')
-
-   localize: (element, next)->
-      # build jquery object.
-      element = $(element)
-      # move to parent to find each sibling element to be localized (including himself).
-      element = element.parent()
-      # find localizable elements.
-      localizables = element.find '[data-i18n]'
-
-
-      # check if element has data-i18n attribute
-      if not utils.is_defined element.attr 'data-i18n' then throw 'argument is not a localizable element (it must have a "i18n" attribute.'
-      # find label file and property.
-      i18n_file = element.attr 'data-i18n'
-      i18n_file = i18n_file.split '/'
-      i18n_key = i18n_file.pop()
-      i18n_file = i18n_file.join '/'
-      # require appropriate file.
-      locale = @.get_locale()
-      locale = if utils.is_defined locale then locale + '/' else ''
-      require ['i18n!pages/i18n/' + locale + i18n_file], __(i18n_file)
-      # update label.
-      element.html i18n_file[i18n_key]
-      # callback with element returned back for chaining purposes.
-      next element
+   
+   localize: (element, next)-> 
+      # preserve context from asynchronous functions changing it.
+      self = @             
+      
+      # run in parallel the localization of each localizable node.
+      localizables = $(element).find '[data-i18n]'
+      if localizables.length == 0 then next()
+      else         
+         async.each element.find('[data-i18n]'), (node, next)->
+            # find label file and property.
+            i18n_file = $(node).attr 'data-i18n'
+            i18n_file = i18n_file.split '/'
+            i18n_key = i18n_file.pop()
+            i18n_file = i18n_file.join '/'
+   
+            # require appropriate file.  
+            locale = self.get_locale()
+            require ['i18n/' + locale + '/' + i18n_file], (i18n_file)->
+               # localize node.
+               $(node).html i18n_file[i18n_key]
+               next()
+               
+         ,(err)-> if err then next err else next null, $(element)
