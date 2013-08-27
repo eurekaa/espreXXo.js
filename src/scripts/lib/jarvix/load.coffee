@@ -7,10 +7,10 @@
 # File Name: load
 # Created: 22/08/13 17.28
 
-define ['scripts/lib/jarvix.js/utils'], (utils)->
+define ['scripts/lib/jarvix/utility'], (utility)->
 
    stylesheets: (urls)->
-      if not utils.is_array urls then urls = new Array(urls)
+      if not utility.is_array urls then urls = new Array(urls)
       for url in urls
          link = document.createElement 'link'
          link.type = 'text/css'
