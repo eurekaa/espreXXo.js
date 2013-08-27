@@ -10,18 +10,17 @@
 
 ###*
    @description
-   A set of function to work on object or list of objects.     
-   This module is strongly based on [underscore](https://github.com/jashkenas/underscore).
-   >*Note: Collection functions work on arrays, objects, and array-like objects such as arguments, NodeList and similar.
-   >But it works by duck-typing, so avoid passing objects with a numeric length property.*
+   A set of function to work on objects or list of objects.     
+   This module is strongly based on [underscore](https://github.com/jashkenas/underscore) library.
+   >*Note: List functions work on arrays, objects, and array-like objects such as arguments, DOMList and similar.
+   >But they work by duck-typing, so avoid passing objects with numeric properties.*
 
-   @module jarvix/object
+   @module jarvix/list
    @requires underscore
 ###
-define 'jarvix/object', ['underscore'], (u)->
+define ['underscore'], (u)->
 
    ###*
-      @author stefano graziato
       @summary Iterates over a list of elements, yielding each in turn to an iterator function.
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -37,8 +36,8 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    each: (list, iterator, context)-> u.each list, iterator, context
 
+      
    ###*
-      @author stefano graziato
       @summary Produces a new array of values by mapping each value in list through a transformation function (iterator). 
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -55,7 +54,6 @@ define 'jarvix/object', ['underscore'], (u)->
 
 
    ###*
-      @author stefano graziato
       @summary Also known as inject and foldl, reduce boils down a list of values into a single value. 
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -72,27 +70,26 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    reduce: (list, iterator, memo, context)-> u.reduce list, iterator, memo, context
 
+      
    ###*
-         @author stefano graziato
-         @summary The right-associative version of reduce. 
-         @param {(object|array)} list - elements to be iterated.
-         @param {function} iterator - function invoked on each element.
-         @param {*} memo - initial state of the reduction.
-         @param {object} [context] - the context to be used.
-         @returns {*} any type but a single value.
-         @description
-         Delegates to the JavaScript 1.8 version of reduceRight, if it exists.    
-         Foldr is not as useful in JavaScript as it would be in a language with lazy evaluation.
-         @example
-         var list = [[0, 1], [2, 3], [4, 5]];
-         var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []); 
-         => [4, 5, 2, 3, 0, 1]
-      ###
+      @summary The right-associative version of reduce. 
+      @param {(object|array)} list - elements to be iterated.
+      @param {function} iterator - function invoked on each element.
+      @param {*} memo - initial state of the reduction.
+      @param {object} [context] - the context to be used.
+      @returns {*} any type but a single value.
+      @description
+      Delegates to the JavaScript 1.8 version of reduceRight, if it exists.    
+      Foldr is not as useful in JavaScript as it would be in a language with lazy evaluation.
+      @example
+      var list = [[0, 1], [2, 3], [4, 5]];
+      var flat = _.reduceRight(list, function(a, b) { return a.concat(b); }, []); 
+      => [4, 5, 2, 3, 0, 1]
+   ###
    reduce_right: (list, iterator, memo, context)-> u.reduceRight list, iterator, memo, context
 
 
    ###*
-      @author stefano graziato
       @summary Looks through each value in the list, returning the first one that passes a truth test (iterator), or undefined if no value passes the test. 
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -108,7 +105,6 @@ define 'jarvix/object', ['underscore'], (u)->
 
 
    ###*
-      @author stefano graziato
       @summary Looks through each value in the list, returning an array of all the values that pass a truth test (iterator). 
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -122,8 +118,8 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    filter: (list, iterator, context)-> u.filter list, iterator, context
 
+      
    ###*
-      @author stefano graziato
       @summary Looks through each value in the list, returning an array of all the values that contain all of the key-value pairs listed in properties. 
       @param {array} list - array of objects to be iterated.
       @param {object} properties - an object with key-values to match the list.
@@ -135,8 +131,8 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    where: (list, properties)-> u.where list, properties
 
+      
    ###*
-      @author stefano graziato
       @summary Looks through the list and returns the first value that matches all of the key-value pairs listed in properties. 
       @param {array} list - array of objects to be iterated.
       @param {object} properties - an object with key-values to match the list.
@@ -148,8 +144,8 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    find_where: (list, properties)-> u.findWhere list, properties
 
+      
    ###*
-      @author stefano graziato
       @summary Returns the values in list without the elements that the truth test (iterator) passes. 
       @param {(object|array)} list - elements to be iterated.
       @param {function} iterator - function invoked on each element.
@@ -163,8 +159,8 @@ define 'jarvix/object', ['underscore'], (u)->
    ###
    reject: (list, iterator, context)-> u.reject list, iterator, context
 
+      
    ###*
-   @author stefano graziato
    @summary Returns true if all of the values in the list pass the iterator truth test. 
    @param {(object|array)} list - elements to be iterated.
    @param {function} [iterator] - function invoked on each element.
@@ -180,17 +176,16 @@ define 'jarvix/object', ['underscore'], (u)->
 
       
    ###*
-   @author stefano graziato
-   @summary Returns true if any of the values in the list pass the iterator truth test. 
-   @param {(object|array)} list - elements to be iterated.
-   @param {function} [iterator] - function invoked on each element.
-   @param {object} [context] - the context to be used.
-   @returns {boolean} returns true if at least one value in the list pass the iterator test, unless false.
-   @description
-   Short-circuits and stops traversing the list if a true element is found.   
-   Delegates to the native method some, if present.
-   @example
-   .some([null, 0, true, false]);
-   => true
+      @summary Returns true if any of the values in the list pass the iterator truth test. 
+      @param {(object|array)} list - elements to be iterated.
+      @param {function} [iterator] - function invoked on each element.
+      @param {object} [context] - the context to be used.
+      @returns {boolean} returns true if at least one value in the list pass the iterator test, unless false.
+      @description
+      Short-circuits and stops traversing the list if a true element is found.   
+      Delegates to the native method some, if present.
+      @example
+      .some([null, 0, true, false]);
+      => true
    ###
    some: (list, iterator, context)-> u.some list, iterator, context      
