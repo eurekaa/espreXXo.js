@@ -10,6 +10,14 @@
 
 'use continuum'
 
+
+###*
+   @description
+   A set of utilities.   
+   
+   @module jarvix/utility
+   @requires underscore
+###
 define ['underscore'], (u)->
 
    # test object functions.
@@ -27,7 +35,7 @@ define ['underscore'], (u)->
    is_regexp: (object)-> u.isRegExp object
    is_null: (object)-> u.isNull object
    is_undefined: (object)-> u.isUndefined object
-   is_defined: (object)-> not u.isUndefined object
+   is_defined: (object)-> !u.isUndefined object
    is_element: (object)-> u.isElement object
 
    # string functions.
@@ -36,7 +44,6 @@ define ['underscore'], (u)->
    to_capitalized: (string)-> @.to_upper(string.charAt 0) + @.to_lower(string.slice 1)
 
    ###*
-      @author stefano graziato
       @summary reapeat a string several times.
       @param {string} string - string to be repeated.
       @param {number} [times=1] - number of times the string has to be repeated.
