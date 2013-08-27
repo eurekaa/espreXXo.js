@@ -26,10 +26,12 @@ require.config
       jquery_easing: 'scripts/lib/jquery/jquery-easing-1.3' 
       twitter_bootstrap: 'scripts/lib/twitter_bootstrap/bootstrap.min'
 
-      #jquery plugins
-      scrollbars: 'scripts/lib/jquery/jquery.mCustomScrollbar'
+      # jquery plugins.
       mousewheel: 'scripts/lib/jquery/jquery.mousewheel'
-
+      touchswipe: 'scripts/lib/jquery/jquery.touchswipe'
+      scrollbar: 'scripts/lib/jquery/jquery.scrollbar'
+      slider: 'scripts/lib/jquery/jquery.slider'
+      
       # utils libraries.
       underscore: 'scripts/lib/underscore'
       async: 'scripts/lib/async'
@@ -40,7 +42,9 @@ require.config
       jquery_ui: deps: ['jquery', 'jquery_easing'], exports: '$'
       twitter_bootstrap: ['jquery']
       mousewheel: ['jquery']
-      scrollbars: ['jquery','mousewheel']
+      touchswipe: ['jquery']
+      scrollbar: ['jquery','mousewheel']
+      slider: ['jquery', 'jquery_easing', 'touchswipe']
       jarvix: deps: ['underscore', 'async']
 
    map:
@@ -57,7 +61,8 @@ define [
    'jquery_ui'
    'jarvix'
    'scripts/widgets/menu'
-   'scrollbars'
+   'scrollbar'
+   'slider'
 ], (dom_ready, $, jx)->
   
    try
@@ -65,7 +70,9 @@ define [
       # load stylesheets.
       jx.load.stylesheets [
          'styles/lib/jquery/themes/dark_hive/jquery-ui-1.10.3.custom.css'
-         'styles/lib/jquery/jquery.mCustomScrollbar.css'
+         'styles/lib/jquery/scrollbar/jquery.scrollbar.css'
+         'styles/lib/jquery/slider/jquery.slider.css'
+         'styles/lib/jquery/slider/jquery.slider_animate.css'
          'styles/eurekaa.css'
          'styles/fonts.css'
       ]
@@ -92,7 +99,7 @@ define [
             # localize all body localizable elements.
             jx.i18n.localize $('body')
 
-         # craete menu.
+         # create menu.
          $('nav').menu target: $('#main'), breadcrumbs: $('#breadcrumbs')
          
          # create custom scrollbars.
