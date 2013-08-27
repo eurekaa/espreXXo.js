@@ -38,7 +38,7 @@ define [
    
             # require appropriate file.  
             locale = self.get_locale()
-            require ['i18n/' + locale + '/' + i18n_file], (i18n_file)->
+            require ['langs/' + locale + '/' + i18n_file], (i18n_file)->
                # localize node.
                $(node).html i18n_file[i18n_key]
                next()

@@ -52,7 +52,7 @@ define [
 
       _change_locale: (locale)->
          jx.i18n.set_locale = locale
-         require ['i18n/' + locale + '/menu'], (i18n)->
+         require ['langs/' + locale + '/menu'], (i18n)->
             $(self.element).find('li').each (i, item) ->
                i++
                label = $(item).find('a').attr('data-i18n').split('/')
