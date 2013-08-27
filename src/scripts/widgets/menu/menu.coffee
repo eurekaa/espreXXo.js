@@ -36,6 +36,15 @@ define [
 
          @.element.html html
 
+         @.element.find('ul li').bind 'click', @.load_page
+
+      load_page: ()->
+            link = $(@).attr 'data-link'
+            page = ''
+            require ['text!' + link + '.html!strip'], __(page)
+            $('#main').html page
+            $(@).addClass 'active'
+
       _destroy: ()->
 
 
