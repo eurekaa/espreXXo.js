@@ -102,14 +102,13 @@ define [
          # create menu.
          $('nav').menu target: $('#main'), breadcrumbs: $('#breadcrumbs')
          
-         # create custom scrollbars.
+         # create custom scrollbar.
          height = $(window).height()
          $('#layout').css height: height + 'px'
-         $('#layout').mCustomScrollbar
-            scrollInertia: 500
-            mouseWheelPixels: 700
-            scrollButtons: enable: true
-         $('.mCSB_container').css margin: 0
+         $('#layout').scrollbar()
+         
+         # create slider.
+         
 
    catch error
       console.error error

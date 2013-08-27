@@ -29,15 +29,15 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 				set_width:false, /*optional element width: boolean, pixels, percentage*/
 				set_height:false, /*optional element height: boolean, pixels, percentage*/
 				horizontalScroll:false, /*scroll horizontally: boolean*/
-				scrollInertia:950, /*scrolling inertia: integer (milliseconds)*/
+				scrollInertia:500, /*scrolling inertia: integer (milliseconds)*/
 				mouseWheel:true, /*mousewheel support: boolean*/
-				mouseWheelPixels:"auto", /*mousewheel pixels amount: integer, "auto"*/
+				mouseWheelPixels:700, /*mousewheel pixels amount: integer, "auto"*/
 				autoDraggerLength:true, /*auto-adjust scrollbar dragger length: boolean*/
 				autoHideScrollbar:false, /*auto-hide scrollbar when idle*/
 				snapAmount:null, /* optional element always snaps to a multiple of this number in pixels */
 				snapOffset:0, /* when snapping, snap with this number in pixels as an offset */
 				scrollButtons:{ /*scroll buttons*/
-					enable:false, /*scroll buttons support: boolean*/
+					enable:true, /*scroll buttons support: boolean*/
 					scrollType:"continuous", /*scroll buttons scrolling type: "continuous", "pixels"*/
 					scrollSpeed:"auto", /*scroll buttons continuous scrolling speed: integer, "auto"*/
 					scrollAmount:40 /*scroll buttons pixels scroll amount: integer (pixels)*/
@@ -71,13 +71,13 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 				if(options.set_height){
 					$this.css("height",options.set_height);
 				}
-				if(!$(document).data("mCustomScrollbar-index")){
-					$(document).data("mCustomScrollbar-index","1");
+				if(!$(document).data("scrollbar-index")){
+					$(document).data("scrollbar-index","1");
 				}else{
-					var mCustomScrollbarIndex=parseInt($(document).data("mCustomScrollbar-index"));
-					$(document).data("mCustomScrollbar-index",mCustomScrollbarIndex+1);
+					var mCustomScrollbarIndex=parseInt($(document).data("scrollbar-index"));
+					$(document).data("scrollbar-index",mCustomScrollbarIndex+1);
 				}
-				$this.wrapInner("<div class='mCustomScrollBox"+" mCS-"+options.theme+"' id='mCSB_"+$(document).data("mCustomScrollbar-index")+"' style='position:relative; height:100%; overflow:hidden; max-width:100%;' />").addClass("mCustomScrollbar _mCS_"+$(document).data("mCustomScrollbar-index"));
+				$this.wrapInner("<div class='mCustomScrollBox"+" mCS-"+options.theme+"' id='mCSB_"+$(document).data("scrollbar-index")+"' style='position:relative; height:100%; overflow:hidden; max-width:100%;' />").addClass("scrollbar _mCS_"+$(document).data("scrollbar-index"));
 				var mCustomScrollBox=$this.children(".mCustomScrollBox");
 				if(options.horizontalScroll){
 					mCustomScrollBox.addClass("mCSB_horizontal").wrapInner("<div class='mCSB_h_wrapper' style='position:relative; left:0; width:999999px;' />");
@@ -117,7 +117,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 					/*init state*/
 					"mCS_Init":true,
 					/*instance index*/
-					"mCustomScrollbarIndex":$(document).data("mCustomScrollbar-index"),
+					"mCustomScrollbarIndex":$(document).data("scrollbar-index"),
 					/*option parameters*/
 					"horizontalScroll":options.horizontalScroll,
 					"scrollInertia":options.scrollInertia,
@@ -178,7 +178,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 						mCustomScrollBox.css("max-height",maxHeight);
 					}
 				}
-				$this.mCustomScrollbar("update");
+				$this.scrollbar("update");
 				/*window resize fn (for layouts based on percentages)*/
 				if(options.advanced.updateOnBrowserResize){
 					var mCSB_resizeTimeout,currWinWidth=$(window).width(),currWinHeight=$(window).height();
@@ -193,7 +193,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 									if($this.css("max-height")!=="none" && percentage){
 										mCustomScrollBox.css("max-height",$this.parent().height()*percentage/100);
 									}
-									$this.mCustomScrollbar("update");
+									$this.scrollbar("update");
 									currWinWidth=winWidth; currWinHeight=winHeight;
 								}
 							}
@@ -218,7 +218,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 							var mCSB_containerNewSize=mCSB_container.outerHeight();
 						}
 						if(mCSB_containerNewSize!=mCSB_containerOldSize){
-							$this.mCustomScrollbar("update");
+							$this.scrollbar("update");
 							mCSB_containerOldSize=mCSB_containerNewSize;
 						}
 					},300);
@@ -269,10 +269,10 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 				var mCSB_draggerH=mCSB_dragger.height(),
 				/*calculate and store scroll amount, add scrolling*/
 					scrollAmount=(mCSB_containerH-mCustomScrollBoxH)/(mCSB_draggerContainerH-mCSB_draggerH);
-				$this.data("scrollAmount",scrollAmount).mCustomScrollbar("scrolling",mCustomScrollBox,mCSB_container,mCSB_draggerContainer,mCSB_dragger,mCSB_buttonUp,mCSB_buttonDown,mCSB_buttonLeft,mCSB_buttonRight);
+				$this.data("scrollAmount",scrollAmount).scrollbar("scrolling",mCustomScrollBox,mCSB_container,mCSB_draggerContainer,mCSB_dragger,mCSB_buttonUp,mCSB_buttonDown,mCSB_buttonLeft,mCSB_buttonRight);
 				/*scroll*/
 				var mCSB_containerP=Math.abs(mCSB_container.position().top);
-				$this.mCustomScrollbar("scrollTo",mCSB_containerP,{scrollInertia:0,trigger:"internal"});
+				$this.scrollbar("scrollTo",mCSB_containerP,{scrollInertia:0,trigger:"internal"});
 			}else if(mCSB_containerW>mCustomScrollBoxW && $this.data("horizontalScroll")){ /*content needs horizontal scrolling*/
 				mCSB_scrollTools.css("display","block");
 				var mCSB_draggerContainerW=mCSB_draggerContainer.width();
@@ -292,10 +292,10 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 				var mCSB_draggerW=mCSB_dragger.width(),
 				/*calculate and store scroll amount, add scrolling*/
 					scrollAmount=(mCSB_containerW-mCustomScrollBoxW)/(mCSB_draggerContainerW-mCSB_draggerW);
-				$this.data("scrollAmount",scrollAmount).mCustomScrollbar("scrolling",mCustomScrollBox,mCSB_container,mCSB_draggerContainer,mCSB_dragger,mCSB_buttonUp,mCSB_buttonDown,mCSB_buttonLeft,mCSB_buttonRight);
+				$this.data("scrollAmount",scrollAmount).scrollbar("scrolling",mCustomScrollBox,mCSB_container,mCSB_draggerContainer,mCSB_dragger,mCSB_buttonUp,mCSB_buttonDown,mCSB_buttonLeft,mCSB_buttonRight);
 				/*scroll*/
 				var mCSB_containerP=Math.abs(mCSB_container.position().left);
-				$this.mCustomScrollbar("scrollTo",mCSB_containerP,{scrollInertia:0,trigger:"internal"});
+				$this.scrollbar("scrollTo",mCSB_containerP,{scrollInertia:0,trigger:"internal"});
 			}else{ /*content does not need scrolling*/
 				/*unbind events, reset content position, hide scrollbars, remove classes*/
 				mCustomScrollBox.unbind("mousewheel focusin");
@@ -378,9 +378,9 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 			}
 			function scrollbarDrag(mCSB_draggerDragY,mCSB_draggerDragX,y,x){
 				if($this.data("horizontalScroll")){
-					$this.mCustomScrollbar("scrollTo",(mCSB_dragger.position().left-(mCSB_draggerDragX))+x,{moveDragger:true,trigger:"internal"});
+					$this.scrollbar("scrollTo",(mCSB_dragger.position().left-(mCSB_draggerDragX))+x,{moveDragger:true,trigger:"internal"});
 				}else{
-					$this.mCustomScrollbar("scrollTo",(mCSB_dragger.position().top-(mCSB_draggerDragY))+y,{moveDragger:true,trigger:"internal"});
+					$this.scrollbar("scrollTo",(mCSB_dragger.position().top-(mCSB_draggerDragY))+y,{moveDragger:true,trigger:"internal"});
 				}
 			}
 			/*content touch-drag*/
@@ -406,9 +406,9 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 						x=touch.pageX-elemOffset.left;
 						y=touch.pageY-elemOffset.top;
 						if($this.data("horizontalScroll")){
-							$this.mCustomScrollbar("scrollTo",mCSB_containerTouchX-x,{trigger:"internal"});
+							$this.scrollbar("scrollTo",mCSB_containerTouchX-x,{trigger:"internal"});
 						}else{
-							$this.mCustomScrollbar("scrollTo",mCSB_containerTouchY-y,{trigger:"internal"});
+							$this.scrollbar("scrollTo",mCSB_containerTouchY-y,{trigger:"internal"});
 						}
 					});
 				}
@@ -421,7 +421,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 						scrollToPos=(e.pageX-mCSB_draggerContainer.offset().left)*$this.data("scrollAmount");
 					}
 					if(target.hasClass("mCSB_draggerContainer") || target.hasClass("mCSB_draggerRail")){
-						$this.mCustomScrollbar("scrollTo",scrollToPos,{trigger:"internal",scrollEasing:"draggerRailEase"});
+						$this.scrollbar("scrollTo",scrollToPos,{trigger:"internal",scrollEasing:"draggerRailEase"});
 					}
 				});
 				$this.data({"bindEvent_scrollbar_click":true});
@@ -445,7 +445,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 						}
 						if((delta>0 && draggerPos!==0) || (delta<0 && draggerPos!==limit)){e.preventDefault(); e.stopImmediatePropagation();}
 						scrollTo=absPos-(delta*mouseWheelPixels);
-						$this.mCustomScrollbar("scrollTo",scrollTo,{trigger:"internal"});
+						$this.scrollbar("scrollTo",scrollTo,{trigger:"internal"});
 					});
 					$this.data({"bindEvent_mousewheel":true});
 				}
@@ -489,7 +489,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 					function PixelsScrollTo(to){
 						if(!mCSB_dragger.data("preventAction")){
 							mCSB_dragger.data("preventAction",true);
-							$this.mCustomScrollbar("scrollTo",to,{trigger:"internal"});
+							$this.scrollbar("scrollTo",to,{trigger:"internal"});
 						}
 					}
 				}else{ /*continuous scrolling*/
@@ -502,7 +502,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 								e.preventDefault();
 								var scrollButtonsSpeed=ScrollButtonsSpeed();
 								$this.data({"mCSB_buttonScrollRight":setInterval(function(){
-									$this.mCustomScrollbar("scrollTo",Math.abs(mCSB_container.position().left)+scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
+									$this.scrollbar("scrollTo",Math.abs(mCSB_container.position().left)+scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
 								},17)});
 							});
 							var mCSB_buttonRight_stop=function(e){
@@ -514,7 +514,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 								e.preventDefault();
 								var scrollButtonsSpeed=ScrollButtonsSpeed();
 								$this.data({"mCSB_buttonScrollLeft":setInterval(function(){
-									$this.mCustomScrollbar("scrollTo",Math.abs(mCSB_container.position().left)-scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
+									$this.scrollbar("scrollTo",Math.abs(mCSB_container.position().left)-scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
 								},17)});
 							});	
 							var mCSB_buttonLeft_stop=function(e){
@@ -532,7 +532,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 								e.preventDefault();
 								var scrollButtonsSpeed=ScrollButtonsSpeed();
 								$this.data({"mCSB_buttonScrollDown":setInterval(function(){
-									$this.mCustomScrollbar("scrollTo",Math.abs(mCSB_container.position().top)+scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
+									$this.scrollbar("scrollTo",Math.abs(mCSB_container.position().top)+scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
 								},17)});
 							});
 							var mCSB_buttonDown_stop=function(e){
@@ -544,7 +544,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 								e.preventDefault();
 								var scrollButtonsSpeed=ScrollButtonsSpeed();
 								$this.data({"mCSB_buttonScrollUp":setInterval(function(){
-									$this.mCustomScrollbar("scrollTo",Math.abs(mCSB_container.position().top)-scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
+									$this.scrollbar("scrollTo",Math.abs(mCSB_container.position().top)-scrollButtonsSpeed,{trigger:"internal",scrollEasing:"easeOutCirc"});
 								},17)});
 							});	
 							var mCSB_buttonUp_stop=function(e){
@@ -579,7 +579,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 								visibleLimit=mCustomScrollBox.width()-focusedElem.outerWidth();
 							}
 							if(mCSB_containerPos+focusedElemPos<0 || mCSB_containerPos+focusedElemPos>visibleLimit){
-								$this.mCustomScrollbar("scrollTo",focusedElemPos,{trigger:"internal"});
+								$this.scrollbar("scrollTo",focusedElemPos,{trigger:"internal"});
 							}
 						}
 					});
@@ -801,7 +801,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 		},
 		destroy:function(){
 			var $this=$(this);
-			$this.removeClass("mCustomScrollbar _mCS_"+$this.data("mCustomScrollbarIndex")).addClass("mCS_destroyed").children().children(".mCSB_container").unwrap().children().unwrap().siblings(".mCSB_scrollTools").remove();
+			$this.removeClass("scrollbar _mCS_"+$this.data("mCustomScrollbarIndex")).addClass("mCS_destroyed").children().children(".mCSB_container").unwrap().children().unwrap().siblings(".mCSB_scrollTools").remove();
 			$(document).unbind("mousemove."+$this.data("mCustomScrollbarIndex")+" mouseup."+$this.data("mCustomScrollbarIndex")+" MSPointerMove."+$this.data("mCustomScrollbarIndex")+" MSPointerUp."+$this.data("mCustomScrollbarIndex"));
 			$(window).unbind("resize."+$this.data("mCustomScrollbarIndex"));
 		}
@@ -934,7 +934,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 	var _dlp=("https:"==document.location.protocol) ? "https:" : "http:";
 	$.event.special.mousewheel || document.write('<script src="'+_dlp+'//cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.0.6/jquery.mousewheel.min.js"><\/script>');
 	/*plugin fn*/
-	$.fn.mCustomScrollbar=function(method){
+	$.fn.scrollbar=function(method){
 		if(methods[method]){
 			return methods[method].apply(this,Array.prototype.slice.call(arguments,1));
 		}else if(typeof method==="object" || !method){
