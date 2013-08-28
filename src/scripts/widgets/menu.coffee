@@ -14,6 +14,7 @@ define [
    'jquery_ui'
    'jarvix'
    'text!pages/menu.html!strip'
+   'animate'
 ], ($, jx, template) ->
    
 
@@ -32,17 +33,18 @@ define [
          breadcrumbs: null
 
 
-      _create: ->         
+      _create: ->
+
          # save context for using after async calls.
          self = @
-         
+
          # add class to container.
          @.element.addClass 'menu'
-         
+
          # insert template and localize it.
          @.element.html $(template)
          @._change_locale jx.i18n.get_locale()
-         
+
          # bind click events.
          @.element.find('ul li a').on 'click', self._load_page
          @.element.find('#locale a').on 'click', ->
@@ -55,31 +57,32 @@ define [
          require ['langs/' + locale + '/menu'], (i18n)->
             $(self.element).find('li').each (i, item) ->
                i++
-               label = $(item).find('a').attr('data-i18n').split('/')
-               label = label.pop()
-               $(item).delay(150 * i).animate { top: -120 }, duration: 'fast', easing: 'easeInElastic', complete: ->
-                  $(item).find('a').html i18n[label]
-                  $(item).delay(100 * i).animate { top: 0 }, duration: 'fast', easing: 'easeOutElastic'
+               item = $(item)
+               label = item.find('a').attr('data-i18n').split('/')
+               label = label.pop()               
+               $(item).animate_css 'bounceInDown', (100 * i), ->
+                  $(item).find('a').html i18n[label]   
 
-                  
-                  
 
 
       _load_page: ->
-         element = $(@);
+         element = $(@)
 
          # require page, localize it and append to container.
          link = element.attr 'data-link'
-         page = null; require ['text!pages/' + link + '!strip'], __(page)
-         jx.i18n.localize page, __(page)
-         self.options.target.html page
+         require ['text!pages/' + link + '.html!strip'], (page)->            
+            jx.i18n.localize $(page), (err, page)->
+               self.options.target.animate_css 'bounceOutRight', ()->
+                  self.options.target.html $(page)
+                  self.options.target.animate_css 'bounceInLeft', ()->
+                  
 
-         # change menu status.
-         self.element.parent().parent().find('li').each (i, item)-> $(item).removeClass 'active'
-         element.parent().addClass 'active'
+               # change menu status.
+               self.element.parent().parent().find('li').each (i, item)-> $(item).removeClass 'active'
+               element.parent().addClass 'active'
 
-         # change breadcrumb.
-         self.options.breadcrumbs.html(jx.utility.to_capitalized(element.html()))
+               # change breadcrumb.
+               self.options.breadcrumbs.html(jx.utility.to_capitalized(element.html()))
 
 
       _destroy: ->
