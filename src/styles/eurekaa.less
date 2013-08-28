@@ -3,6 +3,12 @@
 @images_dir: '../media/images';
 @layout_width: 900px;
 
+.animated {
+  -vendor-animation-duration: 3s;
+  -vendor-animation-delay: 2s;
+  -vendor-animation-iteration-count: 1;
+}
+
 body {
   background-image: url('@{images_dir}/background.jpg');
   color: #ffffff;
@@ -55,6 +61,8 @@ h1{
 nav {
   position: relative;
   width: @layout_width;
+  height: 80px;
+  overflow: hidden;
   z-index: 40;
   margin: 2px auto;
   font-family: 'klavika_medium';
@@ -76,16 +84,17 @@ nav {
   padding: 0;
 }
 
-#main {
+#pages {
   position: relative;
   top: -20px;
   z-index: 20;
   width: @layout_width;
   padding: 20px 0;
-  margin: 0 auto;
+  margin: auto;
   text-align: left;
   min-height: 500px;
   font-family: 'klavika_light';
   font-size: 14pt;
   color: #9E9E9E;
+  overflow: hidden;
 }
