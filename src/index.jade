@@ -11,17 +11,17 @@ doctype 5
 html
     head
         title eurekaa.it
-        // responsive design activation.
         meta(name='viewport', content='width=device-width', initial-scale='1.0')
-        // import require.js
         script(src='require.js', data-main='scripts/index')
     body
         #layout
             #header
                 img#logo_rubik(src='media/images/logo_rubik.png')
                 img#logo_eurekaa(src='media/images/logo_eurekaa.png')
-            #stripe: img#keyboard(src='media/images/keyboard.png')
+            #stripe
+                img#keyboard(src='media/images/keyboard.png')
             nav
             #breadcrumbs Eurekaa
-            #main(data-i18n='eurekaa/main')
+            #pages(data-page='eurekaa')
+                
                 
