@@ -58,8 +58,7 @@ define [
             $(self.element).find('li').each (i, item) ->
                i++
                item = $(item)
-               label = item.find('a').attr('data-i18n').split('/')
-               label = label.pop()               
+               label = item.find('a').attr('data-lang').split('#')[1]
                $(item).animate_css 'bounceInDown', (100 * i), ->
                   $(item).find('a').html i18n[label]   
 
