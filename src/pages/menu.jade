@@ -10,14 +10,14 @@
 
 body
     ul
-        li: a(data-link='eurekaa', data-lang='menu#eurekaa')
-        li: a(data-link='services', data-lang='menu#services')
-        li: a(data-link='curriculum', data-lang='menu#curriculum')
-        li.active: a(data-link='portfolio', data-lang='menu#portfolio')
-        li: a(data-link='projects', data-lang='menu#projects')
-        li: a(data-link='contacts', data-lang='menu#contacts')
+        li.active: a(data-lang='menu#eurekaa', data-link='eurekaa')
+        li: a(data-lang='menu#services', data-link='services')
+        li: a(data-lang='menu#curriculum', data-link='curriculum')
+        li: a(data-lang='menu#portfolio', data-link='portfolio')
+        li: a(data-lang='menu#projects', data-link='projects')
+        li: a(data-lang='menu#contacts', data-link='contacts')
 
     #locale
-        a(data-locale='en') eng
-        &nbsp; | &nbsp;
+        a(data-locale='en') eng 
+        span &nbsp;|&nbsp; 
         a(data-locale='it') ita
