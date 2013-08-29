@@ -7,14 +7,14 @@
 # File Name: index
 # Created: 22/08/13 17.17
 
-define 'jarvix', [   
+define 'jarvix', [
+   'async'
    'scripts/libs/jarvix/load'
-   'scripts/libs/jarvix/i18n'
    'scripts/libs/jarvix/list'
    'scripts/libs/jarvix/utility'
-], (load, i18n, list, utility)->
+], (async, load, list, utility)->
 
-   i18n: i18n
+   async: async
    load: load
    list: list
    utility: utility
