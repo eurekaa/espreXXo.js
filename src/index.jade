@@ -20,7 +20,16 @@ html
                 img#logo_eurekaa(src='media/images/logo_eurekaa.png')
             #stripe
                 img#keyboard(src='media/images/keyboard.png')
-            nav
-            #localizer
+            #menu: ul
+                li.active: a(data-lang='menu#eurekaa', data-link='eurekaa')
+                li: a(data-lang='menu#services', data-link='services')
+                li: a(data-lang='menu#curriculum', data-link='curriculum', data-widget='curriculum')
+                li: a(data-lang='menu#portfolio', data-link='portfolio')
+                li: a(data-lang='menu#projects', data-link='projects')
+                li: a(data-lang='menu#contacts', data-link='contacts')
+                #localizer
+                    a(data-locale='en') eng 
+                    span &nbsp;|&nbsp; 
+                    a(data-locale='it') ita
             #breadcrumber: h1 Eurekaa
-            #slider(data-page='eurekaa')
+            #slider

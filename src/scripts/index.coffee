@@ -29,7 +29,7 @@ require.config
       touchswipe: 'scripts/libs/jquery/jquery.touchswipe'
       scrollbar: 'scripts/libs/jquery/jquery.scrollbar'
       animate_css: 'scripts/libs/jquery/jquery.animatecss'
-      
+
       # utils libraries.
       underscore: 'scripts/libs/utility/underscore'
       async: 'scripts/libs/utility/async'
@@ -50,19 +50,19 @@ require.config
          '*': jquery: 'scripts/libs/jquery/jquery.private'
 
 require.onError = (required_type, required_modules)->
-   console.error required_type
-   console.error required_modules
+   throw new Error required_modules
+
 
 # define main AMD module.
 define [
    'dom_ready'
    'jquery_ui'
    'jarvix'
-   'scripts/menu'
+   'scrollbar'
    'scripts/widgets/localizer'
    'scripts/widgets/slider'
    'scripts/widgets/breadcrumber'
-   'scrollbar'
+   'scripts/widgets/menu'
 ], (dom_ready, $, jx)->
 
 
@@ -79,18 +79,20 @@ define [
    # wait for dom to be ready.
    dom_ready (dom)->
 
-      try
-         # create localizer.
-         localizer = $('#localizer').localizer(locale: 'it').data 'widgets-localizer'
+      try 
+
+         # create localizer
+         localizer = $('#localizer').localizer(locale:'it').data 'widgets-localizer' 
 
          #create breadcrumber.
          breadcrumber = $('#breadcrumber').breadcrumber().data 'widgets-breadcrumber'
 
-         # create slider.
-         slider = $('#slider').slider().data 'widgets-slider'  
+         # create slider and load home page.
+         slider = $('#slider').slider().data 'widgets-slider'
+         slider.slide 'eurekaa', ->
 
          # create menu.
-         $('nav').menu 
+         $('#menu').menu 
             localizer: localizer
             breadcrumber: breadcrumber
             slider: slider
@@ -100,13 +102,9 @@ define [
          $('#layout').scrollbar()
 
          # resize scrollbar when window is resized.
-         $(window).on 'resize', -> $('#layout').css height: $(window).height() + 'px'
+         $(window).on 'resize', -> $('#layout').css height: $(window).height() + 'px' 
 
-         # load pages.         
-         $('#slider').filter('[data-page]').each (i, item)->
-            item = $(item)
-            page = item.attr 'data-page'
-            require ['text!pages/' + page + '.html!strip'], (page)->
-               localizer.localize $(page), (err, page)-> item.html page
 
-      catch err then console.error err
+      catch err
+         console.error err
+         console.error err.stack

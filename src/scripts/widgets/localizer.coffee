@@ -23,11 +23,57 @@
    documents the function and classes that are added to jQuery by this plug-in.
    @memberOf jQuery
 ###
-define ['jquery', 'jarvix'], ($, jx) ->
+define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
-      set_locale: (locale)-> sessionStorage.setItem('locale', locale)
+   # create widget.
+   self = undefined
+   $.widget 'widgets.localizer',
+
+
+      options: {
+         locale: 'en'
+         animate_out: 'fadeOut'
+         animate_in: 'fadeIn'
+      }
+
+
+      _create: ->
+
+         # preserve context.
+         self = @
+
+         # save initial locale in session.
+         self.set_locale self.options.locale
+
+         # set initial localizer link active.
+         self.element.find('[data-locale=' + self.options.locale + ']').addClass 'active'
+
+         # bind localizer click event.
+         self.element.find('[data-locale]').on 'click', ->
+            element = $(@)
+            # if active retunr.
+            if element.hasClass 'active' then return
+            
+            # save new locale
+            self.set_locale element.attr 'data-locale'
+
+            # toggle active class.
+            self.element.find('[data-locale]').removeClass 'active'
+            element.addClass 'active'
+
+
       get_locale: ()-> sessionStorage.getItem('locale')
+
+
+      set_locale: (locale)->
+
+         # save new locale in session.
+         sessionStorage.setItem('locale', locale)
+
+         # trigger localize event (must be handled outside)
+         $(window).trigger 'localize'
+
 
 
       ###*
@@ -49,11 +95,13 @@ define ['jquery', 'jarvix'], ($, jx) ->
       ###
       localize: (element, locale, callback)->
 
-         # locale argument is optional.
+         # locale is optional.
          if jx.utility.is_function locale then callback = locale; locale = undefined;
+         
+         # check arguments.
+         if not jx.utility.is_defined callback then throw new Error 'a callback function must be defined.'
 
          # check arguments.
-         if not jx.utility.is_function callback then throw 'localizer.localize: callback function must be defined.'
          if not element instanceof jQuery then callback 'element must be a jQuery object.'
 
          # preserve context.
@@ -61,24 +109,23 @@ define ['jquery', 'jarvix'], ($, jx) ->
 
          # find localizable elements and return if none is found.
          localizables = element.find '[data-lang]'
-         if localizables.length == 0 then localizables = element.filter '[data-lang]'  
-         if localizables.length == 0 then return callback  null, element
+         if localizables.length == 0 then localizables = element.filter '[data-lang]'
+         if localizables.length == 0 then return callback null, element
 
          # find each tag with data-lang attribute and localize it.
          jx.async.each localizables, (node, next)->
-            node = $ node
+            node = $(node)
 
-            # find node label file and property.
+            # require appropriate lang file and use label to change tag content with animation.
             lang_file = node.attr 'data-lang'
             lang_file = lang_file.split '#'
             lang_key = lang_file[1]
             lang_file = lang_file[0].replace '.js', ''
-
-            # require appropriate lang file and use label to change tag content.
             locale = locale || self.get_locale()
             require ['langs/' + locale + '/' + lang_file], (lang_file)->
+               node.fadeOut()
                node.html lang_file[lang_key]
+               node.fadeIn()
                next()
 
-         ,(err)-> 
-            if err then callback err else callback null, element
+         , (err)-> if err then callback err else callback null, element

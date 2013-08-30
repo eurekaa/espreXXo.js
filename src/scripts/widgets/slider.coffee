@@ -17,35 +17,35 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
       options: {
-         localizer: undefined
+         animate_out: 'bounceOutLeft'
+         animate_in: 'bounceInRight'
       }
 
 
-      _init: ->
+      _create: ->
+         # preserve context.
          self = @
+
+         # add container to make overflow hidden.
+         container = $('<div/>')
+            .addClass('container')
+            .html(self.element.html())
+            .css width: self.element.css 'width', overflow: 'hidden'
+         self.element.empty().append container
+         self.element = container
+
+
+      slide: (page, animate_out, animate_in, callback)->
          
-         # hack: find localizer inside $.widgets registry and try to create a new instance.
-         # this is not a good practice but allows me to use another plugin without passing it plugin by plugin.
-         # note: the localizer.options.lang will be always the default, so localizer must use sessionStorage to
-         # save current language instead of its internal options object.
-         # this technique works because localizer can be used as a static class.
-         if not jx.utility.is_defined self.options.localizer and jx.utility.is_defined $.widgets.localizer
-            self.options.localizer = new $.widgets.localizer()
+         # animate_out, animate_in are optional
+         if jx.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
+         if jx.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
          
+         # check arguments.
+         if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
 
-
-      load: (page, animate_in, animate_out)->
-
-         animate = (page)->
-            self.element.animate_css animate_in, ()->
-               self.element.html page
-               self.element.animate_css animate_out
-
-         if jx.utility.is_string page            
-            require ['text!pages/' + page.replace('.html', '') + '.html!strip'], (page)->
-               if jx.utility.is_defined self.options.localizer
-                  self.options.localizer.localize $(page), (err, page)->
-                     if err then throw err
-                     else animate $(page)
-               else animate $(page)
-         else animate $(page)
+         # animate sliding transition.
+         self.element.animate_css animate_out, ->
+            self.element.html page
+            self.element.animate_css animate_in, ->
+               callback null, page
