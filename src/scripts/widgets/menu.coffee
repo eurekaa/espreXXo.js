@@ -7,16 +7,13 @@
 # File Name: test
 # Created: 08/08/13 20.59
 
-'use continuum'
-
 
 define [
    'jquery_ui'
    'jarvix'
-   'text!pages/menu.html!strip'
    'animate_css'
-], ($, jx, template) ->
-   
+], ($, jx) ->
+
 
    # load stylesheets.
    jx.load.stylesheets ['styles/menu.css']
@@ -28,7 +25,6 @@ define [
 
 
       options:
-         localizer: undefined
          breadcrumber: undefined
          slider: undefined
 
@@ -37,40 +33,40 @@ define [
          # preserve context.
          self = @
 
+         # check arguments.
+         if not jx.utility.is_defined self.options.slider then throw 'menu._init: slider must be defined.'
+
          # add class to container.
          self.element.addClass 'menu'
 
-         # localize template and insert into widget container.
-         self.options.localizer.localize $(template), (err, template)-> 
-            if err then throw err
-            self.element.html template
+         # localize menu.
+         self.element.find('a[data-lang]').each (i, item)->
+            item = $(item)
+            localizer.localize item, (err, localized)-> 
+               if err then throw err
+               item.html(localized.html())
 
-
-      _init: ()->
-
-         # check arguments.
-         if not jx.utility.is_defined self.options.localizer then throw 'menu._create: localizer must be defined.'
-         if not jx.utility.is_defined self.options.slider then throw 'menu._create: slider must be defined.'
-
-         # bind click events.
-         self.element.find('ul li a').on 'click', self._load_page
+         self._animate()
+         
+         # bind click events.            
+         self.element.find('a[data-link]').on 'click', self._load_page
 
          # bind locale changer.
-         self.options.localizer._on 'localize_begin', self._animate
+         $(window).on 'localize', self._animate
 
 
       _animate: ()->
-         $(self.element).filter('li').each (i, item)-> item.animate_css 'bounceInDown', ( 100 * ++i )
+         $(self.element).find('li').each (i, item)-> $(item).animate_css 'bounceInDown', ( 100 * ++i )
 
 
       _load_page: ()->
 
          # require page, localize it and append to container.
          element = $(@)
-         page = element.attr 'data-link' 
+         page = element.attr 'data-link'
 
          # slide in new page
-         self.options.slider.load page, 'bounceOutRight', 'bounceInLeft'
+         self.options.slider.slide page
 
          # change menu status.
          self.element.find('li').each (i, item)-> $(item).removeClass 'active'

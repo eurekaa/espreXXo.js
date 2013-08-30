@@ -23,26 +23,7 @@
    documents the function and classes that are added to jQuery by this plug-in.
    @memberOf jQuery
 ###
-define ['jquery_ui', 'jarvix'], ($, jx) ->
-
-   # load stylesheets.
-   #jx.load.stylesheets ['styles/menu.css']
-
-
-   # create widget.
-   self = null
-   $.widget 'widgets.localizer',
-
-
-      options:
-         locale: 'it'
-
-      _create: -> 
-         self = @
-
-      _init: ->
-         # setup default locale
-         self.set_locale self.options.locale
+define ['jquery', 'jarvix'], ($, jx) ->
 
 
       set_locale: (locale)-> sessionStorage.setItem('locale', locale)
@@ -75,11 +56,12 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
          if not jx.utility.is_function callback then throw 'localizer.localize: callback function must be defined.'
          if not element instanceof jQuery then callback 'element must be a jQuery object.'
 
-         # trigger before_localize
-         self._trigger 'localize_begin'
+         # preserve context.
+         self = @
 
          # find localizable elements and return if none is found.
-         localizables = $(element).filter '[data-lang]' 
+         localizables = element.find '[data-lang]'
+         if localizables.length == 0 then localizables = element.filter '[data-lang]'  
          if localizables.length == 0 then return callback  null, element
 
          # find each tag with data-lang attribute and localize it.
@@ -99,9 +81,4 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
                next()
 
          ,(err)-> 
-            if err then callback err 
-            else
-               self._trigger 'localize_complete'
-               callback null, element
-
-      pippo: -> alert 'pippo'  
+            if err then callback err else callback null, element
