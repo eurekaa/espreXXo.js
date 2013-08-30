@@ -34,7 +34,7 @@
 
                 // Event triggered when the animation has finished
                 $this.bind('animationend webkitAnimationEnd oAnimationEnd', function () {
-                
+
                     // Remove the classes so they can be added again later
                     $this.removeClass('animated ' + effect);
 
@@ -45,7 +45,7 @@
                         callback.call(this);
 
                         // Unbind the event handlers
-                        $this.unbind('animationend webkitAnimationEnd oAnimationEnd');
+                        //$this.unbind('animationend webkitAnimationEnd oAnimationEnd');
 
                     }
 
@@ -70,7 +70,7 @@
                     // Run the animation (with delay)
                     run();
 
-                // Specify the delay
+                    // Specify the delay
                 }, delay);
 
             }
