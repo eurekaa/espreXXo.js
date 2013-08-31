@@ -13,7 +13,6 @@ define ['jquery_ui', 'jarvix'], ($, jx)->
    
       _create: -> 
          $('.accordion').accordion()
-         alert 'accordion'
          
-      _destroy: -> 
+      _destroy: ->
          
