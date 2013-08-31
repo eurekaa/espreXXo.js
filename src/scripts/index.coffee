@@ -68,7 +68,7 @@ define [
 
    # load stylesheets.
    jx.load.stylesheets [
-      'styles/libs/jquery/themes/dark_hive/jquery-ui-1.10.3.custom.css'
+      'styles/libs/jquery/themes/eurekaa/jquery-ui-1.10.3.custom.css'
       'styles/libs/jquery/scrollbar/jquery.scrollbar.css'
       'styles/libs/animate.css'
       'styles/eurekaa.css'
