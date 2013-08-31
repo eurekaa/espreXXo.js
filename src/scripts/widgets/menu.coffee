@@ -9,10 +9,10 @@
 
 
 #@todo:  il menu sarà il centro di controllo del trio exp.menu, exp.lang_switcher, exp.container.
-#@todo:  optional: exp.widgets.lang_switcher - selettore del tag di lancio. 
-#@todo:           (exp.modules.localizer sarà poi un modulo che usa sizzle.js per il parsing di DOMElements al posto di jquery)
-#@todo:           ogni istanza di menu si mette in ascolto sul selettore del lang_switcher.
-#@todo:  optional: exp.widgets.container - il selettore del 
+#@todo:  require: exp.widgets.lang_switcher - selettore del tag di lancio. 
+#@todo:     (exp.modules.localizer sarà poi un modulo che usa sizzle.js per il parsing di DOMElements al posto di jquery)
+#@todo:     ogni istanza di menu si mette in ascolto sul selettore del lang_switcher.
+#@todo:  require: exo.widgets.container
 #todo:       
 define [
    'jquery_ui'
