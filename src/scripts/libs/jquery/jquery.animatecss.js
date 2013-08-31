@@ -32,17 +32,21 @@
 
                 }
 
-                // Event triggered when the animation has finished
+                // Event triggered when the animation has finished                
+                var callbacked = false;
                 $this.bind('animationend webkitAnimationEnd oAnimationEnd', function () {
 
                     // Remove the classes so they can be added again later
                     $this.removeClass('animated ' + effect);
 
-                    // Add a callback event
+                    // Add a callback event                                         
                     if (typeof callback == 'function') {
 
                         // Execute the callback
-                        callback.call(this);
+                        if (callbacked === false){
+                            callback.call(this);
+                            callbacked = true;                  
+                        }
 
                         // Unbind the event handlers
                         //$this.unbind('animationend webkitAnimationEnd oAnimationEnd');
