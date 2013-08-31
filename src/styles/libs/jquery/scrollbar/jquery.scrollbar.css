@@ -17,6 +17,7 @@
 	height:100%;
 	top:0;
 	right:0;
+    z-index: 1000;
 }
 .mCSB_scrollTools .mCSB_draggerContainer{
 	position:absolute;
