@@ -36,16 +36,27 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
       slide: (page, animate_out, animate_in, callback)->
+         try
+            
+            # animate_out, animate_in are optional.
+            if jx.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
+            if jx.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
+            
+            # check arguments.
+            if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
+   
+            
+            # animate transition.
+            callbacked = false
+            self.element.animate_css animate_out, ->
+               self.element.html page
+               
+               # invoke callback function once.
+               if not callbacked
+                  callback null, page
+                  callbacked = true
+               
+               # animate in transition.
+               self.element.animate_css animate_in
          
-         # animate_out, animate_in are optional
-         if jx.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
-         if jx.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
-         
-         # check arguments.
-         if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
-
-         # animate sliding transition.
-         self.element.animate_css animate_out, ->
-            self.element.html page
-            self.element.animate_css animate_in, ->
-               callback null, page
+         catch err then callback err  
