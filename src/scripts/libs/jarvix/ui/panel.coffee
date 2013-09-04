@@ -67,25 +67,39 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
             # check arguments.
             if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
    
-            jx.parser.destroy_widgets self.element, (err)-> 
-               if err then console.error err
-               if err then callback err
+            # destroy previous widgets and require new page.
+            jx.async.parallel 
+               destroy: (_)-> jx.parser.destroy_widgets self.element, (err)-> _(err)               
+               require: (_)-> require ['text!' + url + '!strip'], (content)-> _(null, content)
+            , (err, results)->
+                  if err then callback err
+                  content = $(results.require)
                   
-               require ['text!' + url + '!strip'], (content)->
-                  
-                  jx.localizer.localize $(content), (err, content)->
-                     if err then callback err
-
-                     self.slide content, (err, content)->
-                        if err then callback err
-
-                        jx.parser.create_widgets self.element, (err, content)->                  
-                           callback err, content
+                  # localize, visualize and run widgets on new page.
+                  jx.async.series
+                     animate_out: (_)-> self.animate animate_out, (err)-> self.element.css visible: 'none';_(err)
+                     localize: (_)-> jx.localizer.localize content, (err)-> _(err)
+                     update: (_)-> self.element.html content; _(null)
+                     parse: (_)-> jx.parser.create_widgets self.element, (err)-> _(err)
+                     animate_in: (_)-> self.animate animate_in, (err)-> _ err
+                  , (err) -> callback err
                
          catch err then callback err
+
+
+      animate: (animation, callback)->
+         self = @
+         try
+
+            # slide animation invoke callback function once.
+            callbacked = false
+            self.element.animate_css animation, ->
+               if not callbacked then callback null; callbacked = true
+         
+         catch err then callback err
             
-                  
-      slide: (content, animate_out, animate_in, callback)->
+
+      change: (content, animate_out, animate_in, callback)->
          self = @
          content = $(content)
          try
