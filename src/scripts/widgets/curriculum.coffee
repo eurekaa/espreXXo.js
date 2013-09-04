@@ -9,10 +9,12 @@
 
 define ['jquery_ui', 'jarvix'], ($, jx)->
    
-   $.widget 'widgets.curriculum',
+   $.widget 'ui.curriculum',
    
-      _create: -> 
+      _create: ->
+         console.log 'curriculum ready'
          $('.accordion').accordion()
          
-      _destroy: ->
          
+      _destroy: ->
+         $('.accordion').accordion 'destroy'

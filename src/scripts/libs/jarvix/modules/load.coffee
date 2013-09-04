@@ -7,7 +7,7 @@
 # File Name: load
 # Created: 22/08/13 17.28
 
-define ['scripts/libs/jarvix/utility'], (utility)->
+define ['scripts/libs/jarvix/modules/utility'], (utility)->
 
    stylesheets: (urls)->
       if not utility.is_array urls then urls = new Array(urls)

@@ -12,11 +12,16 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
    # create widget.
-   self = undefined
-   $.widget 'widgets.breadcrumber',
+   $.widget 'ui.breadcrumber',
 
 
-      options: {}
+      options: 
+         ready: false
 
+      _create: -> @.main @.element, @.options
 
-      _create: ->
+      main: (element, options)->
+         
+         # trigger ready event.
+         options.ready = true 
+         element.trigger 'ready'

@@ -43,14 +43,4 @@ define ['underscore'], (u)->
    to_lower: (string)-> string.toLowerCase()
    to_capitalized: (string)-> @.to_upper(string.charAt 0) + @.to_lower(string.slice 1)
 
-   ###*
-      @summary reapeat a string several times.
-      @param {string} string - string to be repeated.
-      @param {number} [times=1] - number of times the string has to be repeated.
-      @returns {string} string - the string repeated.
-      @example
-      .repeat('a', 5); => 'aaaaa'
-   *###
-   repeat: (string, times)->
-      times = 1 if @.is_undefined times or times < 1
-      new Array(times + 1).join string
+

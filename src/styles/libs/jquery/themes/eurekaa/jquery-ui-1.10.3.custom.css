@@ -787,7 +787,7 @@ body .ui-tooltip {
 ----------------------------------*/
 .ui-widget {
 	font-family: klavika regular;
-	font-size: 0.9 em;
+	font-size: 0.9em;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -805,7 +805,7 @@ body .ui-tooltip {
 	color: #181310;
 }
 .ui-widget-content a {
-	color: # #181310;
+	color: #181310;
 }
 .ui-widget-header {
 	border: 1px solid #181310;

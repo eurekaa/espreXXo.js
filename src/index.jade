@@ -15,21 +15,45 @@ html
         script(src='require.js', data-main='scripts/index')
     body
         #layout
-            #header
+            
+            header#header 
                 img#logo_rubik(src='media/images/logo_rubik.png')
                 img#logo_eurekaa(src='media/images/logo_eurekaa.png')
-            #stripe
-                img#keyboard(src='media/images/keyboard.png')
-            #menu: ul
-                li.active: a(data-lang='menu#eurekaa', data-link='eurekaa')
-                li: a(data-lang='menu#services', data-link='services')
-                li: a(data-lang='menu#curriculum', data-link='curriculum', data-widget='curriculum')
-                li: a(data-lang='menu#portfolio', data-link='portfolio')
-                li: a(data-lang='menu#projects', data-link='projects')
-                li: a(data-lang='menu#contacts', data-link='contacts')
-                #localizer
-                    a(data-locale='en') eng 
-                    span &nbsp;|&nbsp; 
-                    a(data-locale='it') ita
-            #breadcrumber: h1 Eurekaa
-            #slider
+            #stripe: img#keyboard(src='media/images/keyboard.png')
+            
+            nav#menu(
+                class='menu',
+                data-widget='jarvix://ui/menu',
+                data-options-uri= 'store://schemas/menu'
+                data-options-url= 'store://apps/menu'
+                data-options-widgets-langswitcher='#langswitcher',
+                data-options-widgets-breadcrumber='#breadcrumber',
+                data-options-widgets-panel='#panel'
+                list='menu-list'
+            ): datalist#menu-list
+                option.active(label='i18n://menu#eurekaa', value='page://eurekaa.html')
+                option(label='i18n://menu#services', value='page://services.html')
+                option(label='i18n://menu#curriculum', value='page://curriculum.html')
+                option(label='i18n://menu#portfolio', value='page://portfolio.html')
+                option(label='i18n://menu#projects', value='page://projects.html')
+                option(label='i18n://menu#contacts', value='page://contacts.html')
+            
+            nav#langswitcher(
+                data-widget='jarvix://ui/langswitcher'
+                list='langswitcher-list'
+            ): datalist#langswitcher-list 
+                option.active(data-lang='en-gb') eng
+                option(data-lang='it-it') ita
+            
+            nav#breadcrumber( 
+                data-widget='jarvix://ui/breadcrumber' 
+                list='breadcrumber-list'
+            ): datalist#breadcrumber-list
+                option(label='') xxx //(data-label='menu#eurekaa')
+            
+            article#panel( 
+                data-widget='jarvix://ui/panel?scrollbar=true' 
+                data-options-scrollbars='true'
+                list='panel-list'
+            ): datalist#panel-list
+                option(data-url='page://eurekaa.html')
