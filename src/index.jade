@@ -12,9 +12,10 @@ html
     head
         title eurekaa.it
         meta(name='viewport', content='width=device-width', initial-scale='1.0')
-        script(src='require.js', data-main='scripts/index')
-    body
-        #layout
+        script(src='require.js', data-main='bootstrap')
+    
+    body(data-widget='scripts/index')
+        #layout(data-widget='qX://_scrollbar')
             
             header#header 
                 img#logo_rubik(src='media/images/logo_rubik.png')

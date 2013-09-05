@@ -73,10 +73,11 @@ define ['jquery'
       try
       
          # find all tags which defines a widget to be rendered.
-         widgets = element.find '[data-widget]'
+         widgets = element.parent().find '[data-widget]'
+         #if widgets.length == 0 then widgets = element.find '[data-widget]'
          
          # if not widgets to be run return without parsing.
-         if widgets.length == 0 then return callback null, element
+         if widgets.length == 0 then return callback null, element         
          
          # render asynchronously each widget founded (they will manage dependencies by their own).
          async.each widgets, (node, next)->
@@ -105,10 +106,11 @@ define ['jquery'
             options.class = node.attr 'class'
             
             # require and create widget.
+            console.log widget_path + '/' + widget_name
             require [widget_path + '/' + widget_name], -> 
                try
                   eval 'node.' + widget_name + '(options)'
-                  callback null, element
+                  next null, element
                catch err then next err
          
          ,(err)-> callback err, element
