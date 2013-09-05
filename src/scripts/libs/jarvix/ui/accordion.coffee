@@ -9,13 +9,12 @@
 
 define ['jquery_ui'], ($)->
    
-   $.widget 'ui.accordion',
+   $.widget 'ui.qXaccordion',
       
       options: 
          ready: false
       
-      _create: ->
-         @.element.accordion()
-         console.log @.element
+      _init: ->
+         $('.accordion').accordion()
          @.options.ready = true
          @.element.trigger 'ready'

@@ -7,16 +7,19 @@
 # File Name: localizer
 # Created: 03/09/13 11.34
 
-define ['jquery', 'async', 'scripts/libs/jarvix/modules/utility'], ($, async, utility)->
+define ['jquery', 'async',
+        'scripts/libs/jarvix/modules/service'
+        'scripts/libs/jarvix/modules/utility'
+], ($, async, service, utility)->
 
 
-   get_locale: ()-> sessionStorage.getItem('locale')
+   get_locale: ()-> sessionStorage.getItem 'locale'
 
 
    set_locale: (locale)->
       # save new locale in session.
-      sessionStorage.setItem('locale', locale)
-
+      sessionStorage.setItem 'locale', locale
+      
       # trigger localize event (must be handled by widgets)
       $(window).trigger 'localize'
 
@@ -39,6 +42,7 @@ define ['jquery', 'async', 'scripts/libs/jarvix/modules/utility'], ($, async, ut
       .localize($('div.english'), 'en', function(){...}); // useful to localize different parts with differen locales.
    ###
    localize: (element, locale, callback)->
+      self = @
 
       # locale is optional.
       if utility.is_function locale then callback = locale; locale = undefined;
@@ -49,27 +53,24 @@ define ['jquery', 'async', 'scripts/libs/jarvix/modules/utility'], ($, async, ut
       # check arguments.
       if not element instanceof jQuery then callback 'element must be a jQuery object.'
 
-      # preserve context.
-      self = @
-
       # find localizable elements and return if none is found.
-      localizables = element.find '[data-lang]'
-      if localizables.length == 0 then localizables = element.filter '[data-lang]'
+      localizables = element.find '[data-label], [label]'
+      if localizables.length == 0 then localizables = element.filter '[data-label], [label]' 
       if localizables.length == 0 then return callback null, element
 
       # find each tag with data-lang attribute and localize it.
       async.each localizables, (node, next)->
          node = $(node)
-
-         # require appropriate lang file and use label to change tag content with animation.
-         lang_file = node.attr('data-lang').replace 'i18n://', ''
-         lang_file = lang_file.split '#'
-         lang_key = lang_file[1]
-         lang_file = lang_file[0].replace '.js', ''
-         locale = locale || self.get_locale()
-         require ['langs/' + locale + '/' + lang_file], (lang_file)->
+         label = node.attr 'data-label' 
+         label = label || node.attr 'label' 
+         
+         # call translations service.
+         service.i18n label, (err, text)->
+            if err then next err
+            
+            # change tag value.
             node.fadeOut()
-            node.html lang_file[lang_key]
+            node.html text
             node.fadeIn()
             next()
 

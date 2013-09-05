@@ -23,14 +23,10 @@ html
             
             nav#menu(
                 class='menu',
-                data-widget='jarvix://ui/menu',
-                data-options-uri= 'store://schemas/menu'
-                data-options-url= 'store://apps/menu'
-                data-options-widgets-langswitcher='#langswitcher',
-                data-options-widgets-breadcrumber='#breadcrumber',
-                data-options-widgets-panel='#panel'
-                list='menu-list'
-            ): datalist#menu-list
+                data-widget='qX://menu',
+                data-options-qX-breadcrumber='#breadcrumber',
+                data-options-qX-panel='#panel'
+            ): datalist
                 option.active(label='i18n://menu#eurekaa', value='page://eurekaa.html')
                 option(label='i18n://menu#services', value='page://services.html')
                 option(label='i18n://menu#curriculum', value='page://curriculum.html')
@@ -39,21 +35,20 @@ html
                 option(label='i18n://menu#contacts', value='page://contacts.html')
             
             nav#langswitcher(
-                data-widget='jarvix://ui/langswitcher'
-                list='langswitcher-list'
-            ): datalist#langswitcher-list 
-                option.active(data-lang='en-gb') eng
-                option(data-lang='it-it') ita
+                data-widget='qX://langswitcher'
+            ): datalist
+                option.active(label='eng', value='en-gb')
+                option(label='ita', value='it-it')
             
             nav#breadcrumber( 
-                data-widget='jarvix://ui/breadcrumber' 
+                data-widget='qX://breadcrumber' 
                 list='breadcrumber-list'
             ): datalist#breadcrumber-list
-                option(label='') xxx //(data-label='menu#eurekaa')
+                option(label='') 
             
             article#panel( 
-                data-widget='jarvix://ui/panel?scrollbar=true' 
+                data-widget='qX://panel' 
                 data-options-scrollbars='true'
                 list='panel-list'
             ): datalist#panel-list
-                option(data-url='page://eurekaa.html')
+                option(label='', value='page://eurekaa.html')

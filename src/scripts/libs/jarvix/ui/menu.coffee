@@ -18,28 +18,25 @@ define [
    'jquery_ui'
    'jarvix'
    'animate_css'
-], ($, jx) ->
+], ($, jX) ->
 
    # load stylesheets.
-   jx.load.stylesheets ['styles/menu.css']
+   jX.load.stylesheets ['styles/menu.css']
 
    # create widget.
-   $.widget 'ui.menu',
+   $.widget 'qX.menu',
 
       options:
          ready: false
-         class: 'menu' 
-         widgets:
+         class: 'menu'
+         qX:
             breadcrumber: undefined
-            panel: undefined,
-         list: undefined
-
-
+            panel: undefined, 
+         list: null
+      
+      
       _create: ->
          self = @
-         
-         # register widget in the dom
-         self.element.attr 'data-widget', 'jarvix://ui/menu'
          
          # wait for all widgets to be ready.
          self._wait_widgets ->
@@ -52,8 +49,8 @@ define [
       _wait_widgets: (callback)->
          self = @
          element = self.element
-         options = self.options
-         widgets = jx.object.keys options.widgets
+         qX = self.options.qX
+         widgets = jX.object.keys qX
          loaded = 0
          counted = widgets.length
          
@@ -65,7 +62,7 @@ define [
             loaded++
             
             # when a widget is loaded store its api in options.widgets property.
-            options.widgets[name] = $(options.widgets[name]).data('ui-' + name)
+            qX[name] = $(qX[name]).data 'qX-' + name
             
             # if all widgets are loaded, callback.
             if counted == loaded
@@ -73,11 +70,11 @@ define [
                callback()
          
          # handle widgets loading.
-         jx.list.each widgets, (name, i)->
-            widget = $(options.widgets[name])
+         jX.list.each widgets, (name, i)->
+            widget = $(qX[name])
             
             # widget is already.   
-            if widget.data 'ui-' + name then element.trigger 'waiting', name
+            if widget.data 'qX-' + name then element.trigger 'waiting', name
 
             # wait for widget ready.
             else widget.on 'ready', ->
@@ -87,11 +84,12 @@ define [
 
 
       main: (element, options)->
+         self = @
+         qX = self.options.qX
          try
-            self = @
             
             # check arguments.
-            if not jx.utility.is_defined options.widgets.panel then throw 'panel must be defined.'
+            if not jX.utility.is_defined qX.panel then throw 'qX.panel must be defined.'
             
             # add class to container.
             element.addClass options.class
@@ -99,9 +97,9 @@ define [
             # render menu
             datalist = element.find 'datalist option'
             html = '<ul>'
-            jx.list.each element.find('datalist option'), (option, i)->
+            jX.list.each element.find('datalist option'), (option, i)->
                html += '<li class="' + (option.className || '')  + '">'
-               html += '<a data-lang="' + option.label + '" data-link="' + option.value + '"></a>'
+               html += '<a data-label="' + option.label + '" data-link="' + option.value + '"></a>'
                html += '</li>'
             html += '</ul>'
             self.element.html html
@@ -129,20 +127,20 @@ define [
          self.element.find('li').each (i, item)->
             item = $(item)
             item.animate_css 'bounceInDown', (100 * ++i)
-            jx.localizer.localize item, (err, item)->
+            jX.localizer.localize item, (err, item)->
 
 
       load_url: (event)->
          self = @
+         qX = self.options.qX
          element = $(event.target)
-         panel = self.options.widgets.panel
          
          # if active return.
          if element.parent().hasClass 'active' then return
          
          # load new page.
          page = element.attr('data-link').replace('page://', 'pages/')
-         panel.load page, (err)->
+         qX.panel.load page, (err)->
             if err then console.error err
 
          # change menu status.
@@ -151,7 +149,7 @@ define [
          
          # change breadcrumb.
          #if self.options.breadcrumber
-         #self.options.breadcrumber.reset(jx.utility.to_capitalized(element.html()))
+         #self.options.breadcrumber.reset(jX.utility.to_capitalized(element.html()))
 
 
       _destroy: ->

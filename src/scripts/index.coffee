@@ -51,10 +51,11 @@ require.config
          jquery: 'jquery'
          '*': jquery: 'scripts/libs/jquery/jquery.private'
 
+###
 require.onError = (required_type, required_modules)->
    console.error required_type
    console.error required_modules   
-
+###
 
 # define main AMD module.
 define [
@@ -83,7 +84,9 @@ define [
    # wait for dom to be ready.
    dom_ready (dom)->
       try
+         jx.localizer.set_locale 'it'
          jx.parser.create_widgets $('body'), (err)-> if err then throw err
+         
          
          ###
          # create localizer

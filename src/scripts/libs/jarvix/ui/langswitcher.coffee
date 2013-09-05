@@ -27,7 +27,7 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
    # create widget.
-   $.widget 'ui.langswitcher',
+   $.widget 'qX.langswitcher',
 
 
       options:

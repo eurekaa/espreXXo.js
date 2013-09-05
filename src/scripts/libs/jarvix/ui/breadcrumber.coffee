@@ -12,7 +12,7 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
 
 
    # create widget.
-   $.widget 'ui.breadcrumber',
+   $.widget 'qX.breadcrumber',
 
 
       options: 

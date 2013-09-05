@@ -8,11 +8,11 @@
 # Created: 08/08/13 20.59
 
 
-define ['jquery_ui', 'jarvix'], ($, jx) ->
+define ['jquery_ui', 'jarvix'], ($, jX) ->
 
 
    # create widget.
-   $.widget 'ui.panel',
+   $.widget 'qX.panel',
 
 
       options: 
@@ -48,42 +48,35 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
          element = self.element
 
          # localize page
-         jx.localizer.localize element, (err, element)->
+         jX.localizer.localize element, (err, element)->
             if err then throw err
 
             # slide in page.
-            self.slide element, 'bounceOutDown', 'bounceInDown', (err, element)->
+            self.change element, 'bounceOutDown', 'bounceInDown', (err, element)->
                if err then throw err
 
 
       load: (url, animate_out, animate_in, callback)->
-         console.log url
          self = @
          try
             # animate_out, animate_in are optional.
-            if jx.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
-            if jx.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
+            if jX.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
+            if jX.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
    
             # check arguments.
-            if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
+            if jX.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
    
-            # destroy previous widgets and require new page.
-            jx.async.parallel 
-               destroy: (_)-> jx.parser.destroy_widgets self.element, (err)-> _(err)               
-               require: (_)-> require ['text!' + url + '!strip'], (content)-> _(null, content)
-            , (err, results)->
-                  if err then callback err
-                  content = $(results.require)
-                  
-                  # localize, visualize and run widgets on new page.
-                  jx.async.series
-                     animate_out: (_)-> self.animate animate_out, (err)-> self.element.css visible: 'none';_(err)
-                     localize: (_)-> jx.localizer.localize content, (err)-> _(err)
-                     update: (_)-> self.element.html content; _(null)
-                     parse: (_)-> jx.parser.create_widgets self.element, (err)-> _(err)
-                     animate_in: (_)-> self.animate animate_in, (err)-> _ err
-                  , (err) -> callback err
-               
+            # localize, visualize and run widgets on new page.
+            content = null
+            jX.async.series
+               animate_out: (_)-> self.animate animate_out, (err)-> self.element.css visibility: 'hidden'; _(err)
+               require: (_)-> require ['text!' + url + '!strip'], (file)-> content = $(file); _(null, content)
+               localize: (_)-> jX.localizer.localize content, (err)-> _(err)
+               destroy: (_)-> jX.parser.destroy_widgets self.element, (err)-> _(err)
+               parse: (_)-> self.element.html content; jX.parser.create_widgets self.element, (err)-> _(err)
+               animate_in: (_)-> self.animate animate_in, (err)-> _(err)
+            , (err) -> callback err
+         
          catch err then callback err
 
 
@@ -105,15 +98,15 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
          try
             
             # animate_out, animate_in are optional.
-            if jx.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
-            if jx.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
+            if jX.utility.is_function animate_out then callback = animate_out; animate_in = self.options.animate_in; animate_out = self.options.animate_out;
+            if jX.utility.is_function animate_in then callback = animate_in; animate_in = self.options.animate_in;
             
             # check arguments.
-            if jx.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
+            if jX.utility.is_undefined callback then throw new Error 'a callback function must be defined.'
    
             # animate transition.
             callbacked = false
-            self.element.animate_css animate_out, ->
+            self.animate animate_out, ->
                self.element.html content
                
                # invoke callback function once.
@@ -122,6 +115,6 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
                   callbacked = true
                
                # animate in transition.
-               self.element.animate_css animate_in
+               self.animate animate_in
          
          catch err then callback err  
