@@ -9,7 +9,7 @@
 
 define ['jquery_ui'], ($)->
    
-   $.widget 'qX.-accordion',
+   $.widget 'qX.qX_accordion',
       
       options: 
          ready: false

@@ -17,19 +17,20 @@
 define [
    'jquery_ui'
    'jarvix'
+   'quadrix'
    'animate_css'
-], ($, jX) ->
+], ($, jX, qX) ->
 
    # load stylesheets.
    jX.load.stylesheets ['styles/menu.css']
 
    # create widget.
-   $.widget 'qX.menu',
+   $.widget 'qX.qX_menu',
 
       options:
          ready: false
          class: 'menu'
-         qX:
+         widgets:
             breadcrumber: undefined
             panel: undefined, 
          list: null
@@ -37,7 +38,7 @@ define [
       
       _create: ->
          self = @
-         
+
          # wait for all widgets to be ready.
          self._wait_widgets ->
             
@@ -49,10 +50,10 @@ define [
       _wait_widgets: (callback)->
          self = @
          element = self.element
-         qX = self.options.qX
-         widgets = jX.object.keys qX
+         widgets = self.options.widgets
+         widgets_names = jX.object.keys widgets
          loaded = 0
-         counted = widgets.length
+         counted = widgets_names.length
          
          # if no widget dependencies then start the plugin directly.
          if counted == 0 then return callback()
@@ -62,7 +63,7 @@ define [
             loaded++
             
             # when a widget is loaded store its api in options.widgets property.
-            qX[name] = $(qX[name]).data 'qX-' + name
+            widgets[name] = $(widgets[name]).data 'qX-qX_' + name
             
             # if all widgets are loaded, callback.
             if counted == loaded
@@ -70,11 +71,12 @@ define [
                callback()
          
          # handle widgets loading.
-         jX.list.each widgets, (name, i)->
-            widget = $(qX[name])
+         jX.list.each widgets_names, (name, i)->
+            widget = $(widgets[name])
             
             # widget is already.   
-            if widget.data 'qX-' + name then element.trigger 'waiting', name
+            if widget and widget.data 'qX-qX_' + name
+               element.trigger 'waiting', name
 
             # wait for widget ready.
             else widget.on 'ready', ->
@@ -85,11 +87,11 @@ define [
 
       main: (element, options)->
          self = @
-         qX = self.options.qX
+         widgets = self.options.widgets
          try
             
             # check arguments.
-            if not jX.utility.is_defined qX.panel then throw 'qX.panel must be defined.'
+            if not jX.utility.is_defined widgets.panel then throw 'qX.panel must be defined.'
             
             # add class to container.
             element.addClass options.class
@@ -103,6 +105,7 @@ define [
                html += '</li>'
             html += '</ul>'
             self.element.html html
+            
             
             # init menu
             self.localize()
@@ -127,12 +130,12 @@ define [
          self.element.find('li').each (i, item)->
             item = $(item)
             item.animate_css 'bounceInDown', (100 * ++i)
-            jX.localizer.localize item, (err, item)->
+            qX.localizer.localize item, (err, item)->
 
 
       load_url: (event)->
          self = @
-         qX = self.options.qX
+         widgets = self.options.widgets
          element = $(event.target)
          
          # if active return.
@@ -140,7 +143,7 @@ define [
          
          # load new page.
          page = element.attr('data-link').replace('page://', 'pages/')
-         qX.panel.load page, (err)->
+         widgets.panel.load page, (err)->
             if err then console.error err
 
          # change menu status.

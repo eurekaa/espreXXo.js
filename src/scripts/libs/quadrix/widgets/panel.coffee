@@ -8,11 +8,11 @@
 # Created: 08/08/13 20.59
 
 
-define ['jquery_ui', 'jarvix'], ($, jX) ->
+define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
 
 
    # create widget.
-   $.widget 'qX.panel',
+   $.widget 'qX.qX_panel',
 
 
       options: 
@@ -48,7 +48,7 @@ define ['jquery_ui', 'jarvix'], ($, jX) ->
          element = self.element
 
          # localize page
-         jX.localizer.localize element, (err, element)->
+         qX.localizer.localize element, (err, element)->
             if err then throw err
 
             # slide in page.
@@ -71,9 +71,9 @@ define ['jquery_ui', 'jarvix'], ($, jX) ->
             jX.async.series
                animate_out: (_)-> self.animate animate_out, (err)-> self.element.css visibility: 'hidden'; _(err)
                require: (_)-> require ['text!' + url + '!strip'], (file)-> content = $(file); _(null, content)
-               localize: (_)-> jX.localizer.localize content, (err)-> _(err)
-               destroy: (_)-> jX.parser.destroy_widgets self.element, (err)-> _(err)
-               parse: (_)-> self.element.html content; jX.parser.create_widgets self.element, (err)-> _(err)
+               localize: (_)-> qX.localizer.localize content, (err)-> _(err)
+               destroy: (_)-> qX.parser.unparse self.element, (err)-> _(err)
+               parse: (_)-> self.element.html content; qX.parser.parse self.element, (err)-> _(err)
                animate_in: (_)-> self.animate animate_in, (err)-> _(err)
             , (err) -> callback err
          

@@ -12,8 +12,9 @@
 define [
    'jquery_ui'
    'jarvix'
+   'quadrix'
    'scrollbar'
-], ($, jX)->
+], ($, jX, qX)->
 
    
    # load stylesheets.
@@ -23,11 +24,12 @@ define [
       'styles/fonts.css'
    ]
 
-   $.widget 'qX.index',
+   $.widget 'qX.qX_index',
       
-      _create: ->         
+      _create: ->
+         
          try
-
+           
          catch err
             console.error err
             console.error err.stack

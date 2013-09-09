@@ -23,11 +23,11 @@
    documents the function and classes that are added to jQuery by this plug-in.
    @memberOf jQuery
 ###
-define ['jquery_ui', 'jarvix'], ($, jx) ->
+define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
 
 
    # create widget.
-   $.widget 'qX.langswitcher',
+   $.widget 'qX.qX_langswitcher',
 
 
       options:
@@ -35,14 +35,17 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
          locale: 'en'
 
 
-      _create: -> @.main @.element, @.options 
+      _create: -> 
+         @.element.html 'langswitcher'
+         @.main @.element, @.options 
 
 
       main: (element, options)->
          self = @
 
          # save initial locale in session.
-         jx.localizer.set_locale options.locale
+         
+         qX.localizer.set_locale options.locale
 
          # set initial localizer link active.
          element.find('[data-locale=' + options.locale + ']').addClass 'active'
@@ -55,7 +58,7 @@ define ['jquery_ui', 'jarvix'], ($, jx) ->
             if link.hasClass 'active' then return
             
             # save new locale.
-            jx.localizer.set_locale link.attr 'data-locale'
+            qX.localizer.set_locale link.attr 'data-locale'
 
             # toggle active class.
             element.find('[data-locale]').removeClass 'active'

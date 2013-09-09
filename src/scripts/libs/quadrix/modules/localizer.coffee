@@ -7,10 +7,8 @@
 # File Name: localizer
 # Created: 03/09/13 11.34
 
-define ['jquery', 'async',
-        'scripts/libs/jarvix/modules/service'
-        'scripts/libs/jarvix/modules/utility'
-], ($, async, service, utility)->
+define ['jquery', 'jarvix'        
+], ($, jX)->
 
 
    get_locale: ()-> sessionStorage.getItem 'locale'
@@ -45,10 +43,10 @@ define ['jquery', 'async',
       self = @
 
       # locale is optional.
-      if utility.is_function locale then callback = locale; locale = undefined;
+      if jX.utility.is_function locale then callback = locale; locale = undefined;
 
       # check arguments.
-      if not utility.is_defined callback then throw new Error 'a callback function must be defined.'
+      if not jX.utility.is_defined callback then throw new Error 'a callback function must be defined.'
 
       # check arguments.
       if not element instanceof jQuery then callback 'element must be a jQuery object.'
@@ -59,13 +57,13 @@ define ['jquery', 'async',
       if localizables.length == 0 then return callback null, element
 
       # find each tag with data-lang attribute and localize it.
-      async.each localizables, (node, next)->
+      jX.async.each localizables, (node, next)->
          node = $(node)
          label = node.attr 'data-label' 
          label = label || node.attr 'label' 
          
          # call translations service.
-         service.i18n label, (err, text)->
+         jX.service.i18n label, (err, text)->
             if err then next err
             
             # change tag value.

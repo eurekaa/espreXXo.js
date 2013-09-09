@@ -7,13 +7,12 @@
 # File Name: parser
 # Created: 01/09/13 21.05
 
-define ['jquery' 
-        'async' 
-        'scripts/libs/jarvix/modules/list'
-        'scripts/libs/jarvix/modules/string'
-        'scripts/libs/jarvix/modules/service'
-        'scripts/libs/jarvix/modules/utility'
-], ($, async, list, string, service, utility)->
+define [
+   'config'
+   'jquery' 
+   'jarvix'
+   'quadrix'
+], (config, $, jX, qX)->
 
 
    # reads all attributes and return them in an tree nested object.
@@ -21,13 +20,13 @@ define ['jquery'
       attributes = {}
       
       # loop over all parts of the name (used as object key paths)
-      list.each element.context.attributes, (attribute, i)->
+      jX.list.each element.context.attributes, (attribute, i)->
          
          # preserve qX case. #@todo: preserve all cases!
          name = attribute.name.replace 'qx', 'qX'
          
          # scompose attribute name path.
-         list.each name.split('-'), (key, ii, keys)->
+         jX.list.each name.split('-'), (key, ii, keys)->
             
             # create nested object tree (separator is -)
             if ii != (keys.length - 1)
@@ -41,7 +40,7 @@ define ['jquery'
       return attributes
 
 
-   destroy_widgets: (element, callback)->
+   unparse: (element, callback)->
       element = $(element)
       try
          
@@ -52,11 +51,11 @@ define ['jquery'
          if widgets.length == 0 then return callback null, element
          
          # destroy each widget.
-         async.each widgets, (widget, next)->
+         jX.async.each widgets, (widget, next)->
             try               
                widget = $(widget)
                widget_name = widget.attr('data-widget').split('/')
-               widget = widget.data 'qX-' + widget_name.pop()
+               widget = widget.data 'qX-qX_' + widget_name.pop()
                if widget then widget.destroy()
             catch err then next err
          ,(err)-> callback err, element
@@ -67,7 +66,7 @@ define ['jquery'
       catch err then callback err, element
 
 
-   create_widgets: (element, callback)->
+   parse: (element, callback)->
       self = @
       element = $(element)
       try
@@ -80,19 +79,25 @@ define ['jquery'
          if widgets.length == 0 then return callback null, element         
          
          # render asynchronously each widget founded (they will manage dependencies by their own).
-         async.each widgets, (node, next)->
+         jX.async.each widgets, (node, next)->
             node = $(node)
             
             # get widget name and resolve jarvix path if present.
             widget = node.attr 'data-widget'
             widget = widget.split('?')
             parameters = widget[1]
-            widget = widget[0].replace('qX://', 'scripts/libs/jarvix/ui/').split('/')
+            widget = widget[0]
+            is_qX = (widget.indexOf('qX://') != -1 or widget.indexOf('qX.') != -1)
+            if is_qX == true
+               widget = widget.replace('qX://', config.require.paths.quadrix.replace 'index', 'widgets/')
+               widget = widget.replace('qX.', config.require.paths.quadrix.replace 'index', 'widgets/')
+            widget = widget.split('/')
             widget_name = widget.pop()
             widget_path = widget.join('/')
             
             # if widget is just ready jump to the next.
-            if node.data 'qX-' + widget_name then return next null 
+            if is_qX == true and node.data 'qX-qX_' + widget_name then return next null
+            else if node.data 'ui-' + widget_name then return next null            
             
             #@todo: parse options from query string
             parameters = parameters || {}
@@ -106,10 +111,15 @@ define ['jquery'
             options.class = node.attr 'class'
             
             # require and create widget.
-            console.log widget_path + '/' + widget_name
             require [widget_path + '/' + widget_name], -> 
                try
-                  eval 'node.' + widget_name + '(options)'
+                  # start widget.
+                  if is_qX == true
+                     node.qX widget_name, options, (api)->
+                  else 
+                     node[widget_name](options)
+                     
+                  # next one.                  
                   next null, element
                catch err then next err
          

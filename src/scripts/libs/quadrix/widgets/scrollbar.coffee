@@ -11,7 +11,7 @@ define ['jquery_ui', 'jarvix', 'scrollbar'], ($, jX)->
 
    jX.load.stylesheets ['styles/libs/jquery/scrollbar/jquery.scrollbar.css']
    
-   $.widget 'qX._scrollbar',
+   $.widget 'qX.qX_scrollbar',
       
       options: 
          ready: false
@@ -21,7 +21,6 @@ define ['jquery_ui', 'jarvix', 'scrollbar'], ($, jX)->
 
          # resize scrollbar when window is resized.
          $(window).on 'resize', (event)->
-            console.dir event
             #target = self.element.parents('[data-widget]')
             self.element.css height: $(window).height() + 'px'
 

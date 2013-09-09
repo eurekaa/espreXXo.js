@@ -15,7 +15,7 @@ html
         script(src='require.js', data-main='bootstrap')
     
     body(data-widget='scripts/index')
-        #layout(data-widget='qX://_scrollbar')
+        #layout(data-widget='qX://scrollbar')
             
             header#header 
                 img#logo_rubik(src='media/images/logo_rubik.png')
@@ -25,8 +25,8 @@ html
             nav#menu(
                 class='menu',
                 data-widget='qX://menu',
-                data-options-qX-breadcrumber='#breadcrumber',
-                data-options-qX-panel='#panel'
+                data-options-widgets-breadcrumber='#breadcrumber',
+                data-options-widgets-panel='#panel'
             ): datalist
                 option.active(label='i18n://menu#eurekaa', value='page://eurekaa.html')
                 option(label='i18n://menu#services', value='page://services.html')

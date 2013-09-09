@@ -11,20 +11,16 @@ define 'jarvix', [
    'async'
    'scripts/libs/jarvix/modules/load'
    'scripts/libs/jarvix/modules/list'
-   'scripts/libs/jarvix/modules/localizer'
    'scripts/libs/jarvix/modules/object'
-   'scripts/libs/jarvix/modules/parser'
    'scripts/libs/jarvix/modules/service'
    'scripts/libs/jarvix/modules/string'
    'scripts/libs/jarvix/modules/utility'
-], (async, load, list, localizer, object, parser, service, string, utility)->
+], (async, load, list, object, service, string, utility)->
 
    async: async
    load: load
    list: list
    object: object
-   localizer: localizer
-   parser: parser
    service: service
    string: string
    utility: utility   

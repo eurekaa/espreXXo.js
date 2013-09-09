@@ -15,7 +15,12 @@ define 'bootstrap', ['config/index'], (config)->
    require.config config.require
 
    # require nowavailable libraries.
-   require ['dom_ready', 'jquery', 'jarvix'], (dom_ready, $, jX)->
+   require [
+      'dom_ready' 
+      'jquery_ui' 
+      'jarvix'
+      'quadrix'
+   ], (dom_ready, $, jX, qX)->
 
       # load main stylesheets.
       jX.load.stylesheets [
@@ -24,17 +29,16 @@ define 'bootstrap', ['config/index'], (config)->
       ]
 
       # set initial locale.
-      jX.localizer.set_locale 'it'
+      qX.localizer.set_locale 'it'
 
       # when the dom is fully loaded.
       dom_ready (dom)->
-         
-         # parse body to create widgets.
-         jX.parser.create_widgets $('body'), (err)->
+        
+         # parse body to create widgets
+         qX.parser.parse 'body', (err)->
             if err then console.error err
 
-###
+
 require.onError = (required_type, required_modules)->
    console.error required_type
    console.error required_modules   
-###   
