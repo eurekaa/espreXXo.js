@@ -14,16 +14,16 @@ define 'bootstrap', ['config/index'], (config)->
    # setup require.js
    require.config config.require
 
-   # require nowavailable libraries.
+   # require libraries.
    require [
-      'dom_ready' 
-      'jquery_ui' 
+      'dom_ready'
       'jarvix'
+      'mosaix'
       'quadrix'
-   ], (dom_ready, $, jX, qX)->
+   ], (dom_ready, jX, mX, qX)->
 
       # load main stylesheets.
-      jX.load.stylesheets [
+      mX.load.stylesheets [
          'styles/libs/jquery/themes/eurekaa/jquery-ui-1.10.3.custom.css'
          'styles/libs/animate.css'
       ]
@@ -32,7 +32,7 @@ define 'bootstrap', ['config/index'], (config)->
       dom_ready (dom)->
         
          # parse body to create widgets
-         qX.parser.parse 'body', (err)->
+         qX.parser.parse $('body'), (err)->
             if err then console.error err
 
 
