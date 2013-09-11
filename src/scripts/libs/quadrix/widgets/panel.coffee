@@ -34,6 +34,7 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
             .addClass('container')
             .html(element.html())
             .css width: element.css 'width', overflow: 'hidden'
+         
          # append container and reference to it as main element.
          element.empty().append container
          self.element = container
@@ -42,18 +43,20 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
          options.ready = true
          element.trigger 'ready'
 
+         # handle localize event.
+         $(window).on 'localize', -> self.localize ->
+
       
-      localize: ()->
+      localize: (callback)->
          self = @
-         element = self.element
 
-         # localize page
-         qX.localizer.localize element, (err, element)->
-            if err then throw err
-
-            # slide in page.
-            self.change element, 'bounceOutDown', 'bounceInDown', (err, element)->
-               if err then throw err
+         jX.async.series
+            animate_out: (_)-> self.animate 'bounceOutDown', (err)-> self.element.css visibility: 'hidden'; _(err)
+            unparse: (_)-> qX.parser.unparse self.element, (err)-> _(err)
+            localize: (_)-> qX.localizer.localize self.element, (err)-> _(err)
+            parse: (_)-> qX.parser.parse self.element, (err)-> _(err)
+            animate_in: (_)-> self.animate 'bounceInDown', (err)-> _(err)
+         , (err) -> callback err
 
 
       load: (url, animate_out, animate_in, callback)->
@@ -72,7 +75,7 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
                animate_out: (_)-> self.animate animate_out, (err)-> self.element.css visibility: 'hidden'; _(err)
                require: (_)-> require ['text!' + url + '!strip'], (file)-> content = $(file); _(null, content)
                localize: (_)-> qX.localizer.localize content, (err)-> _(err)
-               destroy: (_)-> qX.parser.unparse self.element, (err)-> _(err)
+               unparse: (_)-> qX.parser.unparse self.element, (err)-> _(err)
                parse: (_)-> self.element.html content; qX.parser.parse self.element, (err)-> _(err)
                animate_in: (_)-> self.animate animate_in, (err)-> _(err)
             , (err) -> callback err

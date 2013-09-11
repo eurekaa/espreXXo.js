@@ -10,36 +10,31 @@
 }
 
 .menu ul li {
-  font-family: 'klavika_medium';
-  font-size: 16pt;
-  text-shadow: 1px 2px #192836;
-  color: #ffffff;
-  text-decoration: none;
-  cursor: pointer;
-  padding: 0 10px;
-}
-
-.menu ul li {
   position: relative;
   top: 0;
   float: left;
   height: 20px;
   padding: 15px 10px 5px 10px;
   margin: 0 1px;
+  font-family: 'klavika_medium';
+  font-size: 16pt;
+  text-shadow: 1px 2px #192836;
+  color: #ffffff;
+  text-decoration: none;
   cursor: pointer;
   .gradient(#326299, #326299, #0f345e);
   .border-radius(0, 3px, 3px, 0);
   .transition-duration(0.4s);
 }
 
-.menu ul li:hover, #menu ul li:first-child:hover, #menu ul li:last-child:hover {
+.menu ul li:hover, .menu ul li:first-child:hover, .menu ul li:last-child:hover {
   padding-top: 25px;
   .border-radius(0, 5px, 5px, 0);
   .gradient(#639ed3, #1f589a, #639ed3);
   .transition-duration(0.2s);
 }
 
-.menu ul li.active, #menu ul li.active:hover {
+.menu ul li.active, .menu ul li.active:hover {
   position: relative;
   height: 20px;
   padding: 35px 10px 5px 10px;

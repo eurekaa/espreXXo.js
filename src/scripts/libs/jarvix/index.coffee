@@ -12,15 +12,13 @@ define 'jarvix', [
    'scripts/libs/jarvix/modules/load'
    'scripts/libs/jarvix/modules/list'
    'scripts/libs/jarvix/modules/object'
-   'scripts/libs/jarvix/modules/service'
    'scripts/libs/jarvix/modules/string'
    'scripts/libs/jarvix/modules/utility'
-], (async, load, list, object, service, string, utility)->
+], (async, load, list, object, string, utility)->
 
    async: async
    load: load
    list: list
    object: object
-   service: service
    string: string
    utility: utility   

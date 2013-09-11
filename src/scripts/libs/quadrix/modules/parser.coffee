@@ -56,6 +56,7 @@ define [
                widget = $(widget)
                widget_name = widget.attr('data-widget').split('/')
                widget = widget.data 'qX-qX_' + widget_name.pop()
+               console.log widget
                if widget then widget.destroy()
             catch err then next err
          ,(err)-> callback err, element

@@ -20,6 +20,7 @@ html
             header#header 
                 img#logo_rubik(src='media/images/logo_rubik.png')
                 img#logo_eurekaa(src='media/images/logo_eurekaa.png')
+            
             #stripe: img#keyboard(src='media/images/keyboard.png')
             
             nav#menu(
@@ -34,12 +35,13 @@ html
                 option(label='i18n://menu#portfolio', value='page://portfolio.html')
                 option(label='i18n://menu#projects', value='page://projects.html')
                 option(label='i18n://menu#contacts', value='page://contacts.html')
-            
+                
+                
             nav#langswitcher(
                 data-widget='qX://langswitcher'
             ): datalist
-                option.active(label='eng', value='en-gb')
-                option(label='ita', value='it-it')
+                option(label='eng', value='en-uk')
+                option.active(label='ita', value='it-it')
             
             nav#breadcrumber( 
                 data-widget='qX://breadcrumber' 

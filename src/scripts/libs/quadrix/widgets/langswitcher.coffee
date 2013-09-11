@@ -23,32 +23,46 @@
    documents the function and classes that are added to jQuery by this plug-in.
    @memberOf jQuery
 ###
-define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
+define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX) ->
 
-
+   # load stylesheets.
+   mX.load.stylesheets ['styles/langswitcher.css']
+   
+   
    # create widget.
+   #@todo:creare qX.widget che prende il namespace (qualsiasi, lo crea e aggiunge il nome al widget name).
    $.widget 'qX.qX_langswitcher',
 
 
       options:
          ready: false
-         locale: 'en'
+         locale: 'en-uk'
+         class: 'langswitcher'
 
 
-      _create: -> 
-         @.element.html 'langswitcher'
-         @.main @.element, @.options 
+      _create: -> @.main @.element, @.options 
 
 
-      main: (element, options)->
+      main: (element, options)->         
          self = @
-
-         # save initial locale in session.
          
-         qX.localizer.set_locale options.locale
-
-         # set initial localizer link active.
-         element.find('[data-locale=' + options.locale + ']').addClass 'active'
+         # render element.
+         self.element.addClass self.options.class
+         html = ''
+         datalist = element.find 'datalist option'
+         html = '<ul>'
+         jX.list.each datalist, (option, i)->
+            
+            # save initial locale (defined in datalist option with class 'active').
+            if option.className == 'active' then console.log option.value; qX.localizer.set_locale option.value
+            html += '<li class="' + (option.className || '') + '">'
+            html += '<a data-label="' + option.label + '" data-locale="' + option.value + '"></a>'
+            html += '</li>'
+         html += '</ul>'
+         element.html html
+         
+         # localize element.
+         self.localize();
 
          # bind localizer click event.
          element.find('[data-locale]').on 'click', ->
@@ -69,3 +83,4 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
          element.trigger 'ready'
 
 
+      localize: ()-> qX.localizer.localize @.element, ->

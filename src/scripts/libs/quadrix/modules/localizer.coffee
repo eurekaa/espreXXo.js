@@ -7,8 +7,11 @@
 # File Name: localizer
 # Created: 03/09/13 11.34
 
-define ['jquery', 'jarvix'        
-], ($, jX)->
+define [
+   'jquery' 
+   'jarvix'
+   'mosaix'
+], ($, jX, mX)->
 
 
    get_locale: ()-> sessionStorage.getItem 'locale'
@@ -63,7 +66,7 @@ define ['jquery', 'jarvix'
          label = label || node.attr 'label' 
          
          # call translations service.
-         jX.service.i18n label, (err, text)->
+         mX.load.i18n label, (err, text)->
             if err then next err
             
             # change tag value.

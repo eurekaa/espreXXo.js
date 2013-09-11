@@ -28,9 +28,6 @@ define 'bootstrap', ['config/index'], (config)->
          'styles/libs/animate.css'
       ]
 
-      # set initial locale.
-      qX.localizer.set_locale 'it'
-
       # when the dom is fully loaded.
       dom_ready (dom)->
         

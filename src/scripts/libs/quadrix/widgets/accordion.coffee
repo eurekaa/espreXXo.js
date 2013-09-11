@@ -13,8 +13,16 @@ define ['jquery_ui'], ($)->
       
       options: 
          ready: false
+         header: 'h1'
+         active: false
+         collapsible: true
       
       _create: ->
-         $('.accordion').accordion()
+         @.element.accordion @.options
+         
          @.options.ready = true
-         @.element.trigger 'ready'
+         @.element.trigger 'ready'  
+
+      _destroy: ->
+         api = @.element.data 'ui-accordion'
+         api.destroy()

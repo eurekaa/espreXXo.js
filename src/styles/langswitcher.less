@@ -1,0 +1,36 @@
+@import 'D:/eurekaa/progetti/eurekaa.it/src/styles/libs/elements.less';
+
+.langswitcher{
+  width: 60px;
+  height: 40px;
+  overflow:hidden;
+  .gradient(#718d6e, #718d6e, #50624a);
+  .border-radius(3px, 3px, 3px, 3px);
+}
+
+.langswitcher ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.langswitcher ul li {
+  font-family: 'klavika_medium';
+  font-size: 16pt;
+  text-shadow: 1px 2px #192836;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0 10px;    
+}
+
+.langswitcher a {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.langswitcher a.active {
+  font-weight: bold;
+  opacity: 1 !important;
+  cursor: default;
+}

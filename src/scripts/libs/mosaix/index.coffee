@@ -4,5 +4,9 @@
 # Homepage: http://www.eurekaa.it
 # GitHub: https://github.com/eurekaa
 
-# File Name: index
-# Created: 05/09/13 17.40
+# File Name: require
+# Created: 01/09/13 6.32
+
+define ['scripts/libs/mosaix/modules/load'], (load)->
+   
+   load: load
