@@ -9,6 +9,8 @@
 
 define [
    'config/require'
-], (require)->
+   'config/namespaces'
+], (require, namespaces)->
    
    require: require 
+   namespaces: namespaces
