@@ -16,6 +16,7 @@ define [
 
    qX = widget: widget
    
+   
    # reads all attributes and return them in an tree nested object.
    get_attributes: (element)->
       attributes = {}
@@ -78,7 +79,7 @@ define [
          element = $(element)
          
          # find all tags which defines a widget to be rendered.
-         widgets = element.parent().find '[data-widget]'
+         widgets = element.parent().find '[data-widget]'       
          
          # if not widgets to be run return without parsing.
          if widgets.length == 0 then return callback null, element         

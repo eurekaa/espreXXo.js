@@ -15,12 +15,12 @@ define ['jquery_ui', 'jarvix'], ($, jX)->
       namespace = ''
       if jX.string.contains name, '.'
          name = name.split '.'
-         namespace = name[0]
-         name = name[1]
+         namespace = if name.length > 1 then name[0] + '_' else ''
+         name = if name.length > 1 then name[1] else name[0]
       
       # create jQ widget under ui namaspace (the only allowed)
       # and prepend user namespace to widget name.
-      $.widget 'ui.' + namespace + '_' + name, widget
+      $.widget 'ui.' + namespace + name, widget
    
    
    api: (element, widget)->

@@ -11,23 +11,27 @@
 # define main AMD module.
 define [
    'jarvix'
+   'mosaix'
    'quadrix'
-], (jX, qX)->
+], (jX, mX, qX)->
 
    
    # load stylesheets.
-   jX.load.stylesheets [
-      'styles/libs/jquery/scrollbar/jquery.scrollbar.css'
+   mX.load.stylesheets [
       'styles/eurekaa.css'
       'styles/fonts.css'
    ]
-
-   qX.widget.define 'eK.index',
+   
+   qX.widget.define 'index',
       
+      options:
+         ready: false
+
       _create: ->
-         
-         try
-           
-         catch err
-            console.error err
-            console.error err.stack
+         @.main @.element, @.options
+
+      main: (element, options)->
+
+         # trigger ready event.
+         options.ready = true
+         element.trigger 'ready'
