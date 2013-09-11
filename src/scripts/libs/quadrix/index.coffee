@@ -14,13 +14,15 @@ define [
    'namespace'
    'scripts/libs/quadrix/modules/parser'
    'scripts/libs/quadrix/modules/localizer'
-], (config, jX, $, namespace, parser, localizer)->
+   'scripts/libs/quadrix/modules/widget'
+], (config, jX, $, namespace, parser, localizer, widget)->
    
    
    # init library.
-   qX = 
-      parser: parser
+   qX =
       localizer: localizer
+      widget: widget
+      parser: parser
 
 
    # add widgets to library. each widget will be asynchronously downloaded when required.
