@@ -7,9 +7,12 @@
 # File Name: accordion
 # Created: 03/09/13 21.18
 
-define ['jquery_ui'], ($)->
+define [
+   'jquery_ui'
+   'quadrix'
+], ($, qX)->
    
-   $.widget 'qX.qX_accordion',
+   qX.widget.define 'qX.accordion',
       
       options: 
          ready: false

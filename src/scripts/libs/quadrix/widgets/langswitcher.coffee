@@ -28,12 +28,9 @@ define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX) ->
    # load stylesheets.
    mX.load.stylesheets ['styles/langswitcher.css']
    
-   
    # create widget.
-   #@todo:creare qX.widget che prende il namespace (qualsiasi, lo crea e aggiunge il nome al widget name).
-   $.widget 'qX.qX_langswitcher',
-
-
+   qX.widget.define 'qX.langswitcher',
+   
       options:
          ready: false
          locale: 'en-uk'

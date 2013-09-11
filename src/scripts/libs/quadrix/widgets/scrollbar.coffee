@@ -7,11 +7,17 @@
 # File Name: accordion
 # Created: 03/09/13 21.18
 
-define ['jquery_ui', 'jarvix', 'scrollbar'], ($, jX)->
+define [
+   'jquery_ui'
+   'jarvix'
+   'mosaix'
+   'quadrix'
+   'scrollbar'
+], ($, jX, mX, qX)->
 
-   jX.load.stylesheets ['styles/libs/jquery/scrollbar/jquery.scrollbar.css']
+   mX.load.stylesheets ['styles/libs/jquery/scrollbar/jquery.scrollbar.css']
    
-   $.widget 'qX.qX_scrollbar',
+   qX.widget.define 'qX.scrollbar',
       
       options: 
          ready: false

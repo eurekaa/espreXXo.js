@@ -12,7 +12,7 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
 
 
    # create widget.
-   $.widget 'qX.qX_panel',
+   qX.widget.define 'qX.panel',
 
 
       options: 

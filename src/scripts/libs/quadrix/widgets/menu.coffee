@@ -14,25 +14,28 @@
 #@todo:     ogni istanza di menu si mette in ascolto sul selettore del lang_switcher.
 #@todo:  require: exo.widgets.container
 #todo:       
+
 define [
    'jquery_ui'
-   'jarvix'
+   'jarvix'        
+   'mosaix'
    'quadrix'
    'animate_css'
-], ($, jX, qX) ->
+], ($, jX, mX, qX) ->
 
    # load stylesheets.
-   jX.load.stylesheets ['styles/menu.css']
+   mX.load.stylesheets ['styles/menu.css']
 
    # create widget.
-   $.widget 'qX.qX_menu',
+   qX.widget.define 'qX.menu',
 
       options:
          ready: false
          class: 'menu'
          widgets:
-            breadcrumber: undefined
-            panel: undefined, 
+            qX:
+               breadcrumber: null
+               panel: null, 
          list: null
       
       
@@ -51,9 +54,12 @@ define [
          self = @
          element = self.element
          widgets = self.options.widgets
-         widgets_names = jX.object.keys widgets
          loaded = 0
-         counted = widgets_names.length
+         counted = 0
+         
+         # count widgets.
+         jX.list.each jX.object.keys(widgets), (namespace, i)-> 
+            counted += jX.object.keys(widgets[namespace]).length
          
          # if no widget dependencies then start the plugin directly.
          if counted == 0 then return callback()
@@ -61,9 +67,12 @@ define [
          # wait for widgets to be loaded.
          element.on 'waiting', (event, name)->
             loaded++
+            name = name.split '.'
+            namespace = name[0]
+            name = name[1]
             
             # when a widget is loaded store its api in options.widgets property.
-            widgets[name] = $(widgets[name]).data 'qX-qX_' + name
+            widgets[namespace][name] = qX.widget.api widgets[namespace][name], namespace + '.' + name
             
             # if all widgets are loaded, callback.
             if counted == loaded
@@ -71,24 +80,26 @@ define [
                callback()
          
          # handle widgets loading.
-         jX.list.each widgets_names, (name, i)->
-            widget = $(widgets[name])
-            
-            # widget is already.   
-            if widget and widget.data 'qX-qX_' + name
-               element.trigger 'waiting', name
+         jX.list.each jX.object.keys(widgets), (namespace, i)->
+            jX.list.each jX.object.keys(widgets[namespace]), (name, ii)->
+               widget = $(widgets[namespace][name])
 
-            # wait for widget ready.
-            else widget.on 'ready', ->
-               element.trigger 'waiting', name; 
-               widget.off 'ready'
+               # widget is already.
+               if widget and qX.widget.is_ready widget, namespace + '.' + name
+                  element.trigger 'waiting', namespace + '.' + name
+
+                  # wait for widget ready.
+               else widget.on 'ready', ->
+                  element.trigger 'waiting', namespace + '.' + name;
+                  widget.off 'ready'
 
 
 
       main: (element, options)->
-         self = @
-         widgets = self.options.widgets
+         self = @         
          try
+
+            widgets = self.options.widgets.qX
             
             # check arguments.
             if not jX.utility.is_defined widgets.panel then throw 'qX.panel must be defined.'
@@ -135,7 +146,7 @@ define [
 
       load_url: (event)->
          self = @
-         widgets = self.options.widgets
+         widgets = self.options.widgets.qX
          element = $(event.target)
          
          # if active return.
