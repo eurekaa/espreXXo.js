@@ -9,12 +9,13 @@
 
 define [
    'config'
-   'jquery' 
+   'jquery_ui' 
    'jarvix'
-   'quadrix'
-], (config, $, jX, qX)->
+   'scripts/libs/quadrix/modules/widget'
+], (config, $, jX, widget)->
 
-
+   qX = widget: widget
+   
    # reads all attributes and return them in an tree nested object.
    get_attributes: (element)->
       attributes = {}
@@ -40,24 +41,27 @@ define [
       return attributes
 
 
+
    unparse: (element, callback)->
-      element = $(element)
       try
+         element = $(element)
          
          # find widgets in element.
-         widgets = element.find '[data-widget]'
+         widgets = element.parent().find '[data-widget]' 
          
          # if no widgets return.
          if widgets.length == 0 then return callback null, element
          
          # destroy each widget.
-         jX.async.each widgets, (widget, next)->
-            try               
-               widget = $(widget)
-               widget_name = widget.attr('data-widget').split('/')
-               widget = widget.data 'qX-qX_' + widget_name.pop()
-               console.log widget
-               if widget then widget.destroy()
+         jX.async.each widgets, (widget_node, next)->
+            try
+               widget_node = $(widget_node)
+               widget_name = widget_node.attr('data-widget').split '://'
+               widget_namespace = widget_name[0]
+               widget_name = widget_name[1]
+               api = qX.widget.api widget_node, widget_namespace + '_' + widget_name
+               if api then api.destroy()
+               next()
             catch err then next err
          ,(err)-> callback err, element
          
@@ -69,58 +73,51 @@ define [
 
    parse: (element, callback)->
       self = @
-      element = $(element)
       try
-      
+
+         element = $(element)
+         
          # find all tags which defines a widget to be rendered.
          widgets = element.parent().find '[data-widget]'
-         #if widgets.length == 0 then widgets = element.find '[data-widget]'
          
          # if not widgets to be run return without parsing.
          if widgets.length == 0 then return callback null, element         
          
          # render asynchronously each widget founded (they will manage dependencies by their own).
-         jX.async.each widgets, (node, next)->
-            node = $(node)
+         jX.async.each widgets, (widget_node, next)->
+            widget_node = $(widget_node)
             
-            # get widget name and resolve jarvix path if present.
-            widget = node.attr 'data-widget'
-            widget = widget.split('?')
-            parameters = widget[1]
-            widget = widget[0]
-            is_qX = (widget.indexOf('qX://') != -1 or widget.indexOf('qX.') != -1)
-            if is_qX == true
-               widget = widget.replace('qX://', config.require.paths.quadrix.replace 'index', 'widgets/')
-               widget = widget.replace('qX.', config.require.paths.quadrix.replace 'index', 'widgets/')
-            widget = widget.split('/')
-            widget_name = widget.pop()
-            widget_path = widget.join('/')
-            
+            # calculate widget namespace, name, parameters, path and fullname.
+            widget_name = widget_node.attr 'data-widget'
+            widget_name = widget_name.split('?')
+            widget_parameters = widget_name[1]
+            widget_name = widget_name[0].split '://' 
+            widget_namespace = if widget_name.length > 1 then widget_name[0] else null
+            widget_name = if widget_name.length > 1 then widget_name[1] else widget_name[0]
+            widget_path = if widget_namespace then config.namespaces[widget_namespace + '://'] + widget_name else widget_name               
+            widget_fullname = if widget_namespace then widget_namespace + '_' + widget_name.split('/').pop() else widget_name.split('/').pop()
+
             # if widget is just ready jump to the next.
-            if is_qX == true and node.data 'qX-qX_' + widget_name then return next null
-            else if node.data 'ui-' + widget_name then return next null            
+            if qX.widget.api widget_node, widget_fullname then return next null
             
             #@todo: parse options from query string
-            parameters = parameters || {}
+            widget_parameters = widget_parameters || {}
             
             # parse options from element attribute.
-            attributes = self.get_attributes node
-            attributes = attributes.data.options || {}
+            widget_attributes = self.get_attributes widget_node
+            widget_attributes = widget_attributes.data.options || {}
             
             # prepare widget options (parameters win plugins).
-            options = $.extend true, attributes, parameters 
-            options.class = node.attr 'class'
+            widget_options = $.extend true, widget_attributes, widget_parameters 
+            widget_options.class = widget_node.attr 'class'
             
             # require and create widget.
-            require [widget_path + '/' + widget_name], -> 
+            require [widget_path], -> 
                try
                   # start widget.
-                  if is_qX == true
-                     node.qX widget_name, options, (api)->
-                  else 
-                     node[widget_name](options)
-                     
-                  # next one.                  
+                  widget_node[widget_fullname](widget_options)
+                  
+                  # next one.
                   next null, element
                catch err then next err
          
