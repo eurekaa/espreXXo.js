@@ -10,11 +10,9 @@
 
 # define main AMD module.
 define [
-   'jquery_ui'
    'jarvix'
    'quadrix'
-   'scrollbar'
-], ($, jX, qX)->
+], (jX, qX)->
 
    
    # load stylesheets.
@@ -24,7 +22,7 @@ define [
       'styles/fonts.css'
    ]
 
-   $.widget 'qX.qX_index',
+   qX.widget.define 'eK.index',
       
       _create: ->
          
