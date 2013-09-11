@@ -25,3 +25,7 @@ define [], ()->
    starts_with: (string, token)-> new String(string).slice(0, token.length) == token
 
    ends_with: (string, token)-> new String(string).slice(-token.length) == token
+
+   
+   contains: (string, token)-> string.indexOf token != -1
+     
