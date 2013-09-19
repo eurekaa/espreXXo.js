@@ -10,7 +10,7 @@
 define ['config/require'], (require)->
 
    'i18n://': 'i18n/'
-   'tile://': 'pages/'
+   'tile://': 'tiles/'
    'qX://': require.paths.quadrix.replace 'index', 'widgets/' 
    
    'eK://': 'scripts/eurekaa/'
