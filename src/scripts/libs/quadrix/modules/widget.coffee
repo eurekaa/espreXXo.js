@@ -7,9 +7,17 @@
 # File Name: widget
 # Created: 11/09/13 20.05
 
-define ['jquery_ui', 'jarvix'], ($, jX)->
+define [
+   'jquery_ui'
+   'jarvix'
+], ($, jX)->
    
-   define: (name, widget)->
+   
+   
+   define: (name, base, widget)->
+      
+      # base parent is optional.
+      if not widget then widget = base; base = undefined;
       
       # isolate namespace if present.
       namespace = ''
@@ -20,7 +28,10 @@ define ['jquery_ui', 'jarvix'], ($, jX)->
       
       # create jQ widget under ui namaspace (the only allowed)
       # and prepend user namespace to widget name.
-      $.widget 'ui.' + namespace + name, widget
+      if base
+         $.widget 'ui.' + namespace + name, base, widget
+      else
+         $.widget 'ui.' + namespace + name, widget
    
    
    api: (element, widget)->

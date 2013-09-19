@@ -10,37 +10,40 @@
 }
 
 .menu ul li {
-  position: relative;
-  top: 0;
   float: left;
-  height: 20px;
-  padding: 15px 10px 5px 10px;
+  height: 18px;
+  padding: 12px 10px 0px 10px;
   margin: 0 1px;
-  font-family: 'klavika_medium';
-  font-size: 16pt;
+  font-family: 'zurich_normal';
+  text-transform: uppercase;
+  font-size: 11pt;
   text-shadow: 1px 2px #192836;
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-  .gradient(#326299, #326299, #0f345e);
-  .border-radius(0, 3px, 3px, 0);
+  .gradient(#353F31, #353F31, #495744);
+  .border-radius(0, 1px, 1px, 0);
   .transition-duration(0.4s);
 }
 
 .menu ul li:hover, .menu ul li:first-child:hover, .menu ul li:last-child:hover {
   padding-top: 25px;
-  .border-radius(0, 5px, 5px, 0);
-  .gradient(#639ed3, #1f589a, #639ed3);
+//  .border-radius(0, 5px, 5px, 0);
+//  .gradient(#639ed3, #1f589a, #639ed3);
   .transition-duration(0.2s);
 }
 
 .menu ul li.active, .menu ul li.active:hover {
   position: relative;
-  height: 20px;
-  padding: 35px 10px 5px 10px;
+  height: 18px;
+  padding: 35px 10px 0px 10px;
   cursor: default;
-  .border-radius(0, 5px, 5px, 0);
-  .gradient(#f25b29, #f25b29, #f9a559);
+  .border-radius(0, 2px, 2px, 0);
+  .gradient(#62725E, #879E82, #62725E);
   .transition-duration(0.2s);
+}
+
+.menu ul li a {
+  padding: 0;
 }
 

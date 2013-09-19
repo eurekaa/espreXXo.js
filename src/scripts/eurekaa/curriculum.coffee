@@ -38,11 +38,8 @@ define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX)->
                   
                html += '</div>' 
                self.element.html html
-               
-               console.log self.element.find('.accordion')[0]
-               self.element.find('.accordion').qX 'accordion',
-                  active: false
-               , -> console.log 'created'
+            
+               self.element.find('.accordion').qX 'accordion', active: false, -> 
                   
                callback null
          

@@ -15,21 +15,25 @@ define [
    'quadrix'
 ], (jX, mX, qX)->
 
-   
    # load stylesheets.
    mX.load.stylesheets [
       'styles/eurekaa.css'
       'styles/fonts.css'
    ]
    
-   qX.widget.define 'index',
+   qX.widget.define 'index', qX._widget(),
+
+      console.dir $.fn
       
       options:
          ready: false
 
-      _create: ->
+      _create: ()->
+         @._super()
+         console.log 'create index'
          @.main @.element, @.options
-
+         
+         
       main: (element, options)->
 
          # trigger ready event.

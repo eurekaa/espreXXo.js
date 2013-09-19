@@ -51,7 +51,7 @@ define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX) ->
          jX.list.each datalist, (option, i)->
             
             # save initial locale (defined in datalist option with class 'active').
-            if option.className == 'active' then console.log option.value; qX.localizer.set_locale option.value
+            if option.className == 'active' then qX.localizer.set_locale option.value
             html += '<li class="' + (option.className || '') + '">'
             html += '<a data-label="' + option.label + '" data-locale="' + option.value + '"></a>'
             html += '</li>'

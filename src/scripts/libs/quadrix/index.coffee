@@ -17,20 +17,20 @@ define [
    'scripts/libs/quadrix/modules/widget'
 ], (config, jX, $, namespace, parser, localizer, widget)->
    
-   
    # init library.
    qX =
       localizer: localizer
       widget: widget
-      parser: parser
+      parser: parser 
 
 
    # add widgets to library. each widget will be asynchronously downloaded when required.
-   widgets = ['accordion', 'breadcrumber', 'langswitcher', 'menu', 'panel', 'scrollbar']
+   widgets = ['_widget','accordion', 'breadcrumber', 'langswitcher', 'menu', 'panel', 'scrollbar']
    jX.list.each widgets, (widget_name, i)->
 
       qX[widget_name] = (element, options, callback)-> 
          try
+            if not callback then callback = ()->
             if element then element = $(element) else throw new Error 'element must be defined'
             require [config.require.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
                
@@ -39,7 +39,7 @@ define [
                   callback null, element.data 'qX-qX_' + widget_name
                   element.off 'ready'
                
-               # run widget on element.               
+               # run widget on element.
                options = options || {}
                element['qX_' + widget_name](options)
          
@@ -56,10 +56,8 @@ define [
       if widget_name then qX[widget_name](@, options, callback)
 
       return @
-      
-      
-      
-      
 
+   
+   
    # return the library.
    return qX  
