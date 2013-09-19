@@ -13,7 +13,11 @@ define [
    'scripts/libs/quadrix/modules/widget'
 ], (jX, mX, widget)->
    
-   widget.define 'qX._widget',
+   widget.define 'qX.base_widget',
       
-      _create: ->
+      options: {}
+      
+      _create: ->         
          console.log 'create widget'
+          
+         
