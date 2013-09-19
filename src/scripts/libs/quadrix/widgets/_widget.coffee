@@ -8,12 +8,12 @@
 # Created: 12/09/13 12.10
 
 define [
+   'jquery_ui'
    'jarvix'
    'mosaix'
-   'scripts/libs/quadrix/modules/widget'
-], (jX, mX, widget)->
+], ($, jX, mX)->
    
-   widget.define 'qX.base_widget',
+   $.widget 'ui.qX__widget',
       
       options: {}
       

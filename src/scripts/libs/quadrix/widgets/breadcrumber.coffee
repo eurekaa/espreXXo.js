@@ -10,6 +10,7 @@
 
 define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
    
+   
    qX.widget.define 'qX.breadcrumber',
       
       options: 

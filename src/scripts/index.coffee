@@ -10,10 +10,11 @@
 
 # define main AMD module.
 define [
+   'jquery_ui'
    'jarvix'
    'mosaix'
-   'quadrix'
-], (jX, mX, qX)->
+   'quadrix'    
+], ($, jX, mX, qX)->
 
    # load stylesheets.
    mX.load.stylesheets [
@@ -21,16 +22,14 @@ define [
       'styles/fonts.css'
    ]
    
-   qX.widget.define 'index', qX._widget(),
+   qX.widget.define 'index',
 
-      console.dir $.fn
-      
       options:
-         ready: false
+         ready: false  
 
-      _create: ()->
-         @._super()
+      _create: ()->                  
          console.log 'create index'
+         @._super() 
          @.main @.element, @.options
          
          

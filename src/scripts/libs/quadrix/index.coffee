@@ -23,9 +23,9 @@ define [
       widget: widget
       parser: parser 
 
-
+           
    # add widgets to library. each widget will be asynchronously downloaded when required.
-   widgets = ['_widget','accordion', 'breadcrumber', 'langswitcher', 'menu', 'panel', 'scrollbar']
+   widgets = ['accordion', 'breadcrumber', 'langswitcher', 'menu', 'panel', 'scrollbar']
    jX.list.each widgets, (widget_name, i)->
 
       qX[widget_name] = (element, options, callback)-> 
@@ -59,5 +59,5 @@ define [
 
    
    
-   # return the library.
+   # return library.
    return qX  

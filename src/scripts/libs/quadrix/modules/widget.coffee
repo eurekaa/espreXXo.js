@@ -10,15 +10,17 @@
 define [
    'jquery_ui'
    'jarvix'
-], ($, jX)->
-   
-   
+   'scripts/libs/quadrix/widgets/_widget'
+], ($, jX, w)->
    
    define: (name, base, widget)->
-      
+            
       # base parent is optional.
       if not widget then widget = base; base = undefined;
       
+      # if base not defined use qX._widget
+      if not base then base = $.ui.qX__widget
+
       # isolate namespace if present.
       namespace = ''
       if jX.string.contains name, '.'
@@ -26,13 +28,10 @@ define [
          namespace = if name.length > 1 then name[0] + '_' else ''
          name = if name.length > 1 then name[1] else name[0]
       
-      # create jQ widget under ui namaspace (the only allowed)
+      # create jQuery widget under ui namaspace (the only allowed)
       # and prepend user namespace to widget name.
-      if base
-         $.widget 'ui.' + namespace + name, base, widget
-      else
-         $.widget 'ui.' + namespace + name, widget
-   
+      $.widget 'ui.' + namespace + name, base, widget
+
    
    api: (element, widget)->
       element = $(element)

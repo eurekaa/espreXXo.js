@@ -42,6 +42,9 @@ define [
       _create: ->
          self = @
 
+         @._super()
+         console.log 'menu'
+
          # wait for all widgets to be ready.
          self._wait_widgets ->
             
@@ -153,7 +156,7 @@ define [
          if element.parent().hasClass 'active' then return
          
          # load new page.
-         page = element.attr('data-link').replace('page://', 'pages/')
+         page = element.attr('data-link').replace('tile://', 'tiles/')
          widgets.panel.load page, (err)->
             if err then console.error err
 
