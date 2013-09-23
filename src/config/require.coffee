@@ -52,7 +52,7 @@ define ->
          deps: ['jquery'], 
          exports: '$'
       jquery_ui:
-         deps: ['jquery', 'jquery_easing'], 
+         deps: ['jquery', 'jquery_easing', 'animate_css'], 
          exports: '$'
       mousewheel:
          deps: ['jquery']

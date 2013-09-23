@@ -13,15 +13,9 @@ define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
    
    qX.widget.define 'qX.breadcrumber',
       
-      options: 
-         ready: false
-   
-      _create: ->
-         @.main @.element, @.options
-   
-      main: (element, options)->
-         element.html 'breadcrumber'
-        
-         # trigger ready event.
-         options.ready = true 
-         element.trigger 'ready'
+      options: {}
+      
+      
+      _render: (callback)->
+         @.element.html 'breadcrumber'
+         callback null

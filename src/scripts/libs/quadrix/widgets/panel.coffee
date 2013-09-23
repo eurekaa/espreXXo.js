@@ -8,46 +8,33 @@
 # Created: 08/08/13 20.59
 
 
-define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
+define ['jquery_ui', 'jarvix', 'quadrix', 'animate_css'], ($, jX, qX) ->
 
 
    # create widget.
    qX.widget.define 'qX.panel',
-
-
+      
       options: 
-         ready: false
          animate_out: 'bounceOutLeft'
          animate_in: 'bounceInRight'
       
       
-      _create: -> @.main()
-      
-      
-      main: ->
-         self = @
-         element = self.element
-         options = self.options
+      _render: (callback)->
          
          # create container to make overflow hidden.
          container = $('<div/>')
             .addClass('container')
-            .html(element.html())
-            .css width: element.css 'width', overflow: 'hidden'
+            .html(@.element.html())
+            .css width: @.element.css 'width', overflow: 'hidden'
          
          # append container and reference to it as main element.
-         element.empty().append container
-         self.element = container
+         @.element.empty().append container
+         @.element = container
          
-         # trigger ready event.
-         options.ready = true
-         element.trigger 'ready'
-
-         # handle localize event.
-         $(window).on 'localize', -> self.localize ->
+         callback null
 
       
-      localize: (callback)->
+      _localize: (callback)->
          self = @
 
          jX.async.series

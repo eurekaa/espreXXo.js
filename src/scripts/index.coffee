@@ -13,7 +13,7 @@ define [
    'jquery_ui'
    'jarvix'
    'mosaix'
-   'quadrix'    
+   'quadrix'
 ], ($, jX, mX, qX)->
 
    # load stylesheets.
@@ -24,17 +24,5 @@ define [
    
    qX.widget.define 'index',
 
-      options:
-         ready: false  
-
-      _create: ()->                  
-         console.log 'create index'
-         @._super() 
-         @.main @.element, @.options
-         
-         
-      main: (element, options)->
-
-         # trigger ready event.
-         options.ready = true
-         element.trigger 'ready'
+      options: {}
+      

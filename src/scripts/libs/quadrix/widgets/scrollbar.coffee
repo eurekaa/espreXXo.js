@@ -15,25 +15,25 @@ define [
    'scrollbar'
 ], ($, jX, mX, qX)->
 
-   mX.load.stylesheets ['styles/libs/jquery/scrollbar/jquery.scrollbar.css']
    
    qX.widget.define 'qX.scrollbar',
       
       options: 
-         ready: false
+         stylesheet: 'styles/libs/jquery/scrollbar/jquery.scrollbar.css'
       
-      _create: ->
-         self = @             
-
-         # resize scrollbar when window is resized.
-         $(window).on 'resize', (event)->
-            #target = self.element.parents('[data-widget]')
-            self.element.css height: $(window).height() + 'px'
-
+      
+      _render: (callback)->
          # create custom scrollbar.
-         self.element.scrollbar()
-         $(window).trigger 'resize'
-
-         # trigger ready event.
-         self.options.ready = true
-         self.element.trigger 'ready'
+         @.element.scrollbar()
+         
+         # resize for the first time.
+         @._resize ->
+         
+         callback null
+      
+      
+      _resize: (callback)->
+         #target = self.element.parents('[data-widget]')
+         @.element.css height: $(window).height() + 'px'
+         
+         callback null

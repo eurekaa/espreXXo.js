@@ -24,60 +24,47 @@
    @memberOf jQuery
 ###
 define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX) ->
-
-   # load stylesheets.
-   mX.load.stylesheets ['styles/langswitcher.css']
    
    # create widget.
    qX.widget.define 'qX.langswitcher',
    
       options:
-         ready: false
-         locale: 'en-uk'
+         stylesheet: 'styles/langswitcher.css'
          class: 'langswitcher'
-
-
-      _create: -> @.main @.element, @.options 
-
-
-      main: (element, options)->         
-         self = @
-         
-         # render element.
-         self.element.addClass self.options.class
-         html = ''
-         datalist = element.find 'datalist option'
+         locale: 'en-uk'
+      
+      
+      _render: (callback)->
          html = '<ul>'
-         jX.list.each datalist, (option, i)->
-            
-            # save initial locale (defined in datalist option with class 'active').
-            if option.className == 'active' then qX.localizer.set_locale option.value
-            html += '<li class="' + (option.className || '') + '">'
-            html += '<a data-label="' + option.label + '" data-locale="' + option.value + '"></a>'
+         jX.list.each @.options.dataset, (row, i)->
+            if row.active == true then qX.localizer.set_locale row.data
+            html += '<li class="' + (if row.active == true then 'active' else '') + '">'
+            html += '<a data-label="' + row.id + '" data-locale="' + row.data + '"></a>'
             html += '</li>'
          html += '</ul>'
-         element.html html
-         
-         # localize element.
-         self.localize();
+         @.element.html html
 
+         callback null
+      
+      
+      _ready: (callback)->
+         self = @
+         
          # bind localizer click event.
-         element.find('[data-locale]').on 'click', ->
+         self.element.find('[data-locale]').on 'click', ->
             link = $(@)
-            
-            # if active return.
             if link.hasClass 'active' then return
-            
-            # save new locale.
-            qX.localizer.set_locale link.attr 'data-locale'
-
-            # toggle active class.
-            element.find('[data-locale]').removeClass 'active'
-            link.addClass 'active'
+            else self.change link.attr 'data-locale'
          
-         # trigger ready event.
-         options.ready = true
-         element.trigger 'ready'
-
-
-      localize: ()-> qX.localizer.localize @.element, ->
+         callback null
+      
+      
+      change: (locale)->
+         
+         # save new locale (will trigger window 'localize' event.
+         qX.localizer.set_locale locale
+         
+         # toggle active class.
+         @.element.find('[data-locale]').removeClass 'active'
+         @.element.find('[data-locale="' + locale + '"]').addClass 'active'
+         

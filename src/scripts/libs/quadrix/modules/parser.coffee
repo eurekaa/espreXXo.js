@@ -99,7 +99,7 @@ define [
             widget_fullname = if widget_namespace then widget_namespace + '_' + widget_name.split('/').pop() else widget_name.split('/').pop()
 
             # if widget is just ready jump to the next.
-            if qX.widget.api widget_node, widget_fullname then return next null
+            if qX.widget.is_ready widget_node, widget_fullname then return next null
             
             #@todo: parse options from query string
             widget_parameters = widget_parameters || {}
@@ -113,14 +113,14 @@ define [
             widget_options.class = widget_node.attr 'class'
             
             # require and create widget.
-            require [widget_path], -> 
+            require [widget_path], ->
                try
                   # start widget.
                   widget_node[widget_fullname](widget_options)
                   
                   # next one.
-                  next null, element
-               catch err then next err
+                  next null, element   
+               catch err then console.error err; next err
          
          ,(err)-> callback err, element
       catch err then callback err  

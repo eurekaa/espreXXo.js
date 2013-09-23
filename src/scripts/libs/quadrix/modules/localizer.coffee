@@ -70,9 +70,7 @@ define [
             if err then next err
             
             # change tag value.
-            node.fadeOut()
             node.html text
-            node.fadeIn()
             next()
 
       , (err)-> if err then callback err else callback null, element

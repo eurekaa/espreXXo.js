@@ -15,16 +15,13 @@ define [
    qX.widget.define 'qX.accordion',
       
       options: 
-         ready: false
          header: 'h1'
          active: false
          collapsible: true
       
-      _create: ->
+      _render: (callback)->
          @.element.accordion @.options
-         
-         @.options.ready = true
-         @.element.trigger 'ready'  
+         callback null 
 
       _destroy: ->
          api = @.element.data 'ui-accordion'
