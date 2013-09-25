@@ -1,0 +1,30 @@
+{
+    "name": "espreXXo.js",
+    "version": "0.1.2",
+    "description": "",
+    "author": {
+        "name": "Stefano Graziato"
+    },
+    "license": "BSD",
+    "main": "scripts/libs/mosaix/mosaix.js",
+    "scripts": {
+        "compile": "continuum /src /bin -c /tmp/cache -e"
+        "docs": "jsdoc /src /bin -c /tmp/cache -e"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/eurekaa/espreXXo.js.git"
+    },
+    "preferGlobal": true,
+    "bugs": {
+        "url": "https://github.com/eurekaa/espreXXO.js/issues"
+    },
+    "keywords": [],
+    "dependencies": {
+        "continuum.js": "*",
+        "mongodb": "*"
+    },
+    "readmeFilename": "README.md",
+    "_id": "espreXXo.js@0.1.2",
+    "_from": "espreXXo.js@"
+}
