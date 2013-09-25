@@ -8,7 +8,7 @@
     "license": "BSD",
     "main": "scripts/libs/mosaix/mosaix.js",
     "scripts": {
-        "compile": "continuum /src /bin -c /tmp/cache -e"
+        "compile": "continuum /src /bin -c /tmp/cache -e",
         "docs": "jsdoc /src /bin -c /tmp/cache -e"
     },
     "repository": {
