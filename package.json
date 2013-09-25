@@ -8,9 +8,9 @@
     "license": "BSD",
     "main": "scripts/libs/mosaix/mosaix.js",
     "scripts": {
-        "start": "node D:/eurekaa/progetti/espreXXo.js/scripts/libs/mosaix/mosaix.js",
-        "compile": "continuum src bin -c tmp/cache -e",
-        "docs": "jsdoc D:/eurekaa/progetti/espreXXo.js/src -d D:/eurekaa/progetti/espreXXo.js/doc -c D:/eurekaa/progetti/espreXXo.js/doc/_conf.json"
+        "start": "node bin/scripts/libs/mosaix/mosaix.js",
+        "continuum": "continuum src bin -c tmp/cache -e",
+        "docs": "jsdoc src -d doc -c doc/_conf.json"
     },
     "repository": {
         "type": "git",
