@@ -31,7 +31,11 @@ define ->
       mousewheel: 'scripts/libs/quadrix/libs/jquery/jquery.mousewheel'
       touchswipe: 'scripts/libs/quadrix/libs/jquery/jquery.touchswipe'
       scrollbar: 'scripts/libs/quadrix/libs/jquery/jquery.scrollbar'
-      animate_css: 'scripts/libs/quadrix/libs/jquery/jquery.animatecss'
+      animate_css: 'scripts/libs/quadrix/libs/jquery/jquery.animatecss'  
+
+      # polymer.
+      polymer: 'scripts/libs/quadrix/libs/polymer/polymer.min.js'
+      platform: 'scripts/libs/quadrix/libs/polymer/platform.min.js'
       
       # jarvix.
       jarvix: 'scripts/libs/jarvix/index'
