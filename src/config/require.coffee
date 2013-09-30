@@ -34,8 +34,8 @@ define ->
       animate_css: 'scripts/libs/quadrix/libs/jquery/jquery.animatecss'  
 
       # polymer.
-      polymer: 'scripts/libs/quadrix/libs/polymer/polymer.min.js'
-      platform: 'scripts/libs/quadrix/libs/polymer/platform.min.js'
+      polymer: 'scripts/libs/quadrix/libs/polymer/polymer'
+      platform: 'scripts/libs/quadrix/libs/polymer/platform'
       
       # jarvix.
       jarvix: 'scripts/libs/jarvix/index'
@@ -67,8 +67,11 @@ define ->
       namespace: deps: ['jquery'], exports: '$'
       animate_css:
          deps: ['jquery']
+      platform: deps: ['polymer']
       jarvix:
          deps: ['underscore', 'async']
+      quadrix: 
+         deps: ['polymer', 'platform']
 
    map:
       jquery_private:

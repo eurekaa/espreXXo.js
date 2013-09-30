@@ -10,6 +10,8 @@
 
 # define bootstrap.
 define 'bootstrap', ['config/index'], (config)->
+   
+   console.log 'bootstrap'
 
    # setup require.js
    require.config config.require
@@ -17,10 +19,12 @@ define 'bootstrap', ['config/index'], (config)->
    # require libraries.
    require [
       'dom_ready'
+      'polymer'
+      'platform'
       'jarvix'
       'mosaix'
       'quadrix'
-   ], (dom_ready, jX, mX, qX)->
+   ], (dom_ready, polymer, platform, jX, mX, qX)->
 
       # load main stylesheets.
       mX.load.stylesheets [
