@@ -7,6 +7,10 @@
 # File Name: require
 # Created: 01/09/13 6.32
 
-define ['scripts/libs/mosaix/modules/load'], (load)->
+define [
+   'scripts/libs/mosaix/modules/load'
+   'scripts/libs/mosaix/modules/server'
+], (load, server)->
    
    load: load
+   server: server

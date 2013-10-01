@@ -1,31 +1,41 @@
 {
-    "name": "espreXXo.js",
-    "version": "0.1.2",
-    "description": "",
-    "author": {
-        "name": "Stefano Graziato"
-    },
-    "license": "BSD",
-    "main": "scripts/libs/mosaix/mosaix.js",
-    "scripts": {
-        "start": "node bin/scripts/libs/mosaix/mosaix.js",
-        "continuum": "continuum src bin -c tmp/cache -e",
-        "docs": "jsdoc src -d doc -c doc/_conf.json"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/eurekaa/espreXXo.js.git"
-    },
-    "preferGlobal": true,
-    "bugs": {
-        "url": "https://github.com/eurekaa/espreXXO.js/issues"
-    },
-    "keywords": [],
-    "dependencies": {
-        "continuum.js": "*",
-        "mongodb": "*"
-    },
-    "readmeFilename": "README.md",
-    "_id": "espreXXo.js@0.1.2",
-    "_from": "espreXXo.js@"
+  "name": "espreXXo.js",
+  "version": "0.1.2",
+  "description": "",
+  "author": {
+    "name": "Stefano Graziato"
+  },
+  "license": "BSD",
+  "main": "scripts/libs/mosaix/mosaix.js",
+  "scripts": {
+    "start_mosaix": "node bin/mosaix.js",
+    "continuum": "continuum src bin -c tmp/cache -e",
+    "docs": "jsdoc src -d doc -c doc/_conf.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eurekaa/espreXXo.js.git"
+  },
+  "preferGlobal": true,
+  "bugs": {
+    "url": "https://github.com/eurekaa/espreXXO.js/issues"
+  },
+  "keywords": [],
+  "dependencies": {
+    "amdefine": "*",
+    "url": "*",
+    "debug": "*",
+    "requirejs": "*",
+    "continuum.js": "*",
+    "mongodb": "*",
+    "primus": "~1.4.3",
+    "primus-responder": "~1.0.0",
+    "primus-emitter": "~1.0.2",
+    "primus-multiplex": "~1.1.1",
+    "primus-rooms": "~1.1.1",
+    "ws": "*"
+  },
+  "readmeFilename": "README.md",
+  "_id": "espreXXo.js@0.1.2",
+  "_from": "espreXXo.js@"
 }

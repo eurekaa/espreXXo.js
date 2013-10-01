@@ -68,6 +68,13 @@ define [
       _load: (callback)->
          self = @
          
+         # understand what kind of load to do.
+         if self.options.url
+            mX.server.request self.options.url, self.options.query, (err, response)->
+               console.dir response
+            
+               
+         
          # initialize dataset.
          self.options.dataset = self.options.dataset || []
       

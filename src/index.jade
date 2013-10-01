@@ -26,8 +26,10 @@ html
             
             nav#menu(
                 class='menu',
-                data-widget='qX://menu',
-                data-options-widgets-qX-breadcrumber='#breadcrumber',
+                data-widget='qX://menu'
+                data-options-url='mX://database/ui/menu'
+                data-options-parameters='{test: 1}'
+                data-options-widgets-qX-breadcrumber='#breadcrumber'
                 data-options-widgets-qX-panel='#panel'
             ): datalist
                 option.active(label='i18n://menu#eurekaa', value='tile://eurekaa.html')
@@ -50,6 +52,6 @@ html
             
             article#panel( 
                 data-widget='qX://panel' 
-                data-options.scrollbars='true'
+                data-options-scrollbars='true'
             ): datalist
                 option.active(label='i18n://menu#eurekaa', value='tile://eurekaa.html')

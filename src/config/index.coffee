@@ -9,8 +9,10 @@
 
 define [
    'config/require'
+   'config/mosaix'
    'config/namespaces'
-], (require, namespaces)->
+], (require, mosaix, namespaces)->
    
    require: require 
+   mosaix: mosaix
    namespaces: namespaces

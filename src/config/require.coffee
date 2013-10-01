@@ -13,40 +13,36 @@ define ->
    urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
 
    paths:
+      
       # config
       config: 'config/index'
-
+      
       # require.
       dom_ready: 'scripts/libs/require/dom_ready' # this function fires only when the dom is loaded.   
       order: 'scripts/libs/require/order' # lets you specify the order in which modules are evaluated.
       text: 'scripts/libs/require/text' # enable require.js to load other text files (.html, .css, .xml, ...).      
       
-      # jquery.
+      # jarvix.
+      jarvix: 'scripts/libs/jarvix/index'
+      underscore: 'scripts/libs/jarvix/libs/underscore' # utils library.
+      async: 'scripts/libs/jarvix/libs/async' # asynchronous workflow management.
+      
+      # mosaix.
+      mosaix: 'scripts/libs/mosaix/index'
+      socket: 'scripts/libs/mosaix/libs/primus' # real-time socket connections.
+   
+      # quadrix.
+      quadrix: 'scripts/libs/quadrix/index'
       jquery: 'scripts/libs/quadrix/libs/jquery/jquery'
       jquery_ui: 'scripts/libs/quadrix/libs/jquery/jquery.ui'
       jquery_easing: 'scripts/libs/quadrix/libs/jquery/jquery.easing'
-      
-      # jquery plugins.
       namespace: 'scripts/libs/quadrix/libs/jquery/jquery.namespace'
       mousewheel: 'scripts/libs/quadrix/libs/jquery/jquery.mousewheel'
       touchswipe: 'scripts/libs/quadrix/libs/jquery/jquery.touchswipe'
       scrollbar: 'scripts/libs/quadrix/libs/jquery/jquery.scrollbar'
       animate_css: 'scripts/libs/quadrix/libs/jquery/jquery.animatecss'
-      
-      # jarvix.
-      jarvix: 'scripts/libs/jarvix/index'
-
-      # mosaix.
-      mosaix: 'scripts/libs/mosaix/index'
-      
-      # quadrix.
-      quadrix: 'scripts/libs/quadrix/index'
-      
-      # utils libraries.
-      underscore: 'scripts/libs/jarvix/libs/underscore'
-      async: 'scripts/libs/jarvix/libs/async'
-
-
+   
+   
    shim: # used to setup modules dependencies.
       jquery_easing:
          deps: ['jquery'], 
@@ -60,7 +56,8 @@ define ->
          deps: ['jquery']
       scrollbar:
          deps: ['jquery', 'mousewheel']
-      namespace: deps: ['jquery'], exports: '$'
+      namespace:
+         deps: ['jquery'], exports: '$'
       animate_css:
          deps: ['jquery']
       jarvix:
