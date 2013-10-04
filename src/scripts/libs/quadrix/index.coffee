@@ -8,14 +8,14 @@
 # Created: 05/09/13 12.34
 
 define [
-   'config' 
+   'confix' 
    'jarvix'
    'jquery_ui'
    'namespace'
    'scripts/libs/quadrix/modules/parser'
    'scripts/libs/quadrix/modules/localizer'
    'scripts/libs/quadrix/modules/widget'
-], (config, jX, $, namespace, parser, localizer, widget)->
+], (cX, jX, $, namespace, parser, localizer, widget)->
    
    # init library.
    qX =
@@ -32,7 +32,7 @@ define [
          try
             if not callback then callback = ()->
             if element then element = $(element) else throw new Error 'element must be defined'
-            require [config.require.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
+            require [cX.require.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
                
                # wait for widget to be ready, then callback passing widget api.
                element.on 'ready', ()-> 

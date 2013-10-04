@@ -9,35 +9,33 @@
 
 # https://github.com/primus/primus.
 
-
-define ['jarvix', 'config', 'socket'], (jX, config, Primus)->
+define ['jarvix', 'confix', 'socket_client'], (jX, cX, primus)->
    
-   _connect: (callback)->
-      server = Primus.connect config.mosaix.host + ':' + config.mosaix.port, {}
-      server.on 'open', ->
-         console.log 'open'
+   connect: (callback)->
+      server = Primus.connect cX.socket['mosaix'].protocol + '://' + cX.socket['mosaix'].host + ':' + cX.socket['mosaix'].port, {}
+      server.on 'open',->console.log 'open'
       callback null, server
    
    
    request: (url, query, callback)->
       
       # open socket connection
-      @._connect (err, server)->
+      @.connect (err, server)->
          if err then return callback err
          
+         # callback error.
+         server.on 'failure', (err)-> 
+            console.error err
+            callback err
+         
          # callback retrived resource.
-         server.on 'response', (packet)->
+         server.on 'response', (packet)-> 
             console.log packet
             callback null, packet
-            
-         server.on 'failure', (error)->
-            callback error
-         
+
          # send request to server.
          server.emit 'request',
-            secret_key: config.mosaix.secret_key
+            username: cX.socket['mosaix'].username
+            password: cX.socket['mosaix'].password
             url: url
             query: query
-         
-         
-   

@@ -4,23 +4,23 @@
 # Homepage: http://www.eurekaa.it
 # GitHub: https://github.com/eurekaa
 
-# File Name: require
+# File Name: include
 # Created: 05/09/13 12.38
 
-define ->
+define [], ()->
    
    baseUrl: '.'
-   urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
+   #urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
 
    paths:
-      
-      # config
-      config: 'config/index'
       
       # require.
       dom_ready: 'scripts/libs/require/dom_ready' # this function fires only when the dom is loaded.   
       order: 'scripts/libs/require/order' # lets you specify the order in which modules are evaluated.
       text: 'scripts/libs/require/text' # enable require.js to load other text files (.html, .css, .xml, ...).      
+      
+      # confix
+      confix: 'configs/index'
       
       # jarvix.
       jarvix: 'scripts/libs/jarvix/index'
@@ -29,7 +29,7 @@ define ->
       
       # mosaix.
       mosaix: 'scripts/libs/mosaix/index'
-      socket: 'scripts/libs/mosaix/libs/primus' # real-time socket connections.
+      socket_client: 'scripts/libs/mosaix/libs/primus' # real-time socket connections.
    
       # quadrix.
       quadrix: 'scripts/libs/quadrix/index'
@@ -60,9 +60,7 @@ define ->
          deps: ['jquery'], exports: '$'
       animate_css:
          deps: ['jquery']
-      jarvix:
-         deps: ['underscore', 'async']
-
+   
    map:
       jquery_private:
          jquery: 'jquery'

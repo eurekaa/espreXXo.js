@@ -7,10 +7,10 @@
 # File Name: namespaces
 # Created: 11/09/13 22.11
 
-define ['config/require'], (require)->
+define ['configs/include'], (include)->
 
    'i18n://': 'i18n/'
    'tile://': 'tiles/'
-   'qX://': require.paths.quadrix.replace 'index', 'widgets/' 
+   'qX://': include.paths.quadrix.replace 'index', 'widgets/' 
    
    'eK://': 'scripts/eurekaa/'

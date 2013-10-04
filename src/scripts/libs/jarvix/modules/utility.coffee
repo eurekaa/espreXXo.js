@@ -8,9 +8,6 @@
 # Created: 22/08/13 17.17
 
 
-'use continuum'
-
-
 ###*
    @description
    A set of utilities.   
@@ -37,6 +34,8 @@ define ['underscore'], (u)->
    is_undefined: (object)-> u.isUndefined object
    is_defined: (object)-> !u.isUndefined object
    is_element: (object)-> u.isElement object
+   is_browser: ()-> @.is_defined window
+   is_nodejs: ()-> @.is_defined process and process.title == 'node'
 
    # string functions.
    to_upper: (string)-> string.toUpperCase()

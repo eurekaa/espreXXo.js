@@ -17,4 +17,5 @@ define ['underscore'], (u)->
    .keys({one : 1, two : 2, three : 3}); => ["one", "two", "three"]
 ###
    keys: (object)-> u.keys object
+   
    has: (object, key)-> u.has object, key  

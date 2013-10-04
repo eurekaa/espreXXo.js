@@ -253,6 +253,7 @@ try {
   //
   Primus.require('util').inherits(Primus, Stream);
 } catch (e) {
+    console.log('qui');
   Primus.prototype = new EventEmitter();
 
   //

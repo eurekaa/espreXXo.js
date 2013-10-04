@@ -9,10 +9,10 @@
 
 
 # define bootstrap.
-define 'bootstrap', ['config/index'], (config)->
+define ['configs/require'], (config)->
 
    # setup require.js
-   require.config config.require
+   require.config config
 
    # require libraries.
    require [

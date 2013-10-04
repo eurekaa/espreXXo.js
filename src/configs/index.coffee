@@ -8,11 +8,14 @@
 # Created: 05/09/13 12.38
 
 define [
-   'config/require'
-   'config/mosaix'
-   'config/namespaces'
-], (require, mosaix, namespaces)->
+   'jarvix'
+   'configs/require'
+   'configs/socket'
+   'configs/store'
+   'configs/namespaces'
+], (jX, require, socket, store, namespaces)->
    
-   require: require 
-   mosaix: mosaix
+   require: require
+   socket: socket 
+   store: store 
    namespaces: namespaces

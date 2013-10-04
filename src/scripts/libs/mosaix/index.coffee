@@ -4,13 +4,14 @@
 # Homepage: http://www.eurekaa.it
 # GitHub: https://github.com/eurekaa
 
-# File Name: require
+# File Name: index
 # Created: 01/09/13 6.32
 
 define [
+   'jarvix' 
    'scripts/libs/mosaix/modules/load'
-   'scripts/libs/mosaix/modules/server'
-], (load, server)->
+   'scripts/libs/mosaix/modules/socket'
+], (jX, load, socket)->
    
    load: load
-   server: server
+   socket: socket
