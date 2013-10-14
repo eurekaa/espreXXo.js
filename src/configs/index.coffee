@@ -9,13 +9,13 @@
 
 jX = require 'jarvix'
 jX.module.define 'confix', [
-   'configs/require'
+   'configs/loader'
    'configs/socket'
    'configs/store'
    'configs/namespaces'
-], (require, socket, store, namespaces)->
+], (loader, socket, store, namespaces)->
    
-   require: require
-   socket: socket 
-   store: store 
+   loader: loader
+   socket: socket
+   store: store
    namespaces: namespaces

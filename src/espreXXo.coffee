@@ -11,7 +11,7 @@
 if typeof window != 'undefined' # is browser
 
    # configure requirejs.
-   require ['configs/require'], (config)->
+   require ['configs/loader'], (config)->
       require.config config
       require.onError = (required_type, required_modules)->
          console.error required_type
@@ -50,7 +50,7 @@ else # is nodejs
    
    # init and configure requirejs.
    requirejs = require 'requirejs'
-   config = requirejs 'configs/require'
+   config = requirejs 'configs/loader'
    config.nodeRequire = require
    config.urlArgs = '' # requirejs 4 node doesn't support urlArgs.
    requirejs.config config

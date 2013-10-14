@@ -8,19 +8,36 @@
 # Created: 04/10/13 19.21
 
 
-define [], ->
+define [
+   'configs/loader'
+   'async'
+   'underscore' 
+], (config, async, utility)->
 
    define: (name, dependencies, module)->
-
+      
       # check if name is passed.
-      if not module then throw new Error 'you must specify a module name'
+      if not name then throw new Error 'you must specify a module name'
+      
+      # add directory replacement functionality.
+      utility.each dependencies, (dependency, i)->
+         
+         # ignore nodejs directory, requirejs has not to llok inside that directory!
+         dependency = dependency.replace 'node://', ''
+         dependency = dependency.replace 'nodejs://', ''
+         dependencies[i] = dependency
+         
+         # replace directory shortcuts with real paths (defined in confix://loader).
+         if dependency.indexOf('://') != -1
+            utility.each utility.keys(config.directories), (directory, ii)->
+               if dependency.indexOf(directory + '://') != -1
+                  dependencies[i] = dependency.replace directory + '://', config.directories[directory]
 
-      if typeof window is not 'undefined' # is browser
-         define name, dependencies, module
+      # define 4 browser.
+      if typeof window is not 'undefined' then return define name, dependencies, module
 
-      else # is nodejs
-         # requirejs 4 node doesn't work if a name is passed. 
-         define dependencies, module
+      # define 4 server (requirejs doesn't work in nodejs if a module name is defined).
+      else return define dependencies, module
 
 
    require: (dependencies, module)->

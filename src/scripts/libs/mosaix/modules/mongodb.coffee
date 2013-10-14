@@ -8,7 +8,11 @@
 # Created: 01/10/13 15.37
 
 jX = require 'jarvix'
-jX.module.define 'mongodb', ['confix', 'mongodb'], (cX, mongodb)->
+jX.module.define 'mongodb', [
+   'confix'
+   'node://mongodb'
+   'jX://utility'
+], (cX, mongodb, utility)->
 
    # name of the identity field in database.
    IDENTITY: cX.store['mongodb'].identity

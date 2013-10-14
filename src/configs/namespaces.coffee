@@ -8,7 +8,7 @@
 # Created: 11/09/13 22.11
 
 jX = require 'jarvix'
-jX.module.define 'namespaces', ['configs/require'], (require)->
+jX.module.define 'namespaces', ['configs/loader'], (require)->
 
    'i18n://': 'i18n/'
    'tile://': 'tiles/'

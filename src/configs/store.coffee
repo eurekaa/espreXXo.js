@@ -9,7 +9,7 @@
 
 jX = require 'jarvix'
 jX.module.define 'store', [], ()->
-   
+
    mongodb:
       driver: 'mongodb'
       parser: 'JSON'

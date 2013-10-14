@@ -14,6 +14,16 @@ define [], ()->
    baseUrl: '.'
    urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
 
+   directories:
+      node: '../node_modules/'
+      jarvix: 'scripts/libs/jarvix/modules/'
+      jX: 'scripts/libs/jarvix/modules/'
+      mosaix: 'scripts/libs/mosaix/modules/'
+      mX: 'scripts/libs/mosaix/modules/'
+      quadrix: 'scripts/libs/quadrix/modules/'
+      qXui: 'scripts/libs/quadrix/widgets/'
+      confix: 'configs/'
+
    paths:
       
       # require.
