@@ -8,8 +8,8 @@
   "license": "BSD",
   "main": "scripts/libs/mosaix/mosaix.js",
   "scripts": {
-    "start_mosaix": "node bin/mosaix.js",
-    "continuum": "continuum src bin -c tmp/cache -e",
+    "start": "node bin/espreXXo.js",
+    "compile": "continuum src bin -c tmp/cache -e",
     "docs": "jsdoc src -d doc -c doc/_conf.json"
   },
   "repository": {

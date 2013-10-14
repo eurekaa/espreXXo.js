@@ -7,28 +7,34 @@
 # File Name: index
 # Created: 22/08/13 17.17
 
-define [
-   'async'
-   'scripts/libs/jarvix/modules/async'
-   'scripts/libs/jarvix/modules/list'
-   'scripts/libs/jarvix/modules/object'
-   'scripts/libs/jarvix/modules/string'
-   'scripts/libs/jarvix/modules/utility'
-], (async, jx_async, list, object, string, utility)->
+
+# define global loader variable. @todo: find a way to remove it.
+loader = undefined
+
+# define gloabl jX library.
+
+
+# *** CLIENT SIDE SCRIPTING. ***
+if typeof window != 'undefined' # is browser
+   script = document.createElement 'script'
+   script.src = 'scripts/libs/jarvix/modules/module.js'
+   document.getElementsByTagName('head')[0].appendChild script
+   #@todo: find a way to use callbacks, look at require.js code.
+   setTimeout ->
+      loader.define jX 
+   , 10000
+
+
+# *** SERVER SIDE SCRIPTING. ***
+else # is nodejs
    
-   # add conditional async execution.
-   async.if = jx_async.if
-   
-   async: async
-   list: list
-   object: object
-   string: string
-   utility: utility
-   
-   require: (module_name)->
-      if utility.is_nodejs
-         module_name = module_name.split('?')[0]
-         requirejs = require 'requirejs'
-         requirejs module_name 
-      else
-         require module_name
+   requirejs = require 'requirejs'
+   module = requirejs 'scripts/libs/jarvix/modules/module'
+
+   jX = module.define 'jarvix', [], ->
+      module: module
+      async: module.require 'scripts/libs/jarvix/modules/async'
+      list: module.require 'scripts/libs/jarvix/modules/list'
+      object: module.require 'scripts/libs/jarvix/modules/object'
+      string: module.require 'scripts/libs/jarvix/modules/string'
+      utility: module.require 'scripts/libs/jarvix/modules/utility'

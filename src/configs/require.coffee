@@ -15,9 +15,9 @@ define [], ()->
    paths:
       
       # require.
-      dom_ready: 'scripts/libs/require/dom_ready' # this function fires only when the dom is loaded.   
-      order: 'scripts/libs/require/order' # lets you specify the order in which modules are evaluated.
-      text: 'scripts/libs/require/text' # enable require.js to load other text files (.html, .css, .xml, ...).      
+      dom_ready: 'scripts/libs/jarvix/libs/require.domready' # this function fires only when the dom is loaded.   
+      order: 'scripts/libs/jarvix/libs/require.order' # lets you specify the order in which modules are evaluated.
+      text: 'scripts/libs/jarvix/libs/require.text' # enable require.js to load other text files (.html, .css, .xml, ...).      
       
       # confix
       confix: 'configs/index'

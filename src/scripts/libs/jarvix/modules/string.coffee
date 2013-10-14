@@ -7,8 +7,11 @@
 # File Name: string
 # Created: 02/09/13 0.25
 
-define [], ()->
-         
+jX = require 'jarvix'
+console.log jX
+
+
+jX.module.define 'string', [], ->
 
    ###*
       @summary reapeat a string several times.
