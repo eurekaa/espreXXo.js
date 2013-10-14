@@ -20,24 +20,27 @@ define [
       if not name then throw new Error 'you must specify a module name'
       
       # add directory replacement functionality.
-      utility.each dependencies, (dependency, i)->
+      async.map dependencies, (dependency, i)->
          
          # ignore nodejs directory, requirejs has not to llok inside that directory!
          dependency = dependency.replace 'node://', ''
          dependency = dependency.replace 'nodejs://', ''
-         dependencies[i] = dependency
          
          # replace directory shortcuts with real paths (defined in confix://loader).
-         if dependency.indexOf('://') != -1
-            utility.each utility.keys(config.directories), (directory, ii)->
-               if dependency.indexOf(directory + '://') != -1
-                  dependencies[i] = dependency.replace directory + '://', config.directories[directory]
-
-      # define 4 browser.
-      if typeof window is not 'undefined' then return define name, dependencies, module
-
-      # define 4 server (requirejs doesn't work in nodejs if a module name is defined).
-      else return define dependencies, module
+         async.each utility.keys(config.directories), (directory, ii)->
+            if dependency.indexOf(directory + '://') != -1
+               dependency = dependency.replace directory + '://', config.directories[directory]
+            ii null
+         , (err)-> i(err, dependency)
+         
+      , (err, dependencies)-> 
+         if err then throw err
+         
+         # define 4 browser.
+         if typeof window is not 'undefined' then return define name, dependencies, module
+   
+         # define 4 server (requirejs doesn't work in nodejs if a module name is defined).
+         else return define dependencies, module
 
 
    require: (dependencies, module)->
