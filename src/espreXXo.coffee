@@ -52,6 +52,7 @@ else # is nodejs
    requirejs = require 'requirejs'
    config = requirejs 'configs/require'
    config.nodeRequire = require
+   config.urlArgs = '' # requirejs 4 node doesn't support urlArgs.
    requirejs.config config
    
    # import jX library.

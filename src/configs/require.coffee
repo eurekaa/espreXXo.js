@@ -12,7 +12,7 @@
 define [], ()->
    
    baseUrl: '.'
-   #urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
+   urlArgs: "v=" + (new Date()).getTime() # todo: DISABLE BEFORE GOING TO PRODUCTION!
 
    paths:
       
