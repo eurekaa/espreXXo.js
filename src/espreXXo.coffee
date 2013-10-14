@@ -11,7 +11,7 @@
 if typeof window != 'undefined' # is browser
 
    # configure requirejs.
-   require ['configs/loader'], (config)->
+   require ['sys/loader'], (config)->
       require.config config
       require.onError = (required_type, required_modules)->
          console.error required_type
@@ -50,7 +50,7 @@ else # is nodejs
    
    # init and configure requirejs.
    requirejs = require 'requirejs'
-   config = requirejs 'configs/loader'
+   config = requirejs 'sys/loader'
    config.nodeRequire = require
    config.urlArgs = '' # requirejs 4 node doesn't support urlArgs.
    requirejs.config config
@@ -60,7 +60,7 @@ else # is nodejs
     
    # load espreXXo dependencies.
    jX.module.require [
-      'confix'
+      'system'
       'http'
       'primus'
       'primus-responder'
@@ -68,13 +68,13 @@ else # is nodejs
       'primus-multiplex'
       'primus-rooms'
       'scripts/libs/mosaix/modules/mongodb'
-   ], (cX, http, primus, responder, emitter, multiplex, rooms, mongodb)->
+   ], (sys, http, primus, responder, emitter, multiplex, rooms, mongodb)->
       
       # create socket server.
-      server = http.createServer().listen cX.socket['mosaix'].port, -> console.log 'server listening on port ' + cX.socket['mosaix'].port
+      server = http.createServer().listen sys.socket['mosaix'].port, -> console.log 'server listening on port ' + sys.socket['mosaix'].port
       server = new primus server, 
-         transformer: cX.socket['mosaix'].driver
-         parser: cX.socket['mosaix'].parser
+         transformer: sys.socket['mosaix'].driver
+         parser: sys.socket['mosaix'].parser
       
       # use socket plugins.
       server.use 'responder', responder 
@@ -90,7 +90,7 @@ else # is nodejs
          console.log 'connected'
          socket.on 'request', (packet)->
             console.dir packet
-            if packet.password != cX.socket['mosaix'].password
+            if packet.password != sys.socket['mosaix'].password
                socket.emit 'failure', 'request is not allowed.'
             else
                console.log 'ok'

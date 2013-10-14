@@ -10,10 +10,10 @@
 # https://github.com/primus/primus.
 
 jX = require 'jarvix'
-jX.module.define 'socket', ['confix', 'socket_client'], (cX, primus)->
+jX.module.define 'socket', ['system', 'socket_client'], (sys, primus)->
    
    connect: (callback)->
-      server = Primus.connect cX.socket['mosaix'].protocol + '://' + cX.socket['mosaix'].host + ':' + cX.socket['mosaix'].port, {}
+      server = Primus.connect sys.socket['mosaix'].protocol + '://' + sys.socket['mosaix'].host + ':' + sys.socket['mosaix'].port, {}
       server.on 'open',->console.log 'open'
       callback null, server
    
@@ -36,7 +36,7 @@ jX.module.define 'socket', ['confix', 'socket_client'], (cX, primus)->
 
          # send request to server.
          server.emit 'request',
-            username: cX.socket['mosaix'].username
-            password: cX.socket['mosaix'].password
+            username: sys.socket['mosaix'].username
+            password: sys.socket['mosaix'].password
             url: url
             query: query

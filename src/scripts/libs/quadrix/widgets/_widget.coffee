@@ -11,7 +11,7 @@ jX = require 'jarvix'
 jX.module.define '_widget', [
    'jquery_ui'
    'mosaix'
-   'scripts/libs/quadrix/modules/localizer'
+   'quadrix://localizer'
 ], ($, mX, localizer)->
    
    $.widget 'ui.qX__widget',

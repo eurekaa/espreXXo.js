@@ -9,8 +9,8 @@
 
 jX = require 'jarvix'
 jX.module.define 'mosaix', [
-   'scripts/libs/mosaix/modules/load'
-   'scripts/libs/mosaix/modules/socket'
+   'mosaix://load'
+   'mosaix://socket'
 ], (load, socket)->
    
    load: load

@@ -8,10 +8,10 @@
 # Created: 11/09/13 22.11
 
 jX = require 'jarvix'
-jX.module.define 'namespaces', ['configs/loader'], (require)->
+jX.module.define 'namespaces', ['sys/loader'], (loader)->
 
    'i18n://': 'i18n/'
    'tile://': 'tiles/'
-   'qX://': require.paths.quadrix.replace 'index', 'widgets/' 
+   'qX://': loader.paths.quadrix.replace 'index', 'widgets/' 
    
    'eK://': 'scripts/eurekaa/'

@@ -10,13 +10,13 @@
 
 jX = require 'jarvix'
 jX.module.define 'quadrix', [
-   'confix' 
+   'system' 
    'jquery_ui'
    'namespace'
-   'scripts/libs/quadrix/modules/parser'
-   'scripts/libs/quadrix/modules/localizer'
-   'scripts/libs/quadrix/modules/widget'
-], (cX, $, namespace, parser, localizer, widget)->
+   'quadrix://parser'
+   'quadrix://localizer'
+   'quadrix://widget'
+], (sys, $, namespace, parser, localizer, widget)->
    
    # init library.
    qX =
@@ -33,7 +33,7 @@ jX.module.define 'quadrix', [
          try
             if not callback then callback = ()->
             if element then element = $(element) else throw new Error 'element must be defined'
-            require [cX.require.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
+            require [sys.loader.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
                
                # wait for widget to be ready, then callback passing widget api.
                element.on 'ready', ()-> 

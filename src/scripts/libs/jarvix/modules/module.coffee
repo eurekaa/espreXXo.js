@@ -9,10 +9,10 @@
 
 
 define [
-   'configs/loader'
+   'sys/loader'
    'async'
    'underscore' 
-], (config, async, utility)->
+], (loader_config, async, utility)->
 
    define: (name, dependencies, module)->
       
@@ -21,15 +21,14 @@ define [
       
       # add directory replacement functionality.
       async.map dependencies, (dependency, i)->
-         
          # ignore nodejs directory, requirejs has not to llok inside that directory!
          dependency = dependency.replace 'node://', ''
          dependency = dependency.replace 'nodejs://', ''
          
-         # replace directory shortcuts with real paths (defined in confix://loader).
-         async.each utility.keys(config.directories), (directory, ii)->
+         # replace directory shortcuts with real paths (defined in sys/loader).
+         async.each utility.keys(loader_config.directories), (directory, ii)->
             if dependency.indexOf(directory + '://') != -1
-               dependency = dependency.replace directory + '://', config.directories[directory]
+               dependency = dependency.replace directory + '://', loader_config.directories[directory]
             ii null
          , (err)-> i(err, dependency)
          

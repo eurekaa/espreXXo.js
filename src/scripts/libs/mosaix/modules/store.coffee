@@ -9,13 +9,13 @@
 
 jX = require 'jarvix'
 jX.module.define 'store', [
-   'confix'
-], (cX)->
+   'system'
+], (sys)->
    
    connect: (store_name, callback)->
       
       # retrieve store configuration.
-      driver = jX.load cX.store[store_name].driver
+      driver = jX.load sys.store[store_name].driver
       driver.connect callback 
       
       

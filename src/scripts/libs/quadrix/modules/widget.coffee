@@ -10,7 +10,7 @@
 jX = require 'jarvix'
 jX.module.define 'widget', [
    'jquery_ui'
-   'scripts/libs/quadrix/widgets/_widget'
+   'quadrix_ui://_widget'
 ], ($)->
    
    define: (name, base, widget)->

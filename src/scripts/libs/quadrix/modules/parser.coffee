@@ -9,10 +9,10 @@
 
 jX = require 'jarvix'
 jX.module.define 'parser', [
-   'confix'
+   'system'
    'jquery_ui' 
-   'scripts/libs/quadrix/modules/widget'
-], (cX, $, widget)->
+   'quadrix://widget'
+], (sys, $, widget)->
 
    qX = widget: widget
    
@@ -94,7 +94,7 @@ jX.module.define 'parser', [
             widget_name = widget_name[0].split '://' 
             widget_namespace = if widget_name.length > 1 then widget_name[0] else null
             widget_name = if widget_name.length > 1 then widget_name[1] else widget_name[0]
-            widget_path = if widget_namespace then cX.namespaces[widget_namespace + '://'] + widget_name else widget_name               
+            widget_path = if widget_namespace then sys.namespaces[widget_namespace + '://'] + widget_name else widget_name               
             widget_fullname = if widget_namespace then widget_namespace + '_' + widget_name.split('/').pop() else widget_name.split('/').pop()
 
             # if widget is just ready jump to the next.

@@ -8,11 +8,11 @@
 # Created: 05/09/13 12.38
 
 jX = require 'jarvix'
-jX.module.define 'confix', [
-   'configs/loader'
-   'configs/socket'
-   'configs/store'
-   'configs/namespaces'
+jX.module.define 'system', [
+   'sys://loader'
+   'sys://socket'
+   'sys://store'
+   'sys://namespaces'
 ], (loader, socket, store, namespaces)->
    
    loader: loader

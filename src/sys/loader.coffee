@@ -17,12 +17,10 @@ define [], ()->
    directories:
       node: '../node_modules/'
       jarvix: 'scripts/libs/jarvix/modules/'
-      jX: 'scripts/libs/jarvix/modules/'
       mosaix: 'scripts/libs/mosaix/modules/'
-      mX: 'scripts/libs/mosaix/modules/'
       quadrix: 'scripts/libs/quadrix/modules/'
-      qXui: 'scripts/libs/quadrix/widgets/'
-      confix: 'configs/'
+      quadrix_ui: 'scripts/libs/quadrix/widgets/'
+      sys: 'sys/'
 
    paths:
       
@@ -31,8 +29,8 @@ define [], ()->
       order: 'scripts/libs/jarvix/libs/require.order' # lets you specify the order in which modules are evaluated.
       text: 'scripts/libs/jarvix/libs/require.text' # enable require.js to load other text files (.html, .css, .xml, ...).      
       
-      # confix
-      confix: 'configs/index'
+      # system.
+      system: 'sys/index'
       
       # jarvix.
       jarvix: 'scripts/libs/jarvix/index'
