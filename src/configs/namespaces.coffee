@@ -7,7 +7,8 @@
 # File Name: namespaces               s
 # Created: 11/09/13 22.11
 
-define ['configs/require'], (require)->
+jX = require 'jarvix'
+jX.module.define 'namespaces', ['configs/require'], (require)->
 
    'i18n://': 'i18n/'
    'tile://': 'tiles/'

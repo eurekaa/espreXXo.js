@@ -8,12 +8,12 @@
 # Created: 08/08/13 20.59
 
 
-define [
-   'jquery_ui'
-   'jarvix'
+jX = require 'jarvix'
+jX.module.define 'menu', [
+   'jquery_ui'        
    'mosaix'
    'quadrix'
-], ($, jX, mX, qX) ->
+], ($, mX, qX) ->
    
    
    qX.widget.define 'qX.menu',

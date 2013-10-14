@@ -7,8 +7,8 @@
 # File Name: require
 # Created: 10/09/13 14.08
 
-
-define ['jarvix'], (jX)->
+jX = require 'jarvix'
+jX.module.define 'load', [], ()->
 
 
    stylesheets: (urls)->

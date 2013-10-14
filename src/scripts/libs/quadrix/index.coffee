@@ -7,15 +7,16 @@
 # File Name: index
 # Created: 05/09/13 12.34
 
-define [
+
+jX = require 'jarvix'
+jX.module.define 'quadrix', [
    'confix' 
-   'jarvix'
    'jquery_ui'
    'namespace'
    'scripts/libs/quadrix/modules/parser'
    'scripts/libs/quadrix/modules/localizer'
    'scripts/libs/quadrix/modules/widget'
-], (cX, jX, $, namespace, parser, localizer, widget)->
+], (cX, $, namespace, parser, localizer, widget)->
    
    # init library.
    qX =

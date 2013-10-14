@@ -7,7 +7,8 @@
 # File Name: mosaix
 # Created: 30/09/13 15.10
 
-define [], ()->
+jX = require 'jarvix'
+jX.module.define 'store', [], ()->
    
    mongodb:
       driver: 'mongodb'

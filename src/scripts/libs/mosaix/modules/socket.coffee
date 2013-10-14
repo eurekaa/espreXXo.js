@@ -9,7 +9,8 @@
 
 # https://github.com/primus/primus.
 
-define ['jarvix', 'confix', 'socket_client'], (jX, cX, primus)->
+jX = require 'jarvix'
+jX.module.define 'socket', ['confix', 'socket_client'], (cX, primus)->
    
    connect: (callback)->
       server = Primus.connect cX.socket['mosaix'].protocol + '://' + cX.socket['mosaix'].host + ':' + cX.socket['mosaix'].port, {}

@@ -23,7 +23,14 @@
    documents the function and classes that are added to jQuery by this plug-in.
    @memberOf jQuery
 ###
-define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX) ->
+
+
+jX = require 'jarvix'
+jX.module.define 'langswitcher', [
+   'jquery_ui'
+   'mosaix'
+   'quadrix'
+], ($, mX, qX) ->
    
    # create widget.
    qX.widget.define 'qX.langswitcher',

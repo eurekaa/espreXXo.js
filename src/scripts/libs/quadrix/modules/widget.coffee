@@ -7,11 +7,11 @@
 # File Name: widget
 # Created: 11/09/13 20.05
 
-define [
+jX = require 'jarvix'
+jX.module.define 'widget', [
    'jquery_ui'
-   'jarvix'
    'scripts/libs/quadrix/widgets/_widget'
-], ($, jX)->
+], ($)->
    
    define: (name, base, widget)->
       

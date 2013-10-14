@@ -8,8 +8,12 @@
 # Created: 08/08/13 20.59
 
 
-define ['jquery_ui', 'jarvix', 'quadrix', 'animate_css'], ($, jX, qX) ->
-
+jX = require 'jarvix'
+jX.module.define 'panel', [
+   'jquery_ui'
+   'quadrix' 
+   'animate_css'
+], ($, qX) ->
 
    # create widget.
    qX.widget.define 'qX.panel',

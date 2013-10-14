@@ -8,7 +8,11 @@
 # Created: 08/08/13 20.59
 
 
-define ['jquery_ui', 'jarvix', 'quadrix'], ($, jX, qX) ->
+jX = require 'jarvix'
+jX.module.define 'breadcrumber', [
+   'jquery_ui'
+   'quadrix'
+], ($, qX) ->
    
    
    qX.widget.define 'qX.breadcrumber',

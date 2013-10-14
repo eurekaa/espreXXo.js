@@ -7,15 +7,14 @@
 # File Name: parser
 # Created: 01/09/13 21.05
 
-define [
+jX = require 'jarvix'
+jX.module.define 'parser', [
    'confix'
    'jquery_ui' 
-   'jarvix'
    'scripts/libs/quadrix/modules/widget'
-], (cX, $, jX, widget)->
+], (cX, $, widget)->
 
    qX = widget: widget
-   
    
    # reads all attributes and return them in an tree nested object.
    get_attributes: (element)->

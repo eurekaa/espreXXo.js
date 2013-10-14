@@ -7,37 +7,56 @@
 # File Name: espreXXo
 # Created: 25/09/13 19.30
 
-# define global jX library.
-jX = undefined
-
-# *** CLIENT SIDE SCRIPTING. ***
+# *** BROWSER SIDE SCRIPTING. ***
 if typeof window != 'undefined' # is browser
+
+   # configure requirejs.
+   require ['configs/require'], (config)->
+      require.config config
+      require.onError = (required_type, required_modules)->
+         console.error required_type
+         console.error required_modules
+
+      # import jarvix library and make it global 4 the browser.
+      # (in nodejs you have to require it).
+      require ['jarvix'], (jarvix)->
+         window.jX = jX = jarvix
    
-   # import global jX library.
-   script = document.createElement 'script'
-   script.src = 'scripts/libs/jarvix/index.js'
-   document.getElementsByTagName('head')[0].appendChild script
+         # require dependencies.
+         jX.module.require [
+            'dom_ready' 
+            'mosaix'
+            'quadrix'
+         ], (dom_ready, mX, qX)->
+            
+            # load main stylesheets.
+            mX.load.stylesheets [
+               'styles/libs/jquery/themes/eurekaa/jquery-ui-1.10.3.custom.css'
+               'styles/libs/animate.css'
+            ]
+   
+            # when the dom is fully loaded.
+            dom_ready (dom)->
+   
+               # parse body to create widgets.
+               qX.parser.parse $('body'), (err)->
+                  if err then console.error err
+
+
 
 
 # *** SERVER SIDE SCRIPTING. ***
 else # is nodejs 
    
-   # init and configure amd loader.
+   # init and configure requirejs.
    requirejs = require 'requirejs'
-   
-   # requirejs 4 node must be configured the first time it is required.
    config = requirejs 'configs/require'
    config.nodeRequire = require
    requirejs.config config
    
-   # import global jX library (requirejs is now wrapped inside jX.module module).
+   # import jX library.
    jX = requirejs 'jarvix'
-   #console.log jX
-
-   console.log jX.string.repeat 'ciao ', 5
-   
-   #console.log global.jarvix
-   
+    
    # load espreXXo dependencies.
    jX.module.require [
       'confix'

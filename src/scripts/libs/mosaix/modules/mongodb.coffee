@@ -7,11 +7,8 @@
 # File Name: mongodb
 # Created: 01/10/13 15.37
 
-define [
-   'confix'
-   'jarvix'
-   'mongodb'
-], (cX, jX, mongodb)->
+jX = require 'jarvix'
+jX.module.define 'mongodb', ['confix', 'mongodb'], (cX, mongodb)->
 
    # name of the identity field in database.
    IDENTITY: cX.store['mongodb'].identity

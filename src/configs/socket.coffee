@@ -7,7 +7,8 @@
 # File Name: sockets
 # Created: 01/10/13 23.37
 
-define [], ()->
+jX = require 'jarvix'
+jX.module.define 'socket', [], ()->
 
    mosaix:
       driver: 'websockets'

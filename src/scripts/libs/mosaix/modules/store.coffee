@@ -7,10 +7,10 @@
 # File Name: store
 # Created: 02/10/13 0.30
 
-define [
+jX = require 'jarvix'
+jX.module.define 'store', [
    'confix'
-   'jarvix'
-], (cX, jX)->
+], (cX)->
    
    connect: (store_name, callback)->
       

@@ -7,10 +7,11 @@
 # File Name: accordion
 # Created: 03/09/13 21.18
 
-define [
+jX = require 'jarvix'
+jX.module.define 'accordion', [
    'jquery_ui'
    'quadrix'
-], ($, qX)->
+], ($, qX) ->
    
    qX.widget.define 'qX.accordion',
       

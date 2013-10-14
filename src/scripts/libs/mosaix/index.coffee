@@ -7,11 +7,11 @@
 # File Name: index
 # Created: 01/09/13 6.32
 
-define [
-   'jarvix' 
+jX = require 'jarvix'
+jX.module.define 'mosaix', [
    'scripts/libs/mosaix/modules/load'
    'scripts/libs/mosaix/modules/socket'
-], (jX, load, socket)->
+], (load, socket)->
    
    load: load
    socket: socket

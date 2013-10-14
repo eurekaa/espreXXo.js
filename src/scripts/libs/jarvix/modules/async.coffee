@@ -7,7 +7,7 @@
 # File Name: async
 # Created: 01/10/13 20.38
 
-define [], ()->
+define [], ->
    
    if: (condition, action, callback)->
       if condition then action.then callback

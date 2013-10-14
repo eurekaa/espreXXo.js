@@ -7,6 +7,7 @@
 # File Name: object
 # Created: 01/09/13 21.54
 
+
 define ['underscore'], (u)->
 
    ###*

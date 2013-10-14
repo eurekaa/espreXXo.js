@@ -8,33 +8,19 @@
 # Created: 22/08/13 17.17
 
 
-# define global loader variable. @todo: find a way to remove it.
-loader = undefined
 
-# define gloabl jX library.
-
-
-# *** CLIENT SIDE SCRIPTING. ***
-if typeof window != 'undefined' # is browser
-   script = document.createElement 'script'
-   script.src = 'scripts/libs/jarvix/modules/module.js'
-   document.getElementsByTagName('head')[0].appendChild script
-   #@todo: find a way to use callbacks, look at require.js code.
-   setTimeout ->
-      loader.define jX 
-   , 10000
-
-
-# *** SERVER SIDE SCRIPTING. ***
-else # is nodejs
+define [
+   'scripts/libs/jarvix/modules/module'
+   'async'
+   'scripts/libs/jarvix/modules/list'
+   'scripts/libs/jarvix/modules/object'
+   'scripts/libs/jarvix/modules/string'
+   'scripts/libs/jarvix/modules/utility'
+], (module, async, list, object, string, utility)->
    
-   requirejs = require 'requirejs'
-   module = requirejs 'scripts/libs/jarvix/modules/module'
-
-   jX = module.define 'jarvix', [], ->
-      module: module
-      async: module.require 'scripts/libs/jarvix/modules/async'
-      list: module.require 'scripts/libs/jarvix/modules/list'
-      object: module.require 'scripts/libs/jarvix/modules/object'
-      string: module.require 'scripts/libs/jarvix/modules/string'
-      utility: module.require 'scripts/libs/jarvix/modules/utility'
+   module: module
+   async: async 
+   list: list 
+   object: object
+   string: string 
+   utility: utility

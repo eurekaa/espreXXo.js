@@ -7,11 +7,11 @@
 # File Name: localizer
 # Created: 03/09/13 11.34
 
-define [
+jX = require 'jarvix'
+jX.module.define 'localizer', [
    'jquery' 
-   'jarvix'
    'mosaix'
-], ($, jX, mX)->
+], ($, mX)->
 
 
    get_locale: ()-> sessionStorage.getItem 'locale'

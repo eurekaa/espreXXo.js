@@ -7,12 +7,12 @@
 # File Name: _widget
 # Created: 12/09/13 12.10
 
-define [
+jX = require 'jarvix'
+jX.module.define '_widget', [
    'jquery_ui'
-   'jarvix'
    'mosaix'
    'scripts/libs/quadrix/modules/localizer'
-], ($, jX, mX, localizer)->
+], ($, mX, localizer)->
    
    $.widget 'ui.qX__widget',
       

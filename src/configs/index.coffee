@@ -7,13 +7,13 @@
 # File Name: index
 # Created: 05/09/13 12.38
 
-define [
-   'jarvix'
+jX = require 'jarvix'
+jX.module.define 'confix', [
    'configs/require'
    'configs/socket'
    'configs/store'
    'configs/namespaces'
-], (jX, require, socket, store, namespaces)->
+], (require, socket, store, namespaces)->
    
    require: require
    socket: socket 

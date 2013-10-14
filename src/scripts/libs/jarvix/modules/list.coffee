@@ -18,6 +18,7 @@
    @module jarvix/list
    @requires underscore
 ###
+
 define ['underscore'], (u)->
 
    ###*

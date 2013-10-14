@@ -7,6 +7,8 @@
 # File Name: include
 # Created: 05/09/13 12.38
 
+
+# ATTENTION: do not use jarvix here cause this module has to be loaded before.
 define [], ()->
    
    baseUrl: '.'

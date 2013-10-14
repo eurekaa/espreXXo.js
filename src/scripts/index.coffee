@@ -8,13 +8,13 @@
 # Created: 08/08/13 20.58
 
 
-# define main AMD module.
-define [
+# define main module.
+jX = require 'jarvix'
+jX.module.define [
    'jquery_ui'
-   'jarvix'
    'mosaix'
    'quadrix'
-], ($, jX, mX, qX)->
+], ($, mX, qX)->
 
    # load stylesheets.
    mX.load.stylesheets [

@@ -7,14 +7,14 @@
 # File Name: accordion
 # Created: 03/09/13 21.18
 
-define [
+
+jX = require 'jarvix'
+jX.module.define 'scrollbar', [
    'jquery_ui'
-   'jarvix'
    'mosaix'
    'quadrix'
    'scrollbar'
-], ($, jX, mX, qX)->
-
+], ($, mX, qX) ->
    
    qX.widget.define 'qX.scrollbar',
       
