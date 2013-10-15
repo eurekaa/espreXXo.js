@@ -14,7 +14,7 @@ if typeof window != 'undefined' # is browser
    require ['sys/jarvix'], (jY)->
       require.config jY
       require.onError = (err)-> 
-         console.dir err
+         #console.dir err
          throw err
       
 
@@ -60,7 +60,7 @@ else # is nodejs
    jX = requirejs 'jarvix'
     
    # load espreXXo dependencies.
-   jX.module.require [
+   jX.require [
       'sys://mosaix'
       'http'
       'primus'
@@ -68,7 +68,7 @@ else # is nodejs
       'primus-emitter'
       'primus-multiplex'
       'primus-rooms'
-      'mosaix://drivers/mongodb'
+      'mosaix://databases/mongodb'
    ], (mY, http, primus, responder, emitter, multiplex, rooms, mongodb)->
       
       # create socket server.

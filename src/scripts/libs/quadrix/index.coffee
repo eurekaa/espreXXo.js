@@ -9,7 +9,7 @@
 
 
 jX = require 'jarvix'
-jX.module.define 'quadrix', [
+jX.library.define 'quadrix', [
    'system' 
    'jquery_ui'
    'namespace'
@@ -23,8 +23,7 @@ jX.module.define 'quadrix', [
       localizer: localizer
       element: element
       parser: parser 
-
-           
+   
    # add widgets to library. each widget will be asynchronously downloaded when required.
    widgets = ['accordion', 'breadcrumber', 'langswitcher', 'menu', 'panel', 'scrollbar']
    jX.list.each widgets, (widget_name, i)->

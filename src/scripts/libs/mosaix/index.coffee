@@ -7,11 +7,14 @@
 # File Name: index
 # Created: 01/09/13 6.32
 
-jX = require 'jarvix'
-jX.module.define 'mosaix', [
+jX = require 'jarvix' 
+
+jX.library.define 'mosaix', [
+   'mosaix://database'
    'mosaix://load'
    'mosaix://socket'
-], (load, socket)->
-   
+], (database, load, socket)->
+
+   database: database
    load: load
    socket: socket

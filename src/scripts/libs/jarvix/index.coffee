@@ -12,14 +12,17 @@
 define [
    'scripts/libs/jarvix/module'
    'scripts/libs/jarvix/async'
+   'scripts/libs/jarvix/library'
    'scripts/libs/jarvix/list'
    'scripts/libs/jarvix/object'
    'scripts/libs/jarvix/string'
    'scripts/libs/jarvix/utility'
-], (module, async, list, object, string, utility)->
+], (module, async, library, list, object, string, utility)->
 
    module: module
-   async: async 
+   require: (dependencies, callback)-> module.require dependencies, callback
+   async: async
+   library: library
    list: list 
    object: object
    string: string 
