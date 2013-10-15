@@ -10,14 +10,14 @@
 
 
 define [
-   'scripts/libs/jarvix/modules/module'
-   'async'
-   'scripts/libs/jarvix/modules/list'
-   'scripts/libs/jarvix/modules/object'
-   'scripts/libs/jarvix/modules/string'
-   'scripts/libs/jarvix/modules/utility'
+   'scripts/libs/jarvix/module'
+   'scripts/libs/jarvix/async'
+   'scripts/libs/jarvix/list'
+   'scripts/libs/jarvix/object'
+   'scripts/libs/jarvix/string'
+   'scripts/libs/jarvix/utility'
 ], (module, async, list, object, string, utility)->
-   
+
    module: module
    async: async 
    list: list 

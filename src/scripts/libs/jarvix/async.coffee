@@ -7,8 +7,12 @@
 # File Name: async
 # Created: 01/10/13 20.38
 
-define [], ->
+define ['async'], (a)->
    
    if: (condition, action, callback)->
       if condition then action.then callback
       else action.else callback
+         
+   each: a.each
+   parallel: a.parallel
+   series: a.series

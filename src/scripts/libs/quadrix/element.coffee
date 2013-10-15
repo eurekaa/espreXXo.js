@@ -8,10 +8,10 @@
 # Created: 11/09/13 20.05
 
 jX = require 'jarvix'
-jX.module.define 'widget', [
+jX.module.define 'element', [
    'jquery_ui'
-   'quadrix_ui://_widget'
-], ($)->
+   'quadrix://widgets/_widget'
+], ($)->             
    
    define: (name, base, widget)->
       

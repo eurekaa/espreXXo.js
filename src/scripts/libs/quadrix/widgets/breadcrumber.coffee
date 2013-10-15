@@ -15,7 +15,7 @@ jX.module.define 'breadcrumber', [
 ], ($, qX) ->
    
    
-   qX.widget.define 'qX.breadcrumber',
+   qX.element.define 'qX.breadcrumber',
       
       options: {}
       

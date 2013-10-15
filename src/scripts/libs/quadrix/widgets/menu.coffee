@@ -16,7 +16,7 @@ jX.module.define 'menu', [
 ], ($, mX, qX) ->
    
    
-   qX.widget.define 'qX.menu',
+   qX.element.define 'qX.menu',
       
       options:
          stylesheet: 'styles/menu.css'

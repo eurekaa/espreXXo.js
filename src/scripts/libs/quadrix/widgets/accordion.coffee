@@ -13,7 +13,7 @@ jX.module.define 'accordion', [
    'quadrix'
 ], ($, qX) ->
    
-   qX.widget.define 'qX.accordion',
+   qX.element.define 'qX.accordion',
       
       options: 
          header: 'h1'

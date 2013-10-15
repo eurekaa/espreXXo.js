@@ -11,7 +11,7 @@ define ['jquery_ui', 'jarvix', 'mosaix', 'quadrix'], ($, jX, mX, qX)->
    
    mX.load.stylesheets ['styles/curriculum.css']
    
-   qX.widget.define 'eK.curriculum',
+   qX.element.define 'eK.curriculum',
       
       _create: ->
          @.render (err)-> if err then console.error err

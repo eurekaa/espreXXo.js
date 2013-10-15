@@ -9,18 +9,18 @@
 
 jX = require 'jarvix'
 jX.module.define 'mongodb', [
-   'system'
+   'sys://mosaix'
    'node://mongodb'
    'jarvix://utility'
-], (sys, mongodb, utility)->
+], (mY, mongodb, utility)->
 
    # name of the identity field in database.
-   IDENTITY: sys.store['mongodb'].identity
+   IDENTITY: mY.databases['espreXXo'].identity
 
    # opens a new connection to mongodb database.
    connect: (callback) ->
-      server = new mongodb.Server sys.store['mongodb'].host, sys.store['mongodb'].port, {}
-      server = new mongodb.Db sys.store['mongodb'].name, server, safe: true
+      server = new mongodb.Server mY.databases['espreXXo'].host, mY.databases['espreXXo'].port, {}
+      server = new mongodb.Db mY.databases['espreXXo'].name, server, safe: true
       server.open (err, client)-> callback err, client
    
    

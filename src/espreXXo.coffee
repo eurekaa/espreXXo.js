@@ -11,17 +11,18 @@
 if typeof window != 'undefined' # is browser
 
    # configure requirejs.
-   require ['sys/loader'], (config)->
-      require.config config
-      require.onError = (required_type, required_modules)->
-         console.error required_type
-         console.error required_modules
+   require ['sys/jarvix'], (jY)->
+      require.config jY
+      require.onError = (err)-> 
+         console.dir err
+         throw err
+      
 
       # import jarvix library and make it global 4 the browser.
       # (in nodejs you have to require it).
       require ['jarvix'], (jarvix)->
          window.jX = jX = jarvix
-   
+         
          # require dependencies.
          jX.module.require [
             'dom_ready' 
@@ -50,31 +51,31 @@ else # is nodejs
    
    # init and configure requirejs.
    requirejs = require 'requirejs'
-   config = requirejs 'sys/loader'
-   config.nodeRequire = require
-   config.urlArgs = '' # requirejs 4 node doesn't support urlArgs.
-   requirejs.config config
+   jY = requirejs 'sys/jarvix'
+   jY.nodeRequire = require
+   jY.urlArgs = '' # requirejs 4 node doesn't support urlArgs.
+   requirejs.config jY
    
    # import jX library.
    jX = requirejs 'jarvix'
     
    # load espreXXo dependencies.
    jX.module.require [
-      'system'
+      'sys://mosaix'
       'http'
       'primus'
       'primus-responder'
       'primus-emitter'
       'primus-multiplex'
       'primus-rooms'
-      'scripts/libs/mosaix/modules/mongodb'
-   ], (sys, http, primus, responder, emitter, multiplex, rooms, mongodb)->
+      'mosaix://drivers/mongodb'
+   ], (mY, http, primus, responder, emitter, multiplex, rooms, mongodb)->
       
       # create socket server.
-      server = http.createServer().listen sys.socket['mosaix'].port, -> console.log 'server listening on port ' + sys.socket['mosaix'].port
+      server = http.createServer().listen mY.sockets['system'].port, -> console.log 'system socket listening on port ' + mY.sockets['system'].port
       server = new primus server, 
-         transformer: sys.socket['mosaix'].driver
-         parser: sys.socket['mosaix'].parser
+         transformer: mY.sockets['system'].driver
+         parser: mY.sockets['system'].parser
       
       # use socket plugins.
       server.use 'responder', responder 
@@ -90,7 +91,7 @@ else # is nodejs
          console.log 'connected'
          socket.on 'request', (packet)->
             console.dir packet
-            if packet.password != sys.socket['mosaix'].password
+            if packet.password != mY.sockets['system'].password
                socket.emit 'failure', 'request is not allowed.'
             else
                console.log 'ok'

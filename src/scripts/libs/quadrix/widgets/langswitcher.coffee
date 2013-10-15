@@ -33,7 +33,7 @@ jX.module.define 'langswitcher', [
 ], ($, mX, qX) ->
    
    # create widget.
-   qX.widget.define 'qX.langswitcher',
+   qX.element.define 'qX.langswitcher',
    
       options:
          stylesheet: 'styles/langswitcher.css'

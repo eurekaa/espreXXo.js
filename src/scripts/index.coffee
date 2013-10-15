@@ -22,7 +22,7 @@ jX.module.define [
       'styles/fonts.css'
    ]
    
-   qX.widget.define 'index',
+   qX.element.define 'index',
 
       options: {}
       

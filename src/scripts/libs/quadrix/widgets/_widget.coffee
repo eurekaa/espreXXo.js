@@ -97,8 +97,8 @@ jX.module.define '_widget', [
          loaded = 0
          counted = 0
       
-         require ['scripts/libs/quadrix/modules/widget'], (widget)->
-            qX = widget: widget
+         jX.module.require ['quadrix://element'], (widget)->
+            qX = element: widget
 
             # count widgets.
             jX.list.each jX.object.keys(widgets), (namespace, i)->
@@ -115,7 +115,7 @@ jX.module.define '_widget', [
                name = name[1]
    
                # when a widget is loaded store its api in options.widgets property.
-               widgets[namespace][name] = qX.widget.api widgets[namespace][name], namespace + '.' + name
+               widgets[namespace][name] = qX.element.api widgets[namespace][name], namespace + '.' + name
    
                # if all widgets are loaded, callback.
                if counted == loaded
@@ -129,7 +129,7 @@ jX.module.define '_widget', [
                   widget = $(widgets[namespace][name])
    
                   # widget is already.
-                  if widget and qX.widget.is_ready widget, namespace + '.' + name
+                  if widget and qX.element.is_ready widget, namespace + '.' + name
                      element.trigger 'waiting', namespace + '.' + name
    
                      # wait for widget ready.

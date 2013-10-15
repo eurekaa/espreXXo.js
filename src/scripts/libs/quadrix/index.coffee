@@ -15,13 +15,13 @@ jX.module.define 'quadrix', [
    'namespace'
    'quadrix://parser'
    'quadrix://localizer'
-   'quadrix://widget'
-], (sys, $, namespace, parser, localizer, widget)->
-   
+   'quadrix://element'
+], (sys, $, namespace, parser, localizer, element)->
+
    # init library.
    qX =
       localizer: localizer
-      widget: widget
+      element: element
       parser: parser 
 
            
@@ -33,22 +33,23 @@ jX.module.define 'quadrix', [
          try
             if not callback then callback = ()->
             if element then element = $(element) else throw new Error 'element must be defined'
-            require [sys.loader.paths.quadrix.replace('index', 'widgets/') + widget_name], (widget)->
+            console.log widget_name
+            jX.module.require ['quadrix://widgets/' + widget_name], (widget)->
                
                # wait for widget to be ready, then callback passing widget api.
                element.on 'ready', ()-> 
-                  callback null, element.data 'qX-qX_' + widget_name
+                  callback null, element.data 'qUi-qUi_' + widget_name
                   element.off 'ready'
                
                # run widget on element.
                options = options || {}
-               element['qX_' + widget_name](options)
+               element['qUi_' + widget_name](options)
          
          catch err then callback err, null
 
 
    # create qX namespace under $.fn 
-   $.namespace '$.fn.qX'
+   $.namespace '$.fn.qUi'
 
    # add namespace constructor.
    $.fn.qX = (widget_name, options, callback)->

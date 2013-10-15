@@ -9,10 +9,10 @@
 
 jX = require 'jarvix'
 jX.module.define 'parser', [
-   'system'
+   'sys://jarvix'
    'jquery_ui' 
-   'quadrix://widget'
-], (sys, $, widget)->
+   'quadrix://element'
+], (jY, $, widget)->
 
    qX = widget: widget
    
@@ -57,9 +57,9 @@ jX.module.define 'parser', [
             try
                widget_node = $(widget_node)
                widget_name = widget_node.attr('data-widget').split '://'
-               widget_namespace = widget_name[0]
+               widget_library = widget_name[0]
                widget_name = widget_name[1]
-               api = qX.widget.api widget_node, widget_namespace + '_' + widget_name
+               api = qX.element.api widget_node, widget_library + '_' + widget_name
                if api then api.destroy()
                next()
             catch err then next err
@@ -92,10 +92,10 @@ jX.module.define 'parser', [
             widget_name = widget_name.split('?')
             widget_parameters = widget_name[1]
             widget_name = widget_name[0].split '://' 
-            widget_namespace = if widget_name.length > 1 then widget_name[0] else null
+            widget_library = if widget_name.length > 1 then widget_name[0] else undefined
             widget_name = if widget_name.length > 1 then widget_name[1] else widget_name[0]
-            widget_path = if widget_namespace then sys.namespaces[widget_namespace + '://'] + widget_name else widget_name               
-            widget_fullname = if widget_namespace then widget_namespace + '_' + widget_name.split('/').pop() else widget_name.split('/').pop()
+            widget_path = if widget_library then jY.libraries[widget_library] + widget_name else widget_name
+            widget_fullname = if widget_library then widget_library + '_' + widget_name.split('/').pop() else widget_name.split('/').pop()
 
             # if widget is just ready jump to the next.
             if qX.widget.is_ready widget_node, widget_fullname then return next null
@@ -112,7 +112,7 @@ jX.module.define 'parser', [
             widget_options.class = widget_node.attr 'class'
             
             # require and create widget.
-            require [widget_path], ->
+            jX.module.require [widget_path], ->
                try
                   # start widget.
                   widget_node[widget_fullname](widget_options)

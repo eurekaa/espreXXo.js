@@ -16,7 +16,7 @@ jX.module.define 'scrollbar', [
    'scrollbar'
 ], ($, mX, qX) ->
    
-   qX.widget.define 'qX.scrollbar',
+   qX.element.define 'qX.scrollbar',
       
       options: 
          stylesheet: 'styles/libs/jquery/scrollbar/jquery.scrollbar.css'

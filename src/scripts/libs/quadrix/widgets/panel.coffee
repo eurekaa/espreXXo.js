@@ -16,7 +16,7 @@ jX.module.define 'panel', [
 ], ($, qX) ->
 
    # create widget.
-   qX.widget.define 'qX.panel',
+   qX.element.define 'qX.panel',
       
       options: 
          animate_out: 'bounceOutLeft'

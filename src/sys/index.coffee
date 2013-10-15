@@ -9,13 +9,9 @@
 
 jX = require 'jarvix'
 jX.module.define 'system', [
-   'sys://loader'
-   'sys://socket'
-   'sys://store'
-   'sys://namespaces'
-], (loader, socket, store, namespaces)->
+   'sys://jarvix'
+   'sys://mosaix'
+], (jarvix, mosaix)->
    
-   loader: loader
-   socket: socket
-   store: store
-   namespaces: namespaces
+   jarvix: jarvix
+   mosaix: mosaix
