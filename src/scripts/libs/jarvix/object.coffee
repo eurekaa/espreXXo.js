@@ -16,7 +16,14 @@ define ['underscore'], (u)->
    @return {array} an array with all property names founded.   
    @example
    .keys({one : 1, two : 2, three : 3}); => ["one", "two", "three"]
-###
+### 
+   
+   create: Object.create
+   
+   get_properties: Object.getOwnProperties
+   
+   freeze: (object)-> Object.freeze object
+   
    keys: (object)-> u.keys object
    
    has: (object, key)-> u.has object, key  

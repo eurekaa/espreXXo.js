@@ -35,6 +35,7 @@ define [], ()->
       jarvix: 'scripts/libs/jarvix/index'
       underscore: 'scripts/libs/jarvix/libs/underscore' # utils library.
       async: 'scripts/libs/jarvix/libs/async' # asynchronous workflow management.
+      traits: 'scripts/libs/jarvix/libs/traits'
       
       # mosaix.
       mosaix: 'scripts/libs/mosaix/index'

@@ -15,7 +15,7 @@ jX.module.define 'accordion', [
    
    qX.element.define 'qX.accordion',
       
-      options: 
+      options:
          header: 'h1'
          active: false
          collapsible: true

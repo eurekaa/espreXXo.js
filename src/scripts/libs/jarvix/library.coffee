@@ -10,4 +10,6 @@
 
 define ['./module'], (module)->
    
-   define: (name, dependencies, callback)-> module.define name, dependencies, callback
+   define: (name, dependencies, object)->
+  
+      module.define name, dependencies, object

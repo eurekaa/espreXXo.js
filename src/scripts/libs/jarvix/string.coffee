@@ -20,11 +20,9 @@ define [], ->
    repeat: (string, times)->
       if not times or times < 1 then times = 1
       new Array(times + 1).join string
-
+   
    starts_with: (string, token)-> new String(string).slice(0, token.length) == token
-
+   
    ends_with: (string, token)-> new String(string).slice(-token.length) == token
-
    
    contains: (string, token)-> string.indexOf token != -1
-     

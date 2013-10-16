@@ -16,3 +16,4 @@ define ['async'], (a)->
    each: a.each
    parallel: a.parallel
    series: a.series
+   map: a.map

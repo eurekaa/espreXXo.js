@@ -10,7 +10,7 @@
 
 # define main module.
 jX = require 'jarvix'
-jX.module.define [
+jX.module.define 'index', [
    'jquery_ui'
    'mosaix'
    'quadrix'

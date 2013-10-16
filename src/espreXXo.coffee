@@ -35,10 +35,10 @@ if typeof window != 'undefined' # is browser
                'styles/libs/jquery/themes/eurekaa/jquery-ui-1.10.3.custom.css'
                'styles/libs/animate.css'
             ]
-   
+            
             # when the dom is fully loaded.
             dom_ready (dom)->
-   
+               
                # parse body to create widgets.
                qX.parser.parse $('body'), (err)->
                   if err then console.error err
@@ -57,7 +57,7 @@ else # is nodejs
    requirejs.config jY
    
    # import jX library.
-   jX = requirejs 'jarvix'
+   jX = requirejs 'jarvix' 
     
    # load espreXXo dependencies.
    jX.require [
@@ -67,9 +67,10 @@ else # is nodejs
       'primus-responder'
       'primus-emitter'
       'primus-multiplex'
-      'primus-rooms'
+      'primus-rooms' 
+      'mosaix'
       'mosaix://databases/mongodb'
-   ], (mY, http, primus, responder, emitter, multiplex, rooms, mongodb)->
+   ], (mY, http, primus, responder, emitter, multiplex, rooms, mX, mongodb)->
       
       # create socket server.
       server = http.createServer().listen mY.sockets['system'].port, -> console.log 'system socket listening on port ' + mY.sockets['system'].port

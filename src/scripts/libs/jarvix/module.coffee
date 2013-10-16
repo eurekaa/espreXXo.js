@@ -11,20 +11,19 @@
 define [
    'sys/jarvix'
    'async'
-   'underscore' 
+   'underscore'
 ], (jY, a, u)->
    
-   
    resolve_path: (paths, callback)->
-
+      
       # attention: requirejs 4 node is synchronous when dependencies is a string.
       # do not turn a string dependency into an array to have it work.
       is_string = u.isString paths
       if is_string then paths = [paths]
-
+      
       # resolve each path.
       a.map paths, (path, i)->
-
+         
          # nodejs scheme is for convenience, remove it.
          path = path.replace 'node://', ''
          path = path.replace 'nodejs://', ''
@@ -35,15 +34,13 @@ define [
                path = path.replace library + '://', jY.libraries[library]
             ii null
          , (err)-> i(err, path)
-
+         
       , (err, paths)->
          if is_string then paths = paths[0]
          callback err, paths
-
-
+   
+   
    define: (name, dependencies, callback)->
-      # check if name is passed.
-      if not callback then throw new Error 'you must specify a module name'
       
       # add directory replacement functionality.
       @.resolve_path dependencies, (err, dependencies)->

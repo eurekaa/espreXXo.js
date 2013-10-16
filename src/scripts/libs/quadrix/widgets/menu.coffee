@@ -10,7 +10,7 @@
 
 jX = require 'jarvix'
 jX.module.define 'menu', [
-   'jquery_ui'        
+   'jquery_ui'
    'mosaix'
    'quadrix'
 ], ($, mX, qX) ->

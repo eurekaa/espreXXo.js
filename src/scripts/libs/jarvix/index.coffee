@@ -10,20 +10,34 @@
 
 
 define [
+   'require'
    'scripts/libs/jarvix/module'
    'scripts/libs/jarvix/async'
    'scripts/libs/jarvix/library'
    'scripts/libs/jarvix/list'
    'scripts/libs/jarvix/object'
    'scripts/libs/jarvix/string'
+   'scripts/libs/jarvix/test'
+   'scripts/libs/jarvix/trait'
    'scripts/libs/jarvix/utility'
-], (module, async, library, list, object, string, utility)->
+], (require, module, async, library, list, object, string, test, trait, utility)->
 
-   module: module
-   require: (dependencies, callback)-> module.require dependencies, callback
-   async: async
-   library: library
-   list: list 
-   object: object
-   string: string 
-   utility: utility
+   jX = 
+      require: (dependencies, callback)-> module.require dependencies, callback
+      module: module
+      async: async
+      library: library
+      list: list 
+      object: object
+      string: string
+      test: test
+      trait: trait
+      utility: utility
+   
+   # commonjs support.
+   if typeof exports != 'undefined'
+      exports['jarvix'] = jX
+      exports['jX'] = jX
+      exports['jx'] = jX
+   
+   return jX
