@@ -15,7 +15,10 @@
    @module jarvix/utility
    @requires underscore
 ###
-define ['underscore'], (u)->
+
+
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/utility', ['underscore'], (u)->
 
    # test object functions.
    is_object: (object)-> u.isObject object

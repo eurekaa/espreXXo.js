@@ -7,8 +7,7 @@
 # File Name: sockets
 # Created: 01/10/13 23.37
 
-jX = require 'jarvix'
-jX.module.define 'mosaix', [], ()->
+jX.module.define 'config/mosaix', [], ()->
 
    sockets:
    
@@ -17,8 +16,8 @@ jX.module.define 'mosaix', [], ()->
          parser: 'JSON'
          protocol: 'http'
          host: 'localhost'
-         port: 8080
-         username: 'espreXXo'
+         port: 9998
+         username: 'mosaix'
          password: 'aJHJKHFD932MNFiudf98n3ndfSDFsd3'
 
    databases:

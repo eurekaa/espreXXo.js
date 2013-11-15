@@ -18,8 +18,8 @@
    @module jarvix/list
    @requires underscore
 ###
-
-define ['underscore'], (u)->
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/list', ['underscore'], (u)->
 
    ###*
       @summary Iterates over a list of elements, yielding each in turn to an iterator function.

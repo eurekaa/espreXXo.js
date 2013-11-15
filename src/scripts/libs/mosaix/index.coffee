@@ -7,9 +7,8 @@
 # File Name: index
 # Created: 01/09/13 6.32
 
-jX = require 'jarvix' 
-
-jX.library.define 'mosaix', [
+jX.library.define 'mosaix', 
+jarvix_path: '../jarvix/index', [
    'mosaix://database'
    'mosaix://load'
    'mosaix://socket'

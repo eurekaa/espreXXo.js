@@ -7,7 +7,8 @@
 # File Name: string
 # Created: 02/09/13 0.25
 
-define [], ->
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/string', [], ->
 
    ###*
       @summary reapeat a string several times.
@@ -26,3 +27,9 @@ define [], ->
    ends_with: (string, token)-> new String(string).slice(-token.length) == token
    
    contains: (string, token)-> string.indexOf token != -1
+
+   to_upper: (string)-> string.toUpperCase()
+   to_lower: (string)-> string.toLowerCase()
+   to_capitalized: (string)-> @.to_upper(string.charAt 0) + @.to_lower(string.slice 1)
+
+  

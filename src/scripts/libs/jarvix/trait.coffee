@@ -7,7 +7,8 @@
 # File Name: trait
 # Created: 15/10/13 15.41
 
-define ['traits'], (trait)->
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/trait', ['traits'], (trait)->
    
    define: trait
    

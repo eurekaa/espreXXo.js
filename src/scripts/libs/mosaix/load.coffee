@@ -7,7 +7,6 @@
 # File Name: require
 # Created: 10/09/13 14.08
 
-jX = require 'jarvix'
 jX.module.define 'load', [], ()->
 
 

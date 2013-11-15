@@ -10,7 +10,7 @@
 
 jX = require 'jarvix'
 jX.library.define 'quadrix', [
-   'system' 
+   'config://index' 
    'jquery_ui'
    'namespace'
    'quadrix://parser'

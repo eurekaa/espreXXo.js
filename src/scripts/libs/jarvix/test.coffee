@@ -7,8 +7,15 @@
 # File Name: test
 # Created: 16/10/13 18.06
 
-define ['require', 'mocha', 'should', './trait', './module'], 
-(require, mocha, trait, should, module)->
+
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/test', [
+   './module'
+   './trait'
+   'node://mocha'
+   'node://should'
+], (module, trait, mocha, should)->
+
    
    define: (name, dependencies, callback)->
       
@@ -20,4 +27,7 @@ define ['require', 'mocha', 'should', './trait', './module'],
    describe: (name, callback)-> describe name, callback
    
    should: should
+   
+   run: (libraries)->
+      #@todo: runs required libraries test.
      

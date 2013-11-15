@@ -7,7 +7,6 @@
 # File Name: widget
 # Created: 11/09/13 20.05
 
-jX = require 'jarvix'
 jX.module.define 'element', [
    'jquery_ui'
    'quadrix://widgets/_widget'

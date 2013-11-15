@@ -10,7 +10,7 @@
 jX = require 'jarvix'
 jX.module.define 'localizer', [
    'jquery' 
-   'mosaix'
+   'mosaix://index'
 ], ($, mX)->
 
 

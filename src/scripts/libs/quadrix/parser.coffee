@@ -9,7 +9,7 @@
 
 jX = require 'jarvix'
 jX.module.define 'parser', [
-   'sys://jarvix'
+   'config://jarvix'
    'jquery_ui' 
    'quadrix://element'
 ], (jY, $, widget)->

@@ -9,7 +9,7 @@
 
 # https://github.com/primus/primus.
 
-jX = require 'jarvix'
+
 jX.module.define 'socket', ['sys://mosaix', 'socket_client'], (mY, primus)->
    
    connect: (callback)->

@@ -9,13 +9,13 @@
 
 jX = require 'jarvix'
 jX.module.define 'store', [
-   'system'
-], (sys)->
+   'config://index'
+], (config)->
    
-   connect: (store_name, callback)->
+   connect: (database_name, callback)->
       
       # retrieve store configuration.
-      driver = jX.load sys.store[store_name].driver
+      driver = jX.load config.databases[database_name].driver
       driver.connect callback 
       
       

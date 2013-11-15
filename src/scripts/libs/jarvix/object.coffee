@@ -7,8 +7,8 @@
 # File Name: object
 # Created: 01/09/13 21.54
 
-
-define ['underscore'], (u)->
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/object', ['underscore'], (u)->
 
    ###*
    @summary Retrieve all the names of the object's properties.  

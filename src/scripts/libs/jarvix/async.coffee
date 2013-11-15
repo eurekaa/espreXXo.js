@@ -7,7 +7,9 @@
 # File Name: async
 # Created: 01/10/13 20.38
 
-define ['async'], (a)->
+
+loader = if typeof window != 'undefined' then window.loader else global.loader
+loader.define 'jarvix/async', ['async'], (a)->
    
    if: (condition, action, callback)->
       if condition then action.then callback
