@@ -17,26 +17,35 @@
 ###
 
 
-loader = if typeof window != 'undefined' then window.loader else global.loader
-loader.define 'jarvix/utility', ['underscore'], (u)->
+# get module loader and info from memory.
+jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+jarvix_path = jarvix_memory.path
+jarvix_module = jarvix_memory.module
+jarvix_module.config
+   paths:
+      underscore: jarvix_path + 'libs/underscore'
+
+
+#@todo: document utility module.
+jarvix_module.define 'jarvix/utility', ['underscore'], (_)->
 
    # test object functions.
-   is_object: (object)-> u.isObject object
-   is_equal: (object, other)-> u.isEqual object, other
-   is_empty: (object)-> u.isEmpty object
-   is_array: (object)-> u.isArray object
-   is_function: (object)-> u.isFunction object
-   is_arguments: (object)-> u.isArguments object
-   is_string: (object)-> u.isString object
-   is_number: (object)-> u.isNumber object
-   is_nan: (object)-> u.isNaN object
-   is_finite: (object)-> u.isFinite object
-   is_boolean: (object)-> u.isBoolean object
-   is_regexp: (object)-> u.isRegExp object
-   is_null: (object)-> u.isNull object
-   is_undefined: (object)-> u.isUndefined object
-   is_defined: (object)-> !u.isUndefined object
-   is_element: (object)-> u.isElement object
+   is_object: (object)-> _.isObject object
+   is_equal: (object, other)-> _.isEqual object, other
+   is_empty: (object)-> _.isEmpty object
+   is_array: (object)-> _.isArray object
+   is_function: (object)-> _.isFunction object
+   is_arguments: (object)-> _.isArguments object
+   is_string: (object)-> _.isString object
+   is_number: (object)-> _.isNumber object
+   is_nan: (object)-> _.isNaN object
+   is_finite: (object)-> _.isFinite object
+   is_boolean: (object)-> _.isBoolean object
+   is_regexp: (object)-> _.isRegExp object
+   is_null: (object)-> _.isNull object
+   is_undefined: (object)-> _.isUndefined object
+   is_defined: (object)-> !_.isUndefined object
+   is_element: (object)-> _.isElement object
    is_browser: ()-> @.is_defined window
    is_nodejs: ()-> @.is_defined process and process.title == 'node'
 

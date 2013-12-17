@@ -7,7 +7,17 @@
 # File Name: array
 # Created: 20/10/13 4.46
 
-loader = if typeof window != 'undefined' then window.loader else global.loader
-loader.define 'jarvix/array', ['underscore'], (u)->
+# get module loader and info from memory.
+jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+jarvix_path = jarvix_memory.path
+jarvix_module = jarvix_memory.module
+jarvix_module.config
+   paths:
+      underscore: jarvix_path + 'libs/underscore'
+
+jarvix_module.define 'jarvix/array', ['underscore'], (_)->
    
-   intersection: u.intersection
+   intersection: _.intersection
+   index_of: _.indexOf
+   contains: (array, value)-> _.indexOf(array, value) isnt -1
+   

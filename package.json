@@ -11,7 +11,7 @@
     "start": "node bin/espreXXo.js",
     "compile": "continuum src bin -c tmp/cache -e",
     "docs": "jsdoc src -d doc -c doc/_conf.json",
-    "test_jarvix": "mocha"
+    "test": "node bin/test/index.js"
   },
   "repository": {
     "type": "git",
@@ -36,8 +36,9 @@
     "continuum.js": "*",
     "mongodb": "*",
     "ws": "*",
+    "chai": "*",
     "mocha": "*",
-    "should": "*"
+    "attester": "*"
   },
   "readmeFilename": "README.md",
   "_id": "espreXXo.js@0.1.2",
