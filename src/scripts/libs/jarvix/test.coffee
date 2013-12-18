@@ -12,18 +12,14 @@ jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] els
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
 
-
+# configure module loader if on browser.
 jarvix_module.config
    paths:
-      chai: jarvix_path + 'libs/chai'
-      #mocha: jarvix_path + 'libs/mocha'
-   use: 
-      mocha: attach: 'describe'
+      chai: if typeof window isnt 'undefined' then jarvix_path + 'libs/chai' else undefined
+      mocha: if typeof window isnt 'undefined' then 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.min' else undefined
 
-jarvix_module.define 'jarvix/test', [
-   'chai'
-   'mocha'
-], (chai, mocha)->
+# define test module.
+jarvix_module.define 'jarvix/test', ['chai', 'mocha'], (chai, mocha)->
 
 
    define: (name, dependencies, callback)->
@@ -51,12 +47,33 @@ jarvix_module.define 'jarvix/test', [
    
    run: (tests, callback)->
       
-      if typeof window is 'undefined'
+      if typeof window isnt 'undefined' # is browser.
+         
+         # add mocha css.
+         link = document.createElement 'link'
+         link.type = 'text/css'
+         link.rel = 'stylesheet'
+         link.href = 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.css'
+         document.getElementsByTagName('head')[0].appendChild link
+         
+         # setup test runner.
+         mocha.setup 'bdd'
+         
+         # require tests.
+         jarvix_module.require tests, ->
+
+            # run tests.
+            mocha.checkLeaks()
+            mocha.globals ['jx', 'jX', 'jarvix']
+            mocha.run()
+         
+      
+      else # is nodejs
          test = new mocha
             ui: 'bdd'
             reporter: 'spec'
          
          jarvix_module.resolve_paths tests, (err, tests)->
-            if err then return calback err
+            if err then return callback err
             test.addFile file for file in tests 
             test.run callback

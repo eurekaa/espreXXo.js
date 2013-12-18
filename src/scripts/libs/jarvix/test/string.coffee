@@ -4,15 +4,13 @@
 # Homepage: http://www.eurekaa.it
 # GitHub: https://github.com/eurekaa
 
-# File Name: structural
-# Created: 16/10/13 22.26
+# File Name: string
+# Created: 18/12/13 20.11
 
 
-#@todo: riconoscere la presenza di jarvix, in caso contrario caricarla manualmente
-# (nel caso venga lanciato il test da console).
 
-jx.test.define 'test/jarvix', ['underscore', 'jarvix://test/string'], (_)->
-   
+jx.test.define 'test/string', ['underscore', 'jarvix://test/string'], (_)->
+
    jx.test.describe 'is_valid', ->
       it 'checks if a string is valid', ->
          true.should.equal _.isString('cioa')

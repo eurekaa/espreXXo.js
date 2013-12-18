@@ -15,7 +15,7 @@ if typeof window isnt 'undefined' # is browser.
    # set environment type [debug|test|production]
    window.environment = 'debug'
 
-   console.log jX
+   jx.test.run ['scripts/libs/jarvix/test/index']
 
 
 
@@ -26,8 +26,11 @@ else # is nodejs
    # import jX library.
    require('./scripts/libs/jarvix/index').ready 'config/jarvix', (err, jX)->
       
-      console.log 'espreXXO'
+      console.log 'espreXXO'  
+
+      jx.test.run ['scripts/libs/jarvix/test/index']
       
+      ###
       # load espreXXo dependencies.
       jX.require [
          'config/mosaix'
@@ -65,3 +68,4 @@ else # is nodejs
                   console.log 'ok'
                   packet.server_signature = true
                   socket.emit 'response', packet
+###

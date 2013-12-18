@@ -11,11 +11,12 @@
 
 # *** BROWSER SIDE SCRIPTING. ***
 if typeof window isnt 'undefined' # is browser.
-   console.log 'test'
+   alert 'test'
    # set environment type [debug|test|production]
-   window.environment = 'debug'
+   window.environment = 'debug'  
+   jx.config.load module: base_path: '../'
 
-   jX.test.run ['scripts/libs/jarvix/test/index']
+   jx.test.run ['../scripts/libs/jarvix/test/index']
 
 
 
@@ -24,7 +25,7 @@ if typeof window isnt 'undefined' # is browser.
 else # is nodejs 
 
    # import jX library.
-   require('../scripts/libs/jarvix/index').ready 'config/jarvix', (err, jX)->
+   require('../scripts/libs/jarvix/index').ready 'config/jarvix', (err, jx)->
       if err then return console.error err
       
-      jX.test.run ['scripts/libs/jarvix/test/index']
+      jx.test.run ['scripts/libs/jarvix/test/index']

@@ -37,7 +37,6 @@ create_jarvix = (jarvix_path, module, callback)->
          trait: trait
          utility: utility
 
-
 # create global jarvix memory.
 create_memory = ->
    memory = undefined
@@ -75,7 +74,7 @@ create_module = (define, require, callback)->
          options: # private props.
             requirejs: require # store requirejs original module.
             base_path: '.'
-            cache: true
+            cache: false
             paths:
                order: jarvix_memory.path + 'libs/require.order'
                use: jarvix_memory.path + 'libs/require.use'
@@ -86,32 +85,26 @@ create_module = (define, require, callback)->
                   path: jarvix_memory['path']
                   aliases: ['jx', 'jX']
          
+         
          config: (options, callback)->
             self = @
             
             # extend internal options.
             self.options = _.extend self.options, options
             
-            #load = (config)->
-               
-               # configure jarvix module loader.
-               #jarvix_memory.config = jarvix_memory.config or {}
-               #jarvix_memory.config.module = jarvix_memory.config.module || {}
-               #jarvix_memory.config.module = _.extend jarvix_memory.config.module, config
-
-               # configure requirejs module loader.
+            cache = ''
+            if typeof window isnt 'undefined'
+               if self.options.cache is false then cache = 'v=' + (new Date()).getTime()
+            
+            # configure requirejs module loader.
             require.config
-               baseUrl: options.base_path or '.'
-               urlArgs: if typeof window isnt 'undefined' and not _.isUndefined options.cache and options.cache is false then 'v=' + (new Date()).getTime() else '' 
-               paths: options.paths or {}
-               shim: options.shim or {}
-               use: options.use or {}
+               baseUrl: self.options.base_path or '.'
+               urlArgs: cache  
+               paths: self.options.paths or {}
+               shim: self.options.shim or {}
+               use: self.options.use or {}
             
             if callback then callback null, options
-         
-            # require config file first if a string path is provided, load it directly otherwise.
-            #if _.isString config then require [config], (config)-> load config
-            #else load config
          
          
          resolve_paths: (paths, callback)->
@@ -126,6 +119,10 @@ create_module = (define, require, callback)->
             # resolve each path.
             async.map paths, (path, i)->
                resolved = false
+               
+               #@todo: use jx.library.options.libs
+               # salvare in jx.library.options anche l'istanza della libreria.
+               # da servire poi nel loader senza usare requirejs.
 
                # resolve nodejs modules.
                #@todo: remove node:// dependencies if browser (from callback too)
@@ -161,8 +158,9 @@ create_module = (define, require, callback)->
                         path = self.options.libs[sub_path[0]].path + sub_path[1]
                         resolved = true
 
-               # (if still not resolved then leave path as it is).
-
+               # add extension (somethime requirejs doesn't add it if the url is dirty).
+               if resolved is true
+                  path = if _.contains path, '.js' then path else path + '.js'
 
                # next path.
                i null, path
@@ -229,18 +227,6 @@ if typeof window isnt 'undefined' # is browser.
       create_module define, require, (err, module)->
          if err then return console.error err
          
-         # configure module loader.
-         ###
-         module.config
-            base_path: '.'
-            cache: true
-            libs:
-               jarvix:
-                  path: jarvix_memory['path']
-                  aliases: ['jx', 'jX'] 
-   
-         ###
-            
          # globalize module loader.
          jarvix_memory['module'] = module
          
@@ -309,23 +295,13 @@ else # is nodejs
       create_module requirejs.define, requirejs, (err, module)->
          if err then return callback err
          
-         # configure module loader.
-         ###
-         module.config
-            cache: false
-            libs:
-               jarvix:
-                  path: jarvix_memory['path']
-                  aliases: ['jx', 'jX']
-          ###
-   
          # globalize module loader.
          jarvix_memory['module'] = module
          
          # create jarvix library.
          create_jarvix jarvix_path, module, (err, jarvix)->
             if err then return callback err
-               
+            
             # unglobalize module.
             delete jarvix_memory['module']
 
