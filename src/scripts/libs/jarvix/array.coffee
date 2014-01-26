@@ -11,10 +11,6 @@
 jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
-jarvix_module.config
-   paths:
-      underscore: jarvix_path + 'libs/underscore'
-
 jarvix_module.define 'jarvix/array', ['underscore'], (_)->
    
    intersection: _.intersection

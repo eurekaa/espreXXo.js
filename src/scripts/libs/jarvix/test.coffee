@@ -12,15 +12,11 @@ jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] els
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
 
-# configure module loader if on browser.
-jarvix_module.config
-   paths:
-      chai: if typeof window isnt 'undefined' then jarvix_path + 'libs/chai' else undefined
-      mocha: if typeof window isnt 'undefined' then 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.min' else undefined
-
 # define test module.
-jarvix_module.define 'jarvix/test', ['chai', 'mocha'], (chai, mocha)->
-
+jarvix_module.define 'jarvix/test', 
+   server: ['node://chai', 'node://mocha']
+   client: ['chai', 'mocha']
+, (chai, mocha_node)->
 
    define: (name, dependencies, callback)->
       self = @
@@ -31,15 +27,15 @@ jarvix_module.define 'jarvix/test', ['chai', 'mocha'], (chai, mocha)->
             jarvix_module.require dependencies, (dependencies)->
                true.should.equal true
                self.describe name, ->
-                  callback dependencies
+                  if callback then callback dependencies
                   done()
 
    before: (callback)-> before callback
    before_each: (callback)-> before_each callback
    after: (callback)-> after callback
    after_each: (callback)-> after_each callback
-   
    describe: (name, callback)-> describe name, callback
+   it: (name, callback)-> it name, callback
 
    should: chai.should()
    
@@ -66,10 +62,9 @@ jarvix_module.define 'jarvix/test', ['chai', 'mocha'], (chai, mocha)->
             mocha.checkLeaks()
             mocha.globals ['jx', 'jX', 'jarvix']
             mocha.run()
-         
       
       else # is nodejs
-         test = new mocha
+         test = new mocha_node
             ui: 'bdd'
             reporter: 'spec'
          

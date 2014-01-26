@@ -8,12 +8,7 @@
 # Created: 01/10/13 20.38
 
 jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
-jarvix_path = jarvix_memory.path
-jarvix_module = jarvix_memory.module
-jarvix_module.config
-   paths:
-      async: jarvix_path + 'libs/async'
-   
+jarvix_module = jarvix_memory.module   
 jarvix_module.define 'jarvix/async', ['async'], (a)->
    
    if: (condition, action, callback)->

@@ -21,10 +21,6 @@
 jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
-jarvix_module.config
-   paths:
-      underscore: jarvix_path + 'libs/underscore'
-
 
 #@todo: document utility module.
 jarvix_module.define 'jarvix/utility', ['underscore'], (_)->
@@ -46,8 +42,8 @@ jarvix_module.define 'jarvix/utility', ['underscore'], (_)->
    is_undefined: (object)-> _.isUndefined object
    is_defined: (object)-> !_.isUndefined object
    is_element: (object)-> _.isElement object
-   is_browser: ()-> @.is_defined window
-   is_nodejs: ()-> @.is_defined process and process.title == 'node'
+   is_browser: ()-> typeof window isnt 'undefined'
+   is_nodejs: ()-> not @.is_browser()
 
    # string functions.
    to_upper: (string)-> string.toUpperCase()

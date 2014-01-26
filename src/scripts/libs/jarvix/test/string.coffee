@@ -9,12 +9,14 @@
 
 
 
-jx.test.define 'test/string', ['underscore', 'jarvix://test/string'], (_)->
+jx.test.define 'test/string', [], ->
 
-   jx.test.describe 'is_valid', ->
-      it 'checks if a string is valid', ->
-         true.should.equal _.isString('cioa')
+   describe '.contains()', ->
+      it 'checks if a string is contained', ->
+         jx.string.contains('hello world', 'hello').should.equal true
+         jx.string.contains('bye bye world', 'hello').should.equal false
 
-   jx.test.describe 'repeat', ->
+   describe '.repeat()', ->
       it 'repeats string n times', ->
-         true.should.equal _.isString('cioa')
+         jx.string.repeat('x').should.equal 'x'
+         jx.string.repeat('x', 5).should.equal 'xxxxx'

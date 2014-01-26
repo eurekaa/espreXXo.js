@@ -26,7 +26,7 @@ jarvix_module.define 'jarvix/string', [], ->
    
    ends_with: (string, token)-> new String(string).slice(-token.length) == token
    
-   contains: (string, token)-> string.indexOf token != -1
+   contains: (string, token)-> string.indexOf(token) isnt -1
 
    to_upper: (string)-> string.toUpperCase()
    to_lower: (string)-> string.toLowerCase()

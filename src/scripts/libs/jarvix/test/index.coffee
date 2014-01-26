@@ -11,12 +11,8 @@
 #@todo: riconoscere la presenza di jarvix, in caso contrario caricarla manualmente
 # (nel caso venga lanciato il test da console).
 
-jx.test.define 'test/jarvix', ['underscore', 'jarvix://test/string'], (_)->
-   
-   jx.test.describe 'is_valid', ->
-      it 'checks if a string is valid', ->
-         true.should.equal _.isString('cioa')
-
-   jx.test.describe 'repeat', ->
-      it 'repeats string n times', ->
-         true.should.equal _.isString('cioa')
+jx.test.define 'test/jarvix', [
+   #'jarvix://test/event'
+   #'jarvix://test/string'
+   'jarvix://test/module'
+]

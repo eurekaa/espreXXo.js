@@ -7,51 +7,67 @@
 # File Name: library
 # Created: 15/10/13 14.33
 
-jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
-jarvix_module = jarvix_memory['module']
-jarvix_module.define 'jarvix/library', ['underscore'], (_)->
+jarvix_memory = if typeof window isnt 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+define ['async', 'underscore'], (async, _)->
    
    options:
-      libs: 
-         jarvix:
-            name: 'jarvix'
-            path: jarvix_memory['path']
-            globalize: true # or ['jx', 'jX']
-            aliases: ['jx', 'jX']
-            libs: undefined
+      libs: {}
    
-   define: (name, options)->
+   
+   resolve_paths: (paths, callback)->
+   
+      
+   #todo: ATTENZIONE!
+   # per evitare di tenere in memoria istanze di librerie,
+   # salvare le options di ogni modulo nella jarvix memory.
+   # quando viene richiesto un modulo viene fornita la versione statica
+   # dalla cache di requirejs, ma leggerà le options dalla memoria, 
+   # in questo modo l'istanza sarà mantenuta viva.
+
+   
+   define: (name, options, dependencies, callback)->
       self = @
       
       # check required options.
-      if not options then return false
-      if not options.name then return false
+      if not options then return callback 'options are required.'
+      if not callback then callback = ->
       
-      # add library info to internals (allowed only).
-      self.options.libs[options.name] = {}
-      self.options.libs[options.name].modules = options.modules || {}
-
-      # create library.
-      library = {}
+      # add library info to internal options (duplicates are avoided).
+      if not _.has self.options.libs, name then self.options.libs[name] = options
       
-      # find dependecies to load.
-      lib = self.options.libs[options.name] 
-      modules = _.keys lib.modules
-      paths = []
-      for module in modules 
-         if typeof lib.modules[module] is 'string' then paths.push lib.modules[module]
-         else library[module] = lib.modules[module]
+      # configure loader about library paths.
+      module = if typeof jx isnt 'undefined' then jx.module else jarvix_memory['module']
+      module.config
+         paths: options.paths || {}
+         shim: options.shim || {}
+      
+      # wrap in a jarvix module.
+      module.define name, dependencies, callback
+      
 
-      jarvix_module.define name, [], options
-      ###
-      return jarvix_module.define name, paths, ->
-         for module in modules when typeof lib.modules[module] is 'string'  
-            console.log module
-            library[module] = arguments[0]
-            
-            return library
-       ###
    
-   config: (options, callback)->
+   config: (library, options, callback)->
+      self = @
+      
+      
+      
+      library = self.options.libs[library]
+      modules = _.keys library
+      async.each modules, (module, i)->
+         if not _.isUndefined options[module] 
+            if typeof jx isnt 'undefined' then  
+            else jarvix_memory['library']
+               jx.memory.set ''
+            _.extend jarvix_memory['library']
+            
+            
+      
+      
+      
+      
+      
+      
+      
+   build: (options, callback)->
       
       

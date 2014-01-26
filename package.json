@@ -37,8 +37,7 @@
     "mongodb": "*",
     "ws": "*",
     "chai": "*",
-    "mocha": "*",
-    "attester": "*"
+    "mocha": "*"
   },
   "readmeFilename": "README.md",
   "_id": "espreXXo.js@0.1.2",

@@ -7,13 +7,9 @@
 # File Name: date
 # Created: 21/11/13 12.13
 
-jarvix_module = if typeof window != 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
-   
-jarvix_module.define 'jarvix/date', [
-   'jarvix://libs/moment'
-   'jarvix://utility'
-], (moment, utility)->
-   
+
+jarvix_module = if typeof window != 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module   
+jarvix_module.define 'jarvix/date', ['moment', 'underscore'], (moment, _)->
    
    # date patterns.
    iso_pattern: 'YYYY-MM-DDTHH:mm:ssZ'
@@ -26,7 +22,7 @@ jarvix_module.define 'jarvix/date', [
       if date is undefined or date is null or date is '' then return false
       
       # attention: date must be parsed before in order to work with chrome.
-      if utility.is_string(date) then date = @.parse date
+      if _.isString(date) then date = @.parse date
       
       # create new date and test if valid.
       date = new moment date
@@ -36,7 +32,7 @@ jarvix_module.define 'jarvix/date', [
    parse: (string, pattern)->
       
       # if not defined use default pattern.
-      pattern = if utility.is_string(pattern) then pattern else @.default_pattern
+      pattern = if _.isString(pattern) then pattern else @.default_pattern
       
       # create a moment date and then return converted into javascript date.
       return new moment(string, pattern).toDate()
@@ -45,7 +41,7 @@ jarvix_module.define 'jarvix/date', [
    format: (date, pattern)->
       
       # if not specified use default italian pattern.
-      pattern = if utility.is_undefined pattern then @.default_pattern else pattern
+      pattern = if _.isUndefined pattern then @.default_pattern else pattern
       
       # return formatted date.
       date = new moment date
@@ -61,7 +57,7 @@ jarvix_module.define 'jarvix/date', [
    to_iso: (date)-> 
       
       # parse date if a string.
-      if utility.is_string(date) then date = @.parse date
+      if _.isString(date) then date = @.parse date
       
       # format date into iso pattern.
       return @.format date, @.iso_pattern
