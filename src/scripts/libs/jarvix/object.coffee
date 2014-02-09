@@ -7,7 +7,7 @@
 # File Name: object
 # Created: 01/09/13 21.54
 
-jarvix_module = if typeof window != 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
+jarvix_module = if typeof window isnt 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
 jarvix_module.define 'jarvix/object', ['underscore'], (_)->
 
    create: Object.create

@@ -9,7 +9,7 @@
 
 
 # get module loader and info from memory.
-jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+jarvix_memory = if typeof window isnt 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
 

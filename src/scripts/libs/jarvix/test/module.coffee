@@ -44,21 +44,21 @@ jx.test.define 'test/module', [], ->
                done()
    
       jx.test.it 'adds paramters for caching purposes', (done)->
-         jx.module.config cache: false
-
-         # nodejs tests.
-         if jx.utility.is_nodejs()
-            jx.test.expect(jx.module.options.cache).to.be.true
-            done()
-
-         # browser tests.
-         else if jx.utility.is_browser()
-            jx.module.resolve_paths ['jarvix://libs/async'], (err, paths)->
-               jx.test.expect(err).to.be.null
-               require = jx.module.options.requirejs
-               path = require.toUrl paths[0]
-               jx.test.expect(require.s.contexts._.config.urlArgs).to.contain 'v='
-               jx.test.expect(jx.string.contains(path, '?v=')).to.be.true
-   
+         jx.library.config jx, module: cache: false, (err, jx)->
+            
+            # nodejs tests.
+            if jx.utility.is_nodejs()
+               jx.test.expect(jx.module.options.cache).to.be.true
                done()
+   
+            # browser tests.
+            else if jx.utility.is_browser()
+               jx.module.resolve_paths ['jarvix://libs/async'], (err, paths)->
+                  jx.test.expect(err).to.be.null
+                  require = jx.module.options.requirejs
+                  path = require.toUrl paths[0]
+                  jx.test.expect(require.s.contexts._.config.urlArgs).to.contain 'v='
+                  jx.test.expect(jx.string.contains(path, '?v=')).to.be.true
+      
+                  done()
          

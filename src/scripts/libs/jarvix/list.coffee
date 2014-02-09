@@ -18,7 +18,7 @@
    @module jarvix/list
    @requires underscore
 ###
-jarvix_module = if typeof window != 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
+jarvix_module = if typeof window isnt 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
 jarvix_module.define 'jarvix/list', ['underscore'], (u)->
 
    ###*

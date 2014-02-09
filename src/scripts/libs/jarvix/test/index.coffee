@@ -11,8 +11,9 @@
 #@todo: riconoscere la presenza di jarvix, in caso contrario caricarla manualmente
 # (nel caso venga lanciato il test da console).
 
-jx.test.define 'test/jarvix', [
+jx.test.define 'test', [
    #'jarvix://test/event'
    #'jarvix://test/string'
    'jarvix://test/module'
+   'jarvix://test/library'
 ]
