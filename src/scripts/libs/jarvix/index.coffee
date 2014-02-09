@@ -101,7 +101,7 @@ create_module = (define, require, callback)->
             use: {}
          
          
-         config: (options, callback)->
+         on_config: (options, callback)->
             self = @
             options = options || {}
             

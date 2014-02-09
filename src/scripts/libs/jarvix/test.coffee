@@ -23,6 +23,7 @@ jarvix_module.define 'jarvix/test',
       
       # wrap define in a pending test and callback dependencies when done.
       describe 'jarvix/test', ->
+         
          it name + ' loading dependencies', (done)->
             jarvix_module.require dependencies, (dependencies)->
                true.should.equal true
