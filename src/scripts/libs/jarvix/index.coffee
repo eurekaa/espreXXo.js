@@ -29,8 +29,10 @@ create_jarvix = (jarvix_path, module, library, callback)->
          moment: jarvix_path + 'libs/moment'
          traits: jarvix_path + 'libs/traits'
          chai: jarvix_path + 'libs/chai'
-         mocha: 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.min'
-      shim: {}
+         jstest: jarvix_path + 'libs/jstest'
+         #mocha: 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.min'
+      shim: {} 
+         #jstest: exports: 'JS'
    , [ jarvix_path + 'array', jarvix_path + 'async', jarvix_path + 'config',
       jarvix_path + 'date', jarvix_path + 'event', jarvix_path + 'list',
       jarvix_path + 'memory', jarvix_path + 'object', jarvix_path + 'regexp',
@@ -187,16 +189,14 @@ create_module = (define, require, callback)->
                      sub_path = path.split '://'
                      if _.indexOf(aliases, sub_path) isnt -1
                         path = libs[sub_path[0]].base_path + sub_path[1]
-                        resolved = true  
+                        resolved = true 
                
                # next path.
                i null, path
                
 
             # end of paths (callback resolved paths).
-            , (err, paths)->
-               #console.log paths
-               callback err, paths
+            , (err, paths)-> callback err, paths
 
 
          define: (name, dependencies, callback)->

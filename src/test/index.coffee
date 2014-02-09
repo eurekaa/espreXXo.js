@@ -16,7 +16,7 @@ if typeof window isnt 'undefined' # is browser.
    window.environment = 'debug'  
    jx.config.load module: base_path: '../'
 
-   jx.test.run ['../scripts/libs/jarvix/test/index']
+   jx.test.run ['../scripts/libs/jarvix/test/string']
 
 
 

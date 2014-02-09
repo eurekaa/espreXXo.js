@@ -7,43 +7,46 @@
 # File Name: module
 # Created: 26/01/14 10.49
 
-jx.test.define 'test/module', [], ->
+jx.test.define 'jarvix.module', ->
    
-   jx.test.describe 'resolve_paths()', ->
+   @.describe '.resolve_paths()', ->
       
-      jx.test.it 'resolves paths correctly', (done)->
-         jx.module.resolve_paths [
-            'jarvix://libs/async'
-         ], (err, paths)->
-            
-            jx.test.expect(err).to.be.null
-            jx.test.expect(paths).to.be.an 'array'
-            jx.test.expect(paths[0]).to.eql 'scripts/libs/jarvix/libs/async'
-            
-            done()
-      
-      
-      jx.test.it 'resolves paths asimmetrically on client and server', (done)->
-         jx.module.resolve_paths 
-            client: ['jarvix://libs/async']
-            server: ['node://async']
-         , (err, paths)->
-               
-               # common tests.
-               jx.test.expect(err).to.be.null
+      @.it 'resolves paths correctly', (done)->
+         done ->
+            self = @
+            jx.module.resolve_paths [
+               'jarvix://libs/async'
+            ], (err, paths)->
+               #self.assertEqual 'x', 'x'
+               jx.test.expect(err).to.be.true
                jx.test.expect(paths).to.be.an 'array'
-
-               # nodejs tests.
-               if jx.utility.is_nodejs()
-                  jx.test.expect(paths[0]).to.eql 'async'
-               
-               # browser tests.
-               else if jx.utility.is_browser()
-                  jx.test.expect(paths[0]).to.eql 'scripts/libs/jarvix/libs/async'
+               jx.test.expect(paths[0]).to.eql 'scripts/libs/jarvix/libs/async'
+      
+      
+      @.it 'resolves paths asimmetrically on client and server', (done)->
+         done ->
+            jx.module.resolve_paths 
+               client: ['jarvix://libs/async']
+               server: ['node://async']
+            , (err, paths)->
                   
-               done()
+                  #self.assertEqual 'ciao', 'ciao'
+                  'x'.should.equal 'x'
+                  # common tests.
+                  jx.test.expect(err).to.be.null
+                  jx.test.expect(paths).to.be.an 'array'
    
-      jx.test.it 'adds paramters for caching purposes', (done)->
+                  # nodejs tests.
+                  if jx.utility.is_nodejs()
+                     jx.test.expect(paths[0]).to.eql 'async'
+                  
+                  # browser tests.
+                  else if jx.utility.is_browser()
+                     jx.test.expect(paths[0]).to.eql 'scripts/libs/jarvix/libs/async'
+                     
+               
+
+      @.it 'adds paramters for caching purposes', (done)->
          jx.library.config jx, module: cache: false, (err, jx)->
             
             # nodejs tests.
@@ -61,4 +64,5 @@ jx.test.define 'test/module', [], ->
                   jx.test.expect(jx.string.contains(path, '?v=')).to.be.true
       
                   done()
-         
+                  
+            

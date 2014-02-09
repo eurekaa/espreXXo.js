@@ -12,8 +12,7 @@
 # (nel caso venga lanciato il test da console).
 
 jx.test.define 'test', [
-   #'jarvix://test/event'
-   #'jarvix://test/string'
+   'jarvix://test/string'
    'jarvix://test/module'
    'jarvix://test/library'
 ]

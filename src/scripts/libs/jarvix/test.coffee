@@ -13,29 +13,25 @@ jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
 
 # define test module.
-jarvix_module.define 'jarvix/test', 
-   server: ['node://chai', 'node://mocha']
-   client: ['chai', 'mocha']
-, (chai, mocha_node)->
+jarvix_module.define 'jarvix/test', ['chai', 'jstest', 'underscore'], (chai, test, _)->
 
+   console.log chai
+   
    define: (name, dependencies, callback)->
-      self = @
       
-      # wrap define in a pending test and callback dependencies when done.
-      describe 'jarvix/test', ->
+      # if dependendecies are not defined manage it as a test.s
+      if _.isFunction dependencies
+         callback = dependencies
+         JS.Test.describe name, callback
          
-         it name + ' loading dependencies', (done)->
-            jarvix_module.require dependencies, (dependencies)->
-               true.should.equal true
-               self.describe name, ->
-                  if callback then callback dependencies
-                  done()
+      # if dependencies are defined manage it as a library hub.
+      else jarvix_module.define name, dependencies, callback
 
    before: (callback)-> before callback
    before_each: (callback)-> before_each callback
    after: (callback)-> after callback
    after_each: (callback)-> after_each callback
-   describe: (name, callback)-> describe name, callback
+   describe: (name, callback)-> JS.Test.describe name, callback
    it: (name, callback)-> it name, callback
 
    should: chai.should()
@@ -43,31 +39,19 @@ jarvix_module.define 'jarvix/test',
    expect: chai.expect
    
    run: (tests, callback)->
+      self = @
       
       if typeof window isnt 'undefined' # is browser.
-         
-         # add mocha css.
-         link = document.createElement 'link'
-         link.type = 'text/css'
-         link.rel = 'stylesheet'
-         link.href = 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.css'
-         document.getElementsByTagName('head')[0].appendChild link
-         
-         # setup test runner.
-         mocha.setup 'bdd'
-         
-         # require tests.
-         jarvix_module.require tests, ->
-
-            # run tests.
-            mocha.run()
+         jarvix_module.require tests, (tests)->
+            JS.cache = false
+            JS.Test.ASSERTION_ERRORS.push chai.AssertionError() 
+            JS.Test.autorun()
       
       else # is nodejs
-         test = new mocha_node
-            ui: 'bdd'
-            reporter: 'spec'
-         
-         jarvix_module.resolve_paths tests, (err, tests)->
-            if err then return callback err
-            test.addFile file for file in tests 
-            test.run callback
+         jarvix_module.require tests, (tests)->
+            JS.Test.ASSERTION_ERRORS.push chai.AssertionError()
+            JS.Test.autorun (runner)->
+               runner.setReporter new JS.Test.Reporters.Spec()
+               runner.addReporter JS.Test.Reporters.ExitStatus()
+               runner.addReporter JS.Test.Reporters.Error()
+               

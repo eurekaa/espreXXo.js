@@ -16,7 +16,7 @@ define ['async', 'underscore'], (async, _)->
    
    
    resolve_paths: (paths, callback)->
-   
+
    # this function must remain synchronous.
    define: (name, options, dependencies, callback)->
       self = @
