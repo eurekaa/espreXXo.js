@@ -8,6 +8,7 @@
 # Created: 15/10/13 14.33
 
 jarvix_memory = if typeof window isnt 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+module = if typeof jx isnt 'undefined' then jx.module else jarvix_memory['module']
 define ['async', 'underscore'], (async, _)->
    
    options:
@@ -16,14 +17,6 @@ define ['async', 'underscore'], (async, _)->
    
    resolve_paths: (paths, callback)->
    
-      
-   #todo: ATTENZIONE!
-   # per evitare di tenere in memoria istanze di librerie,
-   # salvare le options di ogni modulo nella jarvix memory.
-   # quando viene richiesto un modulo viene fornita la versione statica
-   # dalla cache di requirejs, ma leggerà le options dalla memoria, 
-   # in questo modo l'istanza sarà mantenuta viva.
-
    
    define: (name, options, dependencies, callback)->
       self = @
@@ -35,9 +28,8 @@ define ['async', 'underscore'], (async, _)->
       # add library info to internal options (duplicates are avoided).
       if not _.has self.options.libs, name then self.options.libs[name] = options
       
-      # configure loader about library paths.
-      module = if typeof jx isnt 'undefined' then jx.module else jarvix_memory['module']
-      module.config
+      # configure module loader with library paths.
+      module.on_config
          paths: options.paths || {}
          shim: options.shim || {}
       
@@ -48,25 +40,24 @@ define ['async', 'underscore'], (async, _)->
    
    config: (library, options, callback)->
       self = @
+
+      # call each module config function with provided options,
+      # then callback configured library.
+      on_config = (library, options, callback)->
+         modules = _.keys library
+         async.each modules, (module, i)->
+            if not _.isUndefined options[module] and _.isFunction library[module].on_config
+               return library[module].on_config options[module], i
+            else i()
+         , (err)-> callback err, library
       
-      
-      
-      library = self.options.libs[library]
-      modules = _.keys library
-      async.each modules, (module, i)->
-         if not _.isUndefined options[module] 
-            if typeof jx isnt 'undefined' then  
-            else jarvix_memory['library']
-               jx.memory.set ''
-            _.extend jarvix_memory['library']
-            
-            
-      
-      
-      
-      
-      
-      
+      # require library|options first if a string is provided.
+      async.parallel [
+         (callback)-> if _.isString(library) then module.require [library], (library)-> callback null, library else callback null, library
+         (callback)-> if _.isString(options) then module.require [options], (options)-> callback null, options else callback null, options
+      ], (err, results)->
+         on_config results[0], results[1], callback
+         
       
    build: (options, callback)->
       

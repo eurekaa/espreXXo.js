@@ -8,7 +8,7 @@
 # Created: 16/10/13 18.06
 
 
-jarvix_memory = if typeof window != 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
+jarvix_memory = if typeof window isnt 'undefined' then window['jarvix_memory'] else global['jarvix_memory']
 jarvix_path = jarvix_memory.path
 jarvix_module = jarvix_memory.module
 
@@ -59,8 +59,6 @@ jarvix_module.define 'jarvix/test',
          jarvix_module.require tests, ->
 
             # run tests.
-            mocha.checkLeaks()
-            mocha.globals ['jx', 'jX', 'jarvix']
             mocha.run()
       
       else # is nodejs

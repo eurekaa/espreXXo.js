@@ -7,7 +7,7 @@
 # File Name: regexp
 # Created: 18/11/13 22.27
 
-jarvix_module = if typeof window != 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
+jarvix_module = if typeof window isnt 'undefined' then window['jarvix_memory'].module else global['jarvix_memory'].module
 jarvix_module.define 'jarvix/regexp', ['underscore'],(_) ->
    
    # regular expression testing function.

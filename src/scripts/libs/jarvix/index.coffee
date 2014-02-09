@@ -31,14 +31,12 @@ create_jarvix = (jarvix_path, module, library, callback)->
          chai: jarvix_path + 'libs/chai'
          mocha: 'http://cdnjs.cloudflare.com/ajax/libs/mocha/1.13.0/mocha.min'
       shim: {}
-      use: {}
-   , [
-      jarvix_path + 'array', jarvix_path + 'async', jarvix_path + 'config',
+   , [ jarvix_path + 'array', jarvix_path + 'async', jarvix_path + 'config',
       jarvix_path + 'date', jarvix_path + 'event', jarvix_path + 'list',
       jarvix_path + 'memory', jarvix_path + 'object', jarvix_path + 'regexp',
       jarvix_path + 'string', jarvix_path + 'test', jarvix_path + 'trait', 
       jarvix_path + 'utility'
-   ], (array, async, config, date, event, list, memory, object, regexp, string, test, trait, utility)->
+   ], ( array, async, config, date, event, list, memory, object, regexp, string, test, trait, utility )->
 
       require: (dependencies, callback)-> module.require dependencies, callback
       module: module
@@ -51,6 +49,7 @@ create_jarvix = (jarvix_path, module, library, callback)->
       list: list
       memory: memory
       object: object
+      regexp: regexp
       string: string
       test: test
       trait: trait
@@ -101,7 +100,7 @@ create_module = (define, require, callback)->
             use: {}
          
          
-         config: (options, callback)->
+         on_config: (options, callback)->
             self = @
             options = options || {}
             
@@ -265,7 +264,11 @@ if typeof window isnt 'undefined' # is browser.
          
          # create jarvix library.
          module.require [jarvix_path + 'library'], (library)->
+            
             create_jarvix jarvix_path, module, library, (err, jarvix)->
+               console.log jarvix
+               console.log window.global
+               
                if err then return console.error err
                
                # unglobalize module loader.
@@ -277,12 +280,12 @@ if typeof window isnt 'undefined' # is browser.
                window['jX'] = window['jarvix']
                
                # override optional jarvix configuration.
-               jarvix.config.load jarvix_config, (err, config)->
+               jx.library.config jx, jarvix_config, (err, jx)->
                   
                   # run defined ready script.
-                  if jarvix.utility.is_string jarvix_ready
+                  if jx.utility.is_string jarvix_ready
                      script = document.createElement 'script'
-                     script['src'] = if jarvix.string.ends_with(jarvix_ready, '.js') then '' else jarvix_ready + '.js'
+                     script['src'] = if jx.string.ends_with(jarvix_ready, '.js') then '' else jarvix_ready + '.js'
                      document.getElementsByTagName('head')[0].appendChild script
                      
 
@@ -346,4 +349,4 @@ else # is nodejs
                global.jX = global.jarvix
                
                # override optional jarvix configuration.
-               jarvix.config.load jarvix_config, (err)-> callback err, jarvix
+               jarvix.library.config jarvix, jarvix_config, (err, jarvix)-> callback err, jarvix
